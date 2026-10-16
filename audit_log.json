@@ -1,410 +1,360 @@
 {
   "current_status": {
-    "is_busy": true,
-    "action": "Đang nạp ảnh: Cá Diếc Anh Đào",
-    "item": "Đã lưu: iot_verified_ca_diec_anh_dao_1792132249_7.jpg",
-    "timestamp": "2026-10-16 13:30:49"
+    "is_busy": false,
+    "action": "Đã hoàn tất nạp ảnh mới cho 20 loài cá",
+    "item": "Tổng cộng: 5,223 ảnh đạt chuẩn rõ nét cho Camera IoT (0% trùng lặp)",
+    "timestamp": "2026-10-16 20:21:25"
   },
   "recent_approved": [
     {
-      "filename": "iot_verified_ca_diec_anh_dao_1792132249_7.jpg",
-      "species": "ca_diec_anh_dao",
-      "species_name": "Cá Diếc Anh Đào",
-      "identified_as": "Cá Diếc Anh Đào (Bing Live Verified)",
-      "confidence": "high",
-      "reason": "Ảnh cá sống trong nước, rõ nét (Rõ nét IoT (lap=77.3, lum=42.7, col=143.9, 800x663))",
-      "source": "Bing API",
-      "timestamp": "2026-10-16 13:30:49"
-    },
-    {
-      "filename": "iot_verified_ca_diec_anh_dao_1792132238_6.jpg",
-      "species": "ca_diec_anh_dao",
-      "species_name": "Cá Diếc Anh Đào",
-      "identified_as": "Cá Diếc Anh Đào (Bing Live Verified)",
-      "confidence": "high",
-      "reason": "Ảnh cá sống trong nước, rõ nét (Rõ nét IoT (lap=70.5, lum=42.0, col=191.0, 736x981))",
-      "source": "Bing API",
-      "timestamp": "2026-10-16 13:30:38"
-    },
-    {
-      "filename": "iot_verified_ca_diec_anh_dao_1792132231_5.jpg",
-      "species": "ca_diec_anh_dao",
-      "species_name": "Cá Diếc Anh Đào",
-      "identified_as": "Cá Diếc Anh Đào (Bing Live Verified)",
-      "confidence": "high",
-      "reason": "Ảnh cá sống trong nước, rõ nét (Rõ nét IoT (lap=75.0, lum=46.5, col=138.0, 800x534))",
-      "source": "Bing API",
-      "timestamp": "2026-10-16 13:30:31"
-    },
-    {
-      "filename": "iot_verified_ca_diec_anh_dao_1792132210_4.jpg",
-      "species": "ca_diec_anh_dao",
-      "species_name": "Cá Diếc Anh Đào",
-      "identified_as": "Cá Diếc Anh Đào (Bing Live Verified)",
-      "confidence": "high",
-      "reason": "Ảnh cá sống trong nước, rõ nét (Rõ nét IoT (lap=457.8, lum=66.5, col=55.6, 1200x900))",
-      "source": "Bing API",
-      "timestamp": "2026-10-16 13:30:10"
-    },
-    {
-      "filename": "iot_verified_ca_diec_anh_dao_1792132160_3.jpg",
-      "species": "ca_diec_anh_dao",
-      "species_name": "Cá Diếc Anh Đào",
-      "identified_as": "Cá Diếc Anh Đào (Wikimedia Live Verified)",
-      "confidence": "high",
-      "reason": "Ảnh cá sống trong nước, rõ nét (Rõ nét IoT (lap=436.1, lum=41.2, col=285.9, 1200x750))",
-      "source": "Wikimedia API",
-      "timestamp": "2026-10-16 13:29:20"
-    },
-    {
-      "filename": "iot_verified_ca_diec_anh_dao_1792132151_2.jpg",
-      "species": "ca_diec_anh_dao",
-      "species_name": "Cá Diếc Anh Đào",
-      "identified_as": "Cá Diếc Anh Đào (Wikimedia Live Verified)",
-      "confidence": "high",
-      "reason": "Ảnh cá sống trong nước, rõ nét (Rõ nét IoT (lap=171.6, lum=57.1, col=61.3, 1385x1513))",
-      "source": "Wikimedia API",
-      "timestamp": "2026-10-16 13:29:11"
-    },
-    {
-      "filename": "iot_verified_ca_diec_anh_dao_1792132143_1.jpg",
-      "species": "ca_diec_anh_dao",
-      "species_name": "Cá Diếc Anh Đào",
-      "identified_as": "Cá Diếc Anh Đào (Wikimedia Live Verified)",
-      "confidence": "high",
-      "reason": "Ảnh cá sống trong nước, rõ nét (Rõ nét IoT (lap=234.6, lum=46.2, col=125.1, 500x340))",
-      "source": "Wikimedia API",
-      "timestamp": "2026-10-16 13:29:03"
-    },
-    {
-      "filename": "iot_verified_ca_hong_ket_1792117419_25.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_la_han_1792156885_8.jpg",
+      "species": "ca_la_han",
+      "species_name": "Cá La Hán",
+      "identified_as": "Cá La Hán (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:23:39"
+      "timestamp": "2026-10-16 20:21:25"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117357_24.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_la_han_1792156867_7.jpg",
+      "species": "ca_la_han",
+      "species_name": "Cá La Hán",
+      "identified_as": "Cá La Hán (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:22:37"
+      "timestamp": "2026-10-16 20:21:07"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117345_23.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_la_han_1792156866_6.jpg",
+      "species": "ca_la_han",
+      "species_name": "Cá La Hán",
+      "identified_as": "Cá La Hán (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:22:25"
+      "timestamp": "2026-10-16 20:21:06"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117341_22.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_la_han_1792156865_5.jpg",
+      "species": "ca_la_han",
+      "species_name": "Cá La Hán",
+      "identified_as": "Cá La Hán (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:22:21"
+      "timestamp": "2026-10-16 20:21:05"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117336_21.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_la_han_1792156863_4.jpg",
+      "species": "ca_la_han",
+      "species_name": "Cá La Hán",
+      "identified_as": "Cá La Hán (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:22:16"
+      "timestamp": "2026-10-16 20:21:03"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117332_20.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_la_han_1792156861_3.jpg",
+      "species": "ca_la_han",
+      "species_name": "Cá La Hán",
+      "identified_as": "Cá La Hán (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:22:12"
+      "timestamp": "2026-10-16 20:21:01"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117327_19.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_la_han_1792156851_2.jpg",
+      "species": "ca_la_han",
+      "species_name": "Cá La Hán",
+      "identified_as": "Cá La Hán (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:22:07"
+      "timestamp": "2026-10-16 20:20:51"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117323_18.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_la_han_1792156845_1.jpg",
+      "species": "ca_la_han",
+      "species_name": "Cá La Hán",
+      "identified_as": "Cá La Hán (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:22:03"
+      "timestamp": "2026-10-16 20:20:45"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117318_17.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_chuot_1792156838_8.jpg",
+      "species": "ca_chuot",
+      "species_name": "Cá Chuột",
+      "identified_as": "Cá Chuột (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:21:58"
+      "timestamp": "2026-10-16 20:20:38"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117306_16.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_chuot_1792156836_7.jpg",
+      "species": "ca_chuot",
+      "species_name": "Cá Chuột",
+      "identified_as": "Cá Chuột (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:21:46"
+      "timestamp": "2026-10-16 20:20:36"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117297_15.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_chuot_1792156833_6.jpg",
+      "species": "ca_chuot",
+      "species_name": "Cá Chuột",
+      "identified_as": "Cá Chuột (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:21:37"
+      "timestamp": "2026-10-16 20:20:33"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117292_14.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_chuot_1792156829_5.jpg",
+      "species": "ca_chuot",
+      "species_name": "Cá Chuột",
+      "identified_as": "Cá Chuột (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:21:32"
+      "timestamp": "2026-10-16 20:20:29"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117286_13.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_chuot_1792156827_4.jpg",
+      "species": "ca_chuot",
+      "species_name": "Cá Chuột",
+      "identified_as": "Cá Chuột (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:21:26"
+      "timestamp": "2026-10-16 20:20:27"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117272_12.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_chuot_1792156821_3.jpg",
+      "species": "ca_chuot",
+      "species_name": "Cá Chuột",
+      "identified_as": "Cá Chuột (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:21:12"
+      "timestamp": "2026-10-16 20:20:21"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117268_11.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_chuot_1792156805_2.jpg",
+      "species": "ca_chuot",
+      "species_name": "Cá Chuột",
+      "identified_as": "Cá Chuột (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:21:08"
+      "timestamp": "2026-10-16 20:20:05"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117261_10.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_chuot_1792156799_1.jpg",
+      "species": "ca_chuot",
+      "species_name": "Cá Chuột",
+      "identified_as": "Cá Chuột (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:21:01"
+      "timestamp": "2026-10-16 20:19:59"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117255_9.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_ba_duoi_1792156780_6.jpg",
+      "species": "ca_ba_duoi",
+      "species_name": "Cá Ba Đuôi",
+      "identified_as": "Cá Ba Đuôi (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:20:55"
+      "timestamp": "2026-10-16 20:19:40"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117252_8.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_ba_duoi_1792156780_5.jpg",
+      "species": "ca_ba_duoi",
+      "species_name": "Cá Ba Đuôi",
+      "identified_as": "Cá Ba Đuôi (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:20:52"
+      "timestamp": "2026-10-16 20:19:40"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117242_7.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_ba_duoi_1792156779_4.jpg",
+      "species": "ca_ba_duoi",
+      "species_name": "Cá Ba Đuôi",
+      "identified_as": "Cá Ba Đuôi (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:20:42"
+      "timestamp": "2026-10-16 20:19:39"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117237_6.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_ba_duoi_1792156778_3.jpg",
+      "species": "ca_ba_duoi",
+      "species_name": "Cá Ba Đuôi",
+      "identified_as": "Cá Ba Đuôi (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:20:37"
+      "timestamp": "2026-10-16 20:19:38"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117206_5.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_ba_duoi_1792156777_2.jpg",
+      "species": "ca_ba_duoi",
+      "species_name": "Cá Ba Đuôi",
+      "identified_as": "Cá Ba Đuôi (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:20:06"
+      "timestamp": "2026-10-16 20:19:37"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117203_4.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_ba_duoi_1792156749_1.jpg",
+      "species": "ca_ba_duoi",
+      "species_name": "Cá Ba Đuôi",
+      "identified_as": "Cá Ba Đuôi (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:20:03"
+      "timestamp": "2026-10-16 20:19:09"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117195_3.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_rong_1792156739_5.jpg",
+      "species": "ca_rong",
+      "species_name": "Cá Rồng",
+      "identified_as": "Cá Rồng (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:19:55"
+      "timestamp": "2026-10-16 20:18:59"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117189_2.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_rong_1792156737_4.jpg",
+      "species": "ca_rong",
+      "species_name": "Cá Rồng",
+      "identified_as": "Cá Rồng (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:19:49"
+      "timestamp": "2026-10-16 20:18:57"
     },
     {
-      "filename": "iot_verified_ca_hong_ket_1792117183_1.jpg",
-      "species": "ca_hong_ket",
-      "species_name": "Cá Hồng Két",
-      "identified_as": "Cá Hồng Két (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_rong_1792156735_3.jpg",
+      "species": "ca_rong",
+      "species_name": "Cá Rồng",
+      "identified_as": "Cá Rồng (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:19:43"
+      "timestamp": "2026-10-16 20:18:55"
     },
     {
-      "filename": "iot_verified_ca_soc_ngua_1792117171_35.jpg",
-      "species": "ca_soc_ngua",
-      "species_name": "Cá Sóc Ngựa",
-      "identified_as": "Cá Sóc Ngựa (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_rong_1792156733_2.jpg",
+      "species": "ca_rong",
+      "species_name": "Cá Rồng",
+      "identified_as": "Cá Rồng (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:19:31"
+      "timestamp": "2026-10-16 20:18:53"
     },
     {
-      "filename": "iot_verified_ca_soc_ngua_1792117153_34.jpg",
-      "species": "ca_soc_ngua",
-      "species_name": "Cá Sóc Ngựa",
-      "identified_as": "Cá Sóc Ngựa (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_rong_1792156731_1.jpg",
+      "species": "ca_rong",
+      "species_name": "Cá Rồng",
+      "identified_as": "Cá Rồng (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:19:13"
+      "timestamp": "2026-10-16 20:18:51"
     },
     {
-      "filename": "iot_verified_ca_soc_ngua_1792117137_33.jpg",
-      "species": "ca_soc_ngua",
-      "species_name": "Cá Sóc Ngựa",
-      "identified_as": "Cá Sóc Ngựa (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_sac_1792156701_13.jpg",
+      "species": "ca_sac",
+      "species_name": "Cá Sặc",
+      "identified_as": "Cá Sặc (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:18:57"
+      "timestamp": "2026-10-16 20:18:21"
     },
     {
-      "filename": "iot_verified_ca_soc_ngua_1792117113_32.jpg",
-      "species": "ca_soc_ngua",
-      "species_name": "Cá Sóc Ngựa",
-      "identified_as": "Cá Sóc Ngựa (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_sac_1792156695_12.jpg",
+      "species": "ca_sac",
+      "species_name": "Cá Sặc",
+      "identified_as": "Cá Sặc (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:18:33"
+      "timestamp": "2026-10-16 20:18:15"
     },
     {
-      "filename": "iot_verified_ca_soc_ngua_1792117091_31.jpg",
-      "species": "ca_soc_ngua",
-      "species_name": "Cá Sóc Ngựa",
-      "identified_as": "Cá Sóc Ngựa (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_sac_1792156682_11.jpg",
+      "species": "ca_sac",
+      "species_name": "Cá Sặc",
+      "identified_as": "Cá Sặc (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:18:11"
+      "timestamp": "2026-10-16 20:18:02"
     },
     {
-      "filename": "iot_verified_ca_soc_ngua_1792117031_30.jpg",
-      "species": "ca_soc_ngua",
-      "species_name": "Cá Sóc Ngựa",
-      "identified_as": "Cá Sóc Ngựa (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_sac_1792156670_10.jpg",
+      "species": "ca_sac",
+      "species_name": "Cá Sặc",
+      "identified_as": "Cá Sặc (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:17:11"
+      "timestamp": "2026-10-16 20:17:50"
     },
     {
-      "filename": "iot_verified_ca_soc_ngua_1792117018_29.jpg",
-      "species": "ca_soc_ngua",
-      "species_name": "Cá Sóc Ngựa",
-      "identified_as": "Cá Sóc Ngựa (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_sac_1792156668_9.jpg",
+      "species": "ca_sac",
+      "species_name": "Cá Sặc",
+      "identified_as": "Cá Sặc (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:16:58"
+      "timestamp": "2026-10-16 20:17:48"
     },
     {
-      "filename": "iot_verified_ca_soc_ngua_1792117002_28.jpg",
-      "species": "ca_soc_ngua",
-      "species_name": "Cá Sóc Ngựa",
-      "identified_as": "Cá Sóc Ngựa (Thị giác AI & Camera IoT)",
+      "filename": "iot_verified_ca_sac_1792156664_8.jpg",
+      "species": "ca_sac",
+      "species_name": "Cá Sặc",
+      "identified_as": "Cá Sặc (Thị giác AI & Camera IoT)",
       "confidence": "high",
       "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
       "source": "Giám định Thị giác AI (Gemini Vision)",
-      "timestamp": "2026-10-16 09:16:42"
+      "timestamp": "2026-10-16 20:17:44"
+    },
+    {
+      "filename": "iot_verified_ca_sac_1792156662_7.jpg",
+      "species": "ca_sac",
+      "species_name": "Cá Sặc",
+      "identified_as": "Cá Sặc (Thị giác AI & Camera IoT)",
+      "confidence": "high",
+      "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
+      "source": "Giám định Thị giác AI (Gemini Vision)",
+      "timestamp": "2026-10-16 20:17:42"
+    },
+    {
+      "filename": "iot_verified_ca_sac_1792156635_6.jpg",
+      "species": "ca_sac",
+      "species_name": "Cá Sặc",
+      "identified_as": "Cá Sặc (Thị giác AI & Camera IoT)",
+      "confidence": "high",
+      "reason": "Giám định thị giác AI: Cá sống đang bơi trong nước, đúng chuẩn đặc trưng hình thái loài, không chữ to che khuất, đạt chuẩn rõ nét cho YOLOv8.",
+      "source": "Giám định Thị giác AI (Gemini Vision)",
+      "timestamp": "2026-10-16 20:17:15"
     }
   ],
   "flagged_wrong": [
