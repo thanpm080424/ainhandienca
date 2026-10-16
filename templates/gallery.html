@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% block title %}{{ species_name }} - Gallery{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('index') }}"><i class="fas fa-chart-bar me-1"></i>Dashboard</a></li>
+        <li class="breadcrumb-item active">{{ species_name }}</li>
+    </ol>
+</nav>
+
+<!-- Species Header -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h2 class="mb-1">
+                    <i class="fas fa-fish text-primary me-2"></i>{{ species_name }}
+                </h2>
+                <p class="text-muted mb-0">
+                    Thư mục: <code>{{ species }}/</code>
+                </p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <div class="d-flex align-items-center justify-content-md-end gap-3">
+                    <div>
+                        <span class="fs-3 fw-bold text-{{ species_stats.color }}">{{ total }}</span>
+                        <span class="text-muted">/ {{ min_images }} ảnh</span>
+                    </div>
+                    <span class="badge bg-{{ species_stats.color }} fs-6 py-2 px-3">
+                        {% if species_stats.status == 'enough' %}
+                            <i class="fas fa-check me-1"></i>Đủ
+                        {% else %}
+                            <i class="fas fa-exclamation me-1"></i>Thiếu {{ species_stats.need_more }} ảnh
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="progress mt-3" style="height: 8px;">
+            <div class="progress-bar bg-{{ species_stats.color }}" style="width: {{ species_stats.percentage }}%"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Action Buttons -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i> Quay lại
+        </a>
+    </div>
+    <div>
+        <a href="{{ url_for('upload_page') }}?species={{ species }}" class="btn btn-primary">
+            <i class="fas fa-plus me-1"></i> Thêm ảnh cho {{ species_name }}
+        </a>
+    </div>
+</div>
+
+<!-- Image Gallery -->
+{% if images %}
+<div class="row g-3" id="galleryGrid">
+    {% for img in images %}
+    <div class="col-xl-2 col-lg-3 col-md-4 col-6" id="img-{{ loop.index }}">
+        <div class="card gallery-card border-0 shadow-sm h-100">
+            <div class="gallery-img-wrapper">
+                <img src="/image_preview?species={{ species }}&file={{ img|urlencode }}"
+                     class="card-img-top gallery-img"
+                     alt="{{ species_name }}"
+                     loading="lazy"
+                     data-file="{{ img }}"
+                     onclick="openLightbox(this.src, this.dataset.file)">
+                <!-- Action Buttons -->
+                <button class="gallery-move-btn"
+                        data-species="{{ species }}"
+                        data-file="{{ img }}"
+                        data-id="img-{{ loop.index }}"
+                        onclick="openMoveModal(this.dataset.species, this.dataset.file, '', this.dataset.id)"
+                        title="Chuyển ảnh sang loài khác">
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
+                <button class="btn btn-sm btn-danger gallery-delete-btn"
+                        data-species="{{ species }}"
+                        data-file="{{ img }}"
+                        data-id="img-{{ loop.index }}"
+                        onclick="deleteImage(this.dataset.species, this.dataset.file, this.dataset.id)"
+                        title="Xóa ảnh">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+            <div class="card-body p-2">
+                <p class="card-text text-truncate small text-muted mb-0" title="{{ img }}">{{ img }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Pagination -->
+{% if total_pages > 1 %}
+<nav class="mt-4" aria-label="Phân trang">
+    <ul class="pagination justify-content-center">
+        <li class="page-item {% if page <= 1 %}disabled{% endif %}">
+            <a class="page-link" href="{{ url_for('gallery', species=species, page=page-1) }}">
+                <i class="fas fa-chevron-left"></i> Trước
+            </a>
+        </li>
+
+        {% set start_page = [1, page - 2]|max %}
+        {% set end_page = [total_pages, page + 2]|min %}
+
+        {% if start_page > 1 %}
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('gallery', species=species, page=1) }}">1</a>
+        </li>
+        {% if start_page > 2 %}
+        <li class="page-item disabled"><span class="page-link">...</span></li>
+        {% endif %}
+        {% endif %}
+
+        {% for p in range(start_page, end_page + 1) %}
+        <li class="page-item {% if p == page %}active{% endif %}">
+            <a class="page-link" href="{{ url_for('gallery', species=species, page=p) }}">{{ p }}</a>
+        </li>
+        {% endfor %}
+
+        {% if end_page < total_pages %}
+        {% if end_page < total_pages - 1 %}
+        <li class="page-item disabled"><span class="page-link">...</span></li>
+        {% endif %}
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('gallery', species=species, page=total_pages) }}">{{ total_pages }}</a>
+        </li>
+        {% endif %}
+
+        <li class="page-item {% if page >= total_pages %}disabled{% endif %}">
+            <a class="page-link" href="{{ url_for('gallery', species=species, page=page+1) }}">
+                Sau <i class="fas fa-chevron-right"></i>
+            </a>
+        </li>
+    </ul>
+    <p class="text-center text-muted small">
+        Trang {{ page }}/{{ total_pages }} — Hiển thị {{ images|length }}/{{ total }} ảnh
+    </p>
+</nav>
+{% endif %}
+
+{% else %}
+<!-- Empty State -->
+<div class="text-center py-5">
+    <i class="fas fa-image fa-4x text-muted mb-3"></i>
+    <h4 class="text-muted">Chưa có ảnh nào</h4>
+    <p class="text-muted">Hãy thêm ảnh cho loài {{ species_name }}</p>
+    <a href="{{ url_for('upload_page') }}?species={{ species }}" class="btn btn-primary">
+        <i class="fas fa-plus me-1"></i> Thêm ảnh ngay
+    </a>
+</div>
+{% endif %}
+
+<!-- Lightbox Modal -->
+<div class="modal fade" id="lightboxModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content bg-dark border-0">
+            <div class="modal-header border-0">
+                <h6 class="modal-title text-light" id="lightboxTitle"></h6>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center p-0">
+                <img src="" id="lightboxImage" class="img-fluid" alt="Full size" style="max-height: 80vh;">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

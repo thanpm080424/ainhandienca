@@ -1,0 +1,187 @@
+{
+  "timestamp": "2026-10-14T23:07:12.964587",
+  "method": "Bing Image Search + Gemini AI verification",
+  "note": "Moi anh duoc Gemini AI xac nhan dung loai truoc khi them vao dataset",
+  "results": [
+    {
+      "folder": "ca_da_quang",
+      "name": "Ca Da Quang",
+      "before": 111,
+      "after": 111,
+      "added": 0,
+      "removed": 0,
+      "errors": 0
+    },
+    {
+      "folder": "ca_lau_kieng",
+      "name": "Ca Lau Kieng",
+      "before": 135,
+      "after": 135,
+      "added": 0,
+      "removed": 0,
+      "errors": 0
+    },
+    {
+      "folder": "ca_hong_ket",
+      "name": "Ca Hong Ket",
+      "before": 178,
+      "after": 178,
+      "added": 0,
+      "removed": 15,
+      "errors": 0
+    },
+    {
+      "folder": "ca_sac",
+      "name": "Ca Sac",
+      "before": 217,
+      "after": 217,
+      "added": 0,
+      "removed": 0,
+      "errors": 0
+    },
+    {
+      "folder": "ca_diec_anh_dao",
+      "name": "Ca Diec Anh Dao",
+      "before": 219,
+      "after": 219,
+      "added": 0,
+      "removed": 10,
+      "errors": 0
+    },
+    {
+      "folder": "ca_thien_than",
+      "name": "Ca Than Tien",
+      "before": 222,
+      "after": 222,
+      "added": 0,
+      "removed": 10,
+      "errors": 0
+    },
+    {
+      "folder": "ca_soc_ngua",
+      "name": "Ca Soc Ngua",
+      "before": 228,
+      "after": 228,
+      "added": 0,
+      "removed": 0,
+      "errors": 0
+    },
+    {
+      "folder": "ca_neon",
+      "name": "Ca Neon",
+      "before": 238,
+      "after": 238,
+      "added": 0,
+      "removed": 0,
+      "errors": 0
+    },
+    {
+      "folder": "ca_bay_mau",
+      "name": "Ca Bay Mau",
+      "before": 240,
+      "after": 240,
+      "added": 0,
+      "removed": 0,
+      "errors": 0
+    },
+    {
+      "folder": "ca_but_chi",
+      "name": "Ca But Chi",
+      "before": 247,
+      "after": 247,
+      "added": 0,
+      "removed": 10,
+      "errors": 0
+    },
+    {
+      "folder": "ca_ba_duoi",
+      "name": "Ca Ba Duoi",
+      "before": 257,
+      "after": 257,
+      "added": 0,
+      "removed": 0,
+      "errors": 0
+    },
+    {
+      "folder": "ca_mun",
+      "name": "Ca Mun",
+      "before": 259,
+      "after": 259,
+      "added": 0,
+      "removed": 10,
+      "errors": 0
+    },
+    {
+      "folder": "ca_molly",
+      "name": "Ca Molly",
+      "before": 263,
+      "after": 263,
+      "added": 0,
+      "removed": 1,
+      "errors": 0
+    },
+    {
+      "folder": "ca_la_han",
+      "name": "Ca La Han",
+      "before": 268,
+      "after": 268,
+      "added": 0,
+      "removed": 0,
+      "errors": 0
+    },
+    {
+      "folder": "ca_duoi_kiem",
+      "name": "Ca Duoi Kiem",
+      "before": 286,
+      "after": 286,
+      "added": 0,
+      "removed": 0,
+      "errors": 0
+    },
+    {
+      "folder": "ca_chuot",
+      "name": "Ca Chuot",
+      "before": 309,
+      "after": 309,
+      "added": 0,
+      "removed": 0,
+      "errors": 0
+    },
+    {
+      "folder": "ca_rong",
+      "name": "Ca Rong",
+      "before": 320,
+      "after": 320,
+      "added": 0,
+      "removed": 7,
+      "errors": 0
+    },
+    {
+      "folder": "ca_xiem",
+      "name": "Ca Xiem",
+      "before": 348,
+      "after": 348,
+      "added": 0,
+      "removed": 10,
+      "errors": 0
+    },
+    {
+      "folder": "ca_dia",
+      "name": "Ca Dia",
+      "before": 361,
+      "after": 361,
+      "added": 0,
+      "removed": 1,
+      "errors": 0
+    },
+    {
+      "folder": "ca_koi",
+      "name": "Ca Koi",
+      "before": 385,
+      "after": 385,
+      "added": 0,
+      "removed": 0,
+      "errors": 0
+    }
+  ]
+}

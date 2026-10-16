@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block title %}Thêm Ảnh - Quản Lý Dataset Cá Cảnh{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Upload Form -->
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0"><i class="fas fa-cloud-upload-alt text-primary me-2"></i>Thêm ảnh mới vào Dataset</h5>
+            </div>
+            <div class="card-body">
+                <!-- Species Selection -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <label for="speciesSelect" class="form-label fw-semibold mb-0">
+                            <i class="fas fa-fish me-1"></i> Chọn loài cá
+                        </label>
+                        <button type="button" class="btn btn-sm btn-outline-primary" id="aiDetectBtn" onclick="detectFishWithAI()" style="display: none;">
+                            <i class="fas fa-magic me-1"></i>🤖 AI Tự nhận diện từ ảnh
+                        </button>
+                    </div>
+                    <select class="form-select form-select-lg" id="speciesSelect">
+                        <option value="">-- Chọn loài cá --</option>
+                        {% for s in stats|sort(attribute='name') %}
+                        <option value="{{ s.folder }}"
+                                data-count="{{ s.count }}"
+                                data-status="{{ s.status }}">
+                            {{ s.name }} ({{ s.count }} ảnh)
+                            {% if s.status != 'enough' %} ⚠️ Cần thêm {{ s.need_more }}{% endif %}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <div id="aiDetectAlert" class="mt-2 d-none"></div>
+                </div>
+
+                <!-- Drag & Drop Zone -->
+                <div class="drop-zone mb-4" id="dropZone">
+                    <div class="drop-zone-content">
+                        <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Kéo thả ảnh vào đây</h5>
+                        <p class="text-muted mb-3">hoặc</p>
+                        <label class="btn btn-primary btn-lg" for="fileInput">
+                            <i class="fas fa-folder-open me-2"></i>Chọn ảnh từ máy tính
+                        </label>
+                        <input type="file" id="fileInput" multiple accept="image/*" class="d-none">
+                        <p class="text-muted small mt-3 mb-0">
+                            Hỗ trợ: JPG, JPEG, PNG, GIF, WEBP, BMP — Có thể chọn nhiều ảnh cùng lúc
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Image Preview -->
+                <div id="previewSection" class="d-none mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="mb-0">
+                            <i class="fas fa-eye me-1"></i>
+                            Xem trước (<span id="previewCount">0</span> ảnh)
+                        </h6>
+                        <button class="btn btn-sm btn-outline-danger" onclick="clearPreview()">
+                            <i class="fas fa-times me-1"></i>Xóa hết
+                        </button>
+                    </div>
+                    <div class="row g-2" id="previewGrid"></div>
+                </div>
+
+                <!-- Upload Progress -->
+                <div id="uploadProgress" class="d-none mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-semibold">Đang tải lên...</span>
+                        <span id="uploadPercent">0%</span>
+                    </div>
+                    <div class="progress" style="height: 25px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                             id="uploadProgressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Upload Button -->
+                <div class="d-grid">
+                    <button class="btn btn-success btn-lg" id="uploadBtn" onclick="uploadFiles()" disabled>
+                        <i class="fas fa-upload me-2"></i>Tải lên
+                    </button>
+                </div>
+
+                <!-- Upload Result -->
+                <div id="uploadResult" class="d-none mt-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar - Quick Stats -->
+    <div class="col-lg-4 mt-4 mt-lg-0">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h6 class="mb-0"><i class="fas fa-chart-pie text-info me-2"></i>Loài cần thêm ảnh</h6>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    {% for s in stats|sort(attribute='count') %}
+                    {% if s.status != 'enough' %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="fw-semibold">{{ s.name }}</span>
+                            <br>
+                            <small class="text-muted">{{ s.count }} ảnh hiện tại</small>
+                        </div>
+                        <span class="badge bg-{{ s.color }} rounded-pill">+{{ s.need_more }}</span>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    {% set needs_more = stats|selectattr('status', 'ne', 'enough')|list %}
+                    {% if needs_more|length == 0 %}
+                    <li class="list-group-item text-center text-success py-4">
+                        <i class="fas fa-check-circle fa-2x mb-2"></i>
+                        <p class="mb-0">Tất cả loài đều đủ ảnh! 🎉</p>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="card border-0 shadow-sm mt-3">
+            <div class="card-body">
+                <h6 class="card-title"><i class="fas fa-lightbulb text-warning me-2"></i>Mẹo</h6>
+                <ul class="small text-muted mb-0">
+                    <li class="mb-2">Mỗi loài cần tối thiểu <strong>200 ảnh</strong> để nhận diện tốt</li>
+                    <li class="mb-2">Nên có ảnh đa dạng: góc chụp, ánh sáng, nền khác nhau</li>
+                    <li class="mb-2">Tránh ảnh trùng lặp hoặc quá mờ</li>
+                    <li>Ảnh nên rõ nét, có chủ thể cá rõ ràng</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Auto-select species from URL parameter
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const species = urlParams.get('species');
+        if (species) {
+            document.getElementById('speciesSelect').value = species;
+        }
+    });
+</script>
+{% endblock %}

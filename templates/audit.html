@@ -1,0 +1,338 @@
+{% extends 'base.html' %}
+{% block title %}AI Kiểm Tra (Audit) Dataset - Quản Lý Dataset Cá Cảnh{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <h4 class="fw-bold mb-1"><i class="fas fa-robot text-primary me-2"></i>AI Thẩm Định & Kiểm Tra Dataset</h4>
+                        <p class="text-muted mb-0">Dùng Gemini Vision quét từng ảnh trong thư mục: phát hiện ảnh không phải cá, hình vẽ/logo hoặc bị dán nhãn nhầm loài.</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-primary" onclick="startAllSpeciesAudit()" id="startAllSpeciesBtn">
+                            <i class="fas fa-bolt me-1 text-warning"></i> Quét toàn bộ 20 loài
+                        </button>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 fs-6 d-flex align-items-center">
+                            <i class="fas fa-check-circle me-1"></i>Gemini AI Sẵn Sàng
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Controls -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-5">
+                <label class="form-label fw-semibold"><i class="fas fa-fish me-1"></i>Chọn loài cá cần quét kiểm tra:</label>
+                <select class="form-select form-select-lg" id="auditSpeciesSelect">
+                    {% for s in stats|sort(attribute='name') %}
+                    <option value="{{ s.folder }}" data-count="{{ s.count }}">
+                        {{ s.name }} ({{ s.count }} ảnh hiện có)
+                        {% if s.status != 'enough' %}— [Cần kiểm định]{% endif %}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold"><i class="fas fa-tachometer-alt me-1"></i>Số lượng ảnh muốn quét:</label>
+                <select class="form-select form-select-lg" id="auditLimitSelect">
+                    <option value="15" selected>15 ảnh mẫu</option>
+                    <option value="30">30 ảnh</option>
+                    <option value="50">50 ảnh</option>
+                    <option value="100">100 ảnh</option>
+                    <option value="200">200 ảnh</option>
+                    <option value="all">⚡ Toàn bộ thư mục loài này</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary btn-lg w-100" id="startAuditBtn" onclick="startAudit()">
+                    <i class="fas fa-search me-2"></i>Bắt đầu quét AI
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Progress Bar -->
+<div id="auditProgressCard" class="card border-0 shadow-sm mb-4 d-none">
+    <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="mb-0 fw-bold text-primary" id="auditProgressTitle">
+                <i class="fas fa-spinner fa-spin me-2"></i>Đang thẩm định từng ảnh...
+            </h6>
+            <span class="badge bg-primary fs-6 px-3 py-2" id="auditProgressPercent">0%</span>
+        </div>
+        <div class="progress mb-2" style="height: 12px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" id="auditProgressBar" style="width: 0%"></div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center small text-muted">
+            <span id="auditProgressCount">Đã quét 0/0 ảnh</span>
+            <button class="btn btn-sm btn-outline-danger py-0 px-2" id="stopAuditBtn" onclick="stopAudit()">
+                <i class="fas fa-stop me-1"></i>Tạm dừng quét
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Audit Results -->
+<div id="auditResultsCard" class="card border-0 shadow-sm d-none">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <h5 class="mb-0" id="auditResultsTitle"><i class="fas fa-clipboard-check me-2"></i>Kết quả thẩm định</h5>
+        <div id="auditSummaryBadges" class="d-flex gap-2"></div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 80px;">Ảnh</th>
+                        <th style="width: 220px;">Tên file</th>
+                        <th style="width: 140px;">Đánh giá AI</th>
+                        <th style="width: 200px;">AI nhận ra là</th>
+                        <th>Chi tiết phân tích của AI</th>
+                        <th style="width: 150px;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="auditTableBody">
+                    <!-- Populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Lightbox Modal -->
+<div class="modal fade" id="lightboxModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content bg-dark border-0">
+            <div class="modal-header border-0">
+                <h6 class="modal-title text-light" id="lightboxTitle"></h6>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center p-0">
+                <img src="" id="lightboxImage" class="img-fluid" alt="Full size" style="max-height: 80vh;">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let isAuditRunning = false;
+let shouldStopAudit = false;
+let totalAuditedCount = 0;
+let correctCount = 0;
+let suspectCount = 0;
+let globalRowCounter = 0;
+
+function stopAudit() {
+    shouldStopAudit = true;
+    const stopBtn = document.getElementById('stopAuditBtn');
+    if (stopBtn) {
+        stopBtn.disabled = true;
+        stopBtn.innerHTML = '<i class="fas fa-check me-1"></i>Đang dừng...';
+    }
+}
+
+async function startAudit() {
+    const species = document.getElementById('auditSpeciesSelect').value;
+    const limitChoice = document.getElementById('auditLimitSelect').value;
+    const selectedOption = document.querySelector(`#auditSpeciesSelect option[value="${species}"]`);
+    const totalFiles = parseInt(selectedOption?.getAttribute('data-count') || '0', 10);
+
+    let targetTotal = totalFiles;
+    if (limitChoice !== 'all') {
+        targetTotal = Math.min(parseInt(limitChoice, 10), totalFiles);
+    }
+
+    if (targetTotal <= 0) {
+        showToast('Loài này chưa có ảnh nào để quét!', 'warning');
+        return;
+    }
+
+    // Reset state
+    isAuditRunning = true;
+    shouldStopAudit = false;
+    totalAuditedCount = 0;
+    correctCount = 0;
+    suspectCount = 0;
+    globalRowCounter = 0;
+
+    const startBtn = document.getElementById('startAuditBtn');
+    const startAllBtn = document.getElementById('startAllSpeciesBtn');
+    const progressCard = document.getElementById('auditProgressCard');
+    const resultsCard = document.getElementById('auditResultsCard');
+    const tbody = document.getElementById('auditTableBody');
+    const badges = document.getElementById('auditSummaryBadges');
+
+    startBtn.disabled = true;
+    startAllBtn.disabled = true;
+    progressCard.classList.remove('d-none');
+    resultsCard.classList.remove('d-none');
+    tbody.innerHTML = '';
+    badges.innerHTML = '';
+
+    const speciesName = (window.GLOBAL_SPECIES_MAP && window.GLOBAL_SPECIES_MAP[species]) || species;
+    document.getElementById('auditResultsTitle').innerHTML = 
+        `<i class="fas fa-clipboard-check me-2"></i>Kết quả thẩm định: <strong>${speciesName}</strong>`;
+
+    const CHUNK_SIZE = 15;
+    let offset = 0;
+
+    while (offset < targetTotal && !shouldStopAudit) {
+        const batchLimit = Math.min(CHUNK_SIZE, targetTotal - offset);
+
+        // Update progress UI
+        const percent = Math.round((offset / targetTotal) * 100);
+        document.getElementById('auditProgressBar').style.width = percent + '%';
+        document.getElementById('auditProgressPercent').textContent = percent + '%';
+        document.getElementById('auditProgressTitle').innerHTML = 
+            `<i class="fas fa-spinner fa-spin me-2"></i>Đang quét: <strong>${speciesName}</strong> [${offset}/${targetTotal} ảnh]`;
+        document.getElementById('auditProgressCount').textContent = `Đã thẩm định ${offset}/${targetTotal} ảnh (${suspectCount} nghi ngờ)`;
+
+        try {
+            const resp = await fetch(`/api/audit/${species}?offset=${offset}&limit=${batchLimit}`);
+            const data = await resp.json();
+
+            if (!data.success) {
+                showToast(data.error || 'Lỗi khi quét ảnh', 'danger');
+                break;
+            }
+
+            // Append rows
+            appendAuditRows(species, data.results);
+
+            offset += data.results.length;
+            totalAuditedCount = offset;
+
+            if (data.done || data.results.length === 0) {
+                break;
+            }
+        } catch (err) {
+            showToast('Lỗi mạng trong quá trình quét!', 'danger');
+            break;
+        }
+    }
+
+    // Done
+    const finalPercent = targetTotal > 0 ? Math.round((totalAuditedCount / targetTotal) * 100) : 100;
+    document.getElementById('auditProgressBar').style.width = finalPercent + '%';
+    document.getElementById('auditProgressPercent').textContent = finalPercent + '%';
+    document.getElementById('auditProgressTitle').innerHTML = 
+        `<i class="fas fa-check-circle text-success me-2"></i>Đã hoàn tất quét: <strong>${speciesName}</strong>`;
+    document.getElementById('auditProgressCount').textContent = 
+        `Đã quét xong ${totalAuditedCount}/${targetTotal} ảnh. Phát hiện: ${correctCount} Đạt chuẩn, ${suspectCount} Nghi ngờ sai.`;
+
+    startBtn.disabled = false;
+    startAllBtn.disabled = false;
+    isAuditRunning = false;
+    showToast(`Đã hoàn tất kiểm định ${speciesName}!`, 'success');
+}
+
+async function startAllSpeciesAudit() {
+    if (!confirm('Bạn có muốn bắt đầu chế độ quét toàn bộ 20 loài cá? Hệ thống sẽ quét tuần tự từng loài.')) return;
+
+    const speciesKeys = Object.keys(window.GLOBAL_SPECIES_MAP || {});
+    if (speciesKeys.length === 0) return;
+
+    const select = document.getElementById('auditSpeciesSelect');
+    const limitSelect = document.getElementById('auditLimitSelect');
+    limitSelect.value = '25'; // Quét 25 ảnh mỗi loài để bao quát nhanh
+
+    for (let i = 0; i < speciesKeys.length; i++) {
+        const key = speciesKeys[i];
+        select.value = key;
+        showToast(`Bắt đầu quét loài [${i + 1}/${speciesKeys.length}]: ${window.GLOBAL_SPECIES_MAP[key]}`, 'info');
+        await startAudit();
+        if (shouldStopAudit) {
+            showToast('Đã dừng quét toàn bộ.', 'warning');
+            break;
+        }
+    }
+}
+
+function appendAuditRows(species, results) {
+    const tbody = document.getElementById('auditTableBody');
+    const badges = document.getElementById('auditSummaryBadges');
+
+    results.forEach(item => {
+        globalRowCounter++;
+        if (item.is_correct) correctCount++; else suspectCount++;
+
+        const rowId = `audit-row-${globalRowCounter}`;
+        const imgSrc = `/image_preview?species=${encodeURIComponent(species)}&file=${encodeURIComponent(item.file)}`;
+        const safeFile = (item.file || '').replace(/'/g, "\\'");
+
+        const tr = document.createElement('tr');
+        tr.id = rowId;
+        tr.className = item.is_correct ? '' : 'table-warning';
+        tr.innerHTML = `
+            <td>
+                <img src="${imgSrc}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; cursor: pointer;"
+                     onclick="openLightbox('${imgSrc}', '${safeFile}')" alt="Fish" loading="lazy">
+            </td>
+            <td>
+                <code class="small text-truncate d-block" style="max-width: 200px;" title="${item.file}">${item.file}</code>
+            </td>
+            <td>
+                <span class="badge bg-${item.is_correct ? 'success' : 'danger'}">
+                    <i class="fas fa-${item.is_correct ? 'check' : 'exclamation-triangle'} me-1"></i>
+                    ${item.status}
+                </span>
+            </td>
+            <td>
+                <strong class="${item.is_correct ? 'text-success' : 'text-danger'}">${item.identified_as || 'Không rõ'}</strong>
+            </td>
+            <td>
+                <small class="text-muted">${item.reason || ''}</small>
+            </td>
+            <td>
+                ${item.is_correct ? '<span class="text-success small fw-semibold"><i class="fas fa-check-circle me-1"></i>Đạt chuẩn</span>' : `
+                <div class="d-flex gap-1">
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteFromAudit('${species}', '${safeFile}', '${rowId}')" title="Xóa ảnh này">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-primary" onclick="openMoveModal('${species}', '${safeFile}', '${item.suggested_key || ''}', '${rowId}')" title="Chuyển sang đúng loài">
+                        <i class="fas fa-exchange-alt me-1"></i>Chuyển
+                    </button>
+                </div>
+                `}
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    badges.innerHTML = `
+        <span class="badge bg-success px-3 py-2"><i class="fas fa-check me-1"></i>${correctCount} Chuẩn loài</span>
+        <span class="badge bg-danger px-3 py-2"><i class="fas fa-exclamation-triangle me-1"></i>${suspectCount} Nghi ngờ sai</span>
+    `;
+}
+
+function deleteFromAudit(species, filename, rowId) {
+    if (!confirm(`Bạn có chắc muốn xóa vĩnh viễn ảnh "${filename}" vì sai loài?`)) return;
+    fetch(`/api/delete/${encodeURIComponent(species)}/${encodeURIComponent(filename)}`, { method: 'DELETE' })
+        .then(r => r.json())
+        .then(d => {
+            if (d.success) {
+                const el = document.getElementById(rowId);
+                if (el) {
+                    el.style.transition = 'all 0.3s ease';
+                    el.style.opacity = '0';
+                    setTimeout(() => el.remove(), 300);
+                }
+                showToast('Đã xóa ảnh sai thành công!', 'success');
+            } else {
+                showToast(d.error || 'Lỗi khi xóa', 'danger');
+            }
+        });
+}
+</script>
+{% endblock %}

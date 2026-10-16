@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.env
+venv/
+.venv/
+
+# Large Archives & Temporary Crawlers
+*.zip
+*.tar.gz
+*.rar
+_temp_crawler/
+
+# Raw Image Dataset (Kept locally to avoid exceeding GitHub repository size limits)
+dataset_ca/
+
+# Hash Cache
+dataset_hash_cache.json

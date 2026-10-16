@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+{% block title %}IoT Nhận Diện Cá & Môi Trường Thủy Sinh{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm bg-gradient text-white" style="background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <h3 class="fw-bold mb-1">
+                            <i class="fas fa-microchip me-2"></i>Cổng Kết Nối IoT Nhận Diện Cá & Môi Trường Sống
+                        </h3>
+                        <p class="mb-0 opacity-90">
+                            Hệ thống AI xử lý dữ liệu từ camera IoT (ESP32-CAM, Raspberry Pi): Nhận diện loài cá trong môi trường nước và tự động tra cứu điều kiện môi trường sống (Nhiệt độ, pH, Tầng nước, Tập tính bể nuôi).
+                        </p>
+                    </div>
+                    <span class="badge bg-light text-primary px-3 py-2 fs-6">
+                        <i class="fas fa-satellite-dish me-1"></i>Endpoint: <code>/api/iot/predict</code>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Cột trái: Thử nghiệm gửi ảnh IoT -->
+    <div class="col-lg-5">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold text-dark">
+                    <i class="fas fa-camera me-2 text-primary"></i>Gửi ảnh thiết bị IoT để nhận diện
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <form id="iotUploadForm">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Chọn hoặc kéo thả ảnh chụp cá trong bể:</label>
+                        <input type="file" class="form-control form-control-lg" id="iotFileInput" accept="image/*">
+                    </div>
+
+                    <div id="iotImagePreviewContainer" class="text-center p-3 border rounded bg-light mb-3 d-none">
+                        <img id="iotImagePreview" src="" alt="Preview" class="img-fluid rounded shadow-sm" style="max-height: 250px; object-fit: contain;">
+                        <div class="small text-muted mt-2" id="iotImageName"></div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-lg w-100 py-3 fw-bold" id="iotPredictBtn" onclick="sendToIotAI()" disabled>
+                        <i class="fas fa-microchip me-2"></i>Gửi lên AI Phân Tích Môi Trường
+                    </button>
+                </form>
+
+                <hr class="my-4">
+
+                <!-- Hướng dẫn tích hợp phần cứng -->
+                <div>
+                    <h6 class="fw-bold text-muted small text-uppercase mb-2">
+                        <i class="fas fa-code me-1"></i>Lệnh gửi ảnh từ thiết bị IoT (cURL / Raspberry Pi):
+                    </h6>
+                    <pre class="bg-dark text-light p-3 rounded small mb-0 overflow-auto" style="font-size: 0.8rem;"><code>curl -X POST http://127.0.0.1:5000/api/iot/predict \
+  -F "file=@fish_photo.jpg"</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cột phải: Kết quả nhận diện & Môi trường sống -->
+    <div class="col-lg-7">
+        <!-- Khi chưa có dữ liệu -->
+        <div id="iotWaitingPlaceholder" class="card border-0 shadow-sm h-100">
+            <div class="card-body p-5 text-center d-flex flex-column justify-content-center align-items-center">
+                <div class="bg-primary-subtle text-primary rounded-circle p-4 mb-3" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-water fa-2x"></i>
+                </div>
+                <h5 class="fw-bold text-dark">Chưa có ảnh nào được gửi lên</h5>
+                <p class="text-muted small" style="max-width: 400px;">
+                    Hãy chọn một ảnh chụp cá thực tế trong môi trường nước ở cột bên trái để AI nhận diện loài và tính toán toàn bộ thông số môi trường thủy sinh.
+                </p>
+            </div>
+        </div>
+
+        <!-- Đang tải -->
+        <div id="iotLoadingState" class="card border-0 shadow-sm h-100 d-none">
+            <div class="card-body p-5 text-center d-flex flex-column justify-content-center align-items-center">
+                <div class="spinner-border text-primary mb-3" style="width: 3.5rem; height: 3.5rem;" role="status"></div>
+                <h5 class="fw-bold">AI Gemini đang quét đặc điểm cá...</h5>
+                <p class="text-muted small">Đang xác định loài cá, đối chiếu cơ sở dữ liệu thủy sinh và quy tắc cảm biến môi trường.</p>
+            </div>
+        </div>
+
+        <!-- Kết quả phân tích toàn diện -->
+        <div id="iotResultCard" class="card border-0 shadow-sm d-none">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-success">
+                    <i class="fas fa-check-circle me-2"></i>Kết Quả Nhận Diện IoT
+                </h5>
+                <span class="badge bg-success fs-6" id="resConfidence">Độ tin cậy 95%</span>
+            </div>
+            <div class="card-body p-4">
+                <!-- Loài cá -->
+                <div class="d-flex align-items-center gap-3 mb-4 p-3 bg-light rounded border">
+                    <div class="bg-primary text-white rounded-circle p-3 text-center" style="width: 55px; height: 55px;">
+                        <i class="fas fa-fish fa-lg"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-0 fw-bold text-primary" id="resSpeciesName">Cá Bảy Màu</h4>
+                        <div class="text-muted fst-italic small" id="resScientificName">Poecilia reticulata</div>
+                        <div class="small text-secondary mt-1" id="resVisualFeatures">Đặc điểm nhận diện...</div>
+                    </div>
+                </div>
+
+                <!-- Thẻ chỉ số môi trường -->
+                <h6 class="fw-bold text-dark mb-3"><i class="fas fa-tint me-2 text-info"></i>ĐIỀU KIỆN MÔI TRƯỜNG THỦY SINH:</h6>
+                <div class="row g-3 mb-4">
+                    <!-- Nhiệt độ -->
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded h-100 bg-warning-subtle bg-opacity-25">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="fw-bold text-danger"><i class="fas fa-thermometer-half me-1"></i>Nhiệt độ nước:</span>
+                                <span class="badge bg-danger fs-6" id="resTempOptimal">24°C - 26°C</span>
+                            </div>
+                            <div class="small text-muted" id="resTempAlert">
+                                Cảnh báo IoT: < 20°C hoặc > 29°C
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Độ pH -->
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded h-100 bg-info-subtle bg-opacity-25">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="fw-bold text-primary"><i class="fas fa-flask me-1"></i>Độ pH tối ưu:</span>
+                                <span class="badge bg-primary fs-6" id="resPhOptimal">7.2 - 7.8</span>
+                            </div>
+                            <div class="small text-muted" id="resPhAlert">
+                                Cảnh báo IoT: < 6.8 hoặc > 8.5
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tầng nước -->
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded h-100 bg-success-subtle bg-opacity-25">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="fw-bold text-success"><i class="fas fa-layer-group me-1"></i>Tầng nước bơi:</span>
+                                <span class="badge bg-success" id="resWaterLayer">Tầng mặt & Giữa</span>
+                            </div>
+                            <div class="small text-muted" id="resWaterType">
+                                Nước ngọt nhiệt đới
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Oxy & Lọc -->
+                    <div class="col-sm-6">
+                        <div class="p-3 border rounded h-100 bg-primary-subtle bg-opacity-25">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="fw-bold text-dark"><i class="fas fa-wind me-1"></i>Nhu cầu Oxy:</span>
+                                <span class="badge bg-dark" id="resOxygenDemand">Trung bình</span>
+                            </div>
+                            <div class="small text-muted" id="resWaterClarity">
+                                Nước trong sạch
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yêu cầu môi trường bể & chế độ ăn -->
+                <div class="mb-3">
+                    <h6 class="fw-bold text-dark mb-2"><i class="fas fa-home me-2 text-primary"></i>Yêu cầu bể nuôi & tập tính:</h6>
+                    <div class="p-3 bg-light rounded small" id="resHabitatRequirements">
+                        Thông tin chi tiết môi trường bể...
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <h6 class="fw-bold text-dark mb-1 small"><i class="fas fa-utensils me-1 text-warning"></i>Thức ăn phù hợp:</h6>
+                        <div class="small text-muted" id="resDiet">Cám viên, trùng chỉ...</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h6 class="fw-bold text-dark mb-1 small"><i class="fas fa-users me-1 text-info"></i>Tính tương thích:</h6>
+                        <div class="small text-muted" id="resCompatibility">Bơi theo đàn, hiền lành...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let selectedIotFile = null;
+
+document.getElementById('iotFileInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    selectedIotFile = file;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+        document.getElementById('iotImagePreview').src = evt.target.result;
+        document.getElementById('iotImageName').textContent = file.name;
+        document.getElementById('iotImagePreviewContainer').classList.remove('d-none');
+        document.getElementById('iotPredictBtn').disabled = false;
+    };
+    reader.readAsDataURL(file);
+});
+
+function sendToIotAI() {
+    if (!selectedIotFile) return;
+
+    const btn = document.getElementById('iotPredictBtn');
+    const waitingPlaceholder = document.getElementById('iotWaitingPlaceholder');
+    const loadingState = document.getElementById('iotLoadingState');
+    const resultCard = document.getElementById('iotResultCard');
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang phân tích IoT...';
+    waitingPlaceholder.classList.add('d-none');
+    resultCard.classList.add('d-none');
+    loadingState.classList.remove('d-none');
+
+    const fd = new FormData();
+    fd.append('file', selectedIotFile);
+
+    fetch('/api/iot/predict', {
+        method: 'POST',
+        body: fd
+    })
+    .then(r => r.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-microchip me-2"></i>Gửi lên AI Phân Tích Môi Trường';
+        loadingState.classList.add('d-none');
+
+        if (data.success) {
+            resultCard.classList.remove('d-none');
+
+            const det = data.detection;
+            const env = data.aquatic_environment;
+            const sensors = data.iot_sensor_thresholds || {};
+
+            document.getElementById('resConfidence').textContent = `Độ tin cậy: ${det.confidence}% (${det.confidence_level})`;
+            document.getElementById('resSpeciesName').textContent = det.species_name;
+            document.getElementById('resScientificName').textContent = det.scientific_name || '';
+            document.getElementById('resVisualFeatures').textContent = det.visual_features || '';
+
+            document.getElementById('resTempOptimal').textContent = env.optimal_temperature;
+            document.getElementById('resTempAlert').textContent = `Cảnh báo cảm biến: ${sensors.temp_alert || 'N/A'}`;
+
+            document.getElementById('resPhOptimal').textContent = `pH ${env.optimal_ph}`;
+            document.getElementById('resPhAlert').textContent = `Cảnh báo cảm biến: ${sensors.ph_alert || 'N/A'}`;
+
+            document.getElementById('resWaterLayer').textContent = env.water_layer;
+            document.getElementById('resWaterType').textContent = env.water_type;
+
+            document.getElementById('resOxygenDemand').textContent = sensors.oxygen_demand || 'Trung bình';
+            document.getElementById('resWaterClarity').textContent = `Đánh giá nước: ${det.water_clarity || 'Bình thường'}`;
+
+            document.getElementById('resHabitatRequirements').textContent = env.habitat_requirements;
+            document.getElementById('resDiet').textContent = env.diet;
+            document.getElementById('resCompatibility').textContent = env.compatibility;
+
+            showToast(`Nhận diện thành công: ${det.species_name}!`, 'success');
+        } else {
+            waitingPlaceholder.classList.remove('d-none');
+            showToast(data.error || 'Lỗi nhận diện IoT', 'danger');
+        }
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-microchip me-2"></i>Gửi lên AI Phân Tích Môi Trường';
+        loadingState.classList.add('d-none');
+        waitingPlaceholder.classList.remove('d-none');
+        showToast('Lỗi kết nối máy chủ!', 'danger');
+    });
+}
+</script>
+{% endblock %}
