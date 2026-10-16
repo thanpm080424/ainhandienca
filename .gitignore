@@ -15,6 +15,9 @@ _temp_crawler/
 
 # Raw Image Dataset (Kept locally to avoid exceeding GitHub repository size limits)
 dataset_ca/
+dataset_yolo/
+runs/
+*.pt
 
 # Hash Cache
 dataset_hash_cache.json
