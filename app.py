@@ -1011,6 +1011,48 @@ Chỉ trả về JSON duy nhất."""
         return jsonify({'success': False, 'error': str(e)}), 500
 
 
+@app.route('/api/yolo_classify', methods=['POST'])
+def api_yolo_classify():
+    """Nhận diện loài cá bằng mô hình cục bộ YOLOv8 (Edge IoT AI - không cần internet)."""
+    if 'file' not in request.files:
+        return jsonify({'success': False, 'error': 'Chưa chọn file'}), 400
+
+    file = request.files['file']
+    if not file or not allowed_file(file.filename):
+        return jsonify({'success': False, 'error': 'File không hợp lệ'}), 400
+
+    try:
+        import predict_fish
+        temp_dir = os.path.join(BASE_DIR, '_temp_uploads')
+        os.makedirs(temp_dir, exist_ok=True)
+        temp_path = os.path.join(temp_dir, f"temp_{int(time.time())}_{file.filename}")
+        file.save(temp_path)
+
+        res = predict_fish.predict_image(temp_path, as_json=False)
+        try:
+            os.remove(temp_path)
+        except Exception:
+            pass
+
+        if not res or not res.get('success'):
+            return jsonify({'success': False, 'error': 'Lỗi khi chạy dự đoán YOLOv8'}), 500
+
+        top1 = res['top1']
+        return jsonify({
+            'success': True,
+            'model': 'YOLOv8 Edge AI',
+            'species_key': top1['species_key'],
+            'species_name': top1['name'],
+            'sci_name': top1['sci_name'],
+            'confidence': f"{top1['confidence']}%",
+            'environment': top1['environment'],
+            'top3': res['top3'],
+            'reason': f"Mô hình YOLOv8 nhận diện xác suất cao nhất: {top1['confidence']}%"
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
 @app.route('/api/audit/<species>', methods=['GET'])
 def api_audit(species):
     """Kiểm tra ảnh của loài theo từng đợt (chunk) bằng AI Gemini tránh timeout trình duyệt."""

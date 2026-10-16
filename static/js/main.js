@@ -146,14 +146,63 @@ function updateUploadButton() {
 
         if (hasFiles) {
             uploadBtn.innerHTML = `<i class="fas fa-upload me-2"></i>Tải lên ${selectedFiles.length} ảnh`;
-            const aiBtn = document.getElementById('aiDetectBtn');
-            if (aiBtn) aiBtn.style.display = 'inline-block';
+            const detectGroup = document.getElementById('detectBtnGroup') || document.getElementById('aiDetectBtn');
+            if (detectGroup) detectGroup.style.display = 'inline-flex';
         } else {
             uploadBtn.innerHTML = `<i class="fas fa-upload me-2"></i>Tải lên`;
-            const aiBtn = document.getElementById('aiDetectBtn');
-            if (aiBtn) aiBtn.style.display = 'none';
+            const detectGroup = document.getElementById('detectBtnGroup') || document.getElementById('aiDetectBtn');
+            if (detectGroup) detectGroup.style.display = 'none';
         }
     }
+}
+
+/**
+ * Nhận diện loài cá bằng mô hình YOLOv8 chạy trực tiếp cục bộ (Edge IoT)
+ */
+function detectFishWithYOLO() {
+    if (selectedFiles.length === 0) return;
+    const yoloBtn = document.getElementById('yoloDetectBtn');
+    const alertBox = document.getElementById('aiDetectAlert');
+    const select = document.getElementById('speciesSelect');
+
+    if (yoloBtn) {
+        yoloBtn.disabled = true;
+        yoloBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>YOLOv8 đang soi...';
+    }
+
+    const fd = new FormData();
+    fd.append('file', selectedFiles[0]);
+
+    fetch('/api/yolo_classify', {
+        method: 'POST',
+        body: fd
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (yoloBtn) {
+            yoloBtn.disabled = false;
+            yoloBtn.innerHTML = '<i class="fas fa-bolt me-1"></i>🚀 YOLOv8 Edge AI';
+        }
+
+        if (data.success && data.species_key) {
+            select.value = data.species_key;
+            updateUploadButton();
+            if (alertBox) {
+                alertBox.className = 'alert alert-success py-2 px-3 small';
+                alertBox.innerHTML = `<strong><i class="fas fa-bolt me-1"></i>YOLOv8 Nhận diện:</strong> ${data.species_name} (Độ tin cậy: ${data.confidence}). <br><span class="text-muted">Nhiệt độ IoT: ${data.environment.temperature} | pH IoT: ${data.environment.ph}</span>`;
+            }
+            showToast(`YOLOv8 nhận diện: ${data.species_name} (${data.confidence})!`, 'success');
+        } else {
+            showToast(data.error || 'YOLOv8 không nhận diện được.', 'warning');
+        }
+    })
+    .catch(err => {
+        if (yoloBtn) {
+            yoloBtn.disabled = false;
+            yoloBtn.innerHTML = '<i class="fas fa-bolt me-1"></i>🚀 YOLOv8 Edge AI';
+        }
+        showToast('Lỗi khi gọi YOLOv8 nhận diện', 'danger');
+    });
 }
 
 /**
@@ -178,7 +227,7 @@ function detectFishWithAI() {
     .then(r => r.json())
     .then(data => {
         aiBtn.disabled = false;
-        aiBtn.innerHTML = '<i class="fas fa-magic me-1"></i>🤖 AI Tự nhận diện từ ảnh';
+        aiBtn.innerHTML = '<i class="fas fa-magic me-1"></i>👁️ Gemini Vision';
 
         if (data.success && data.species_key) {
             select.value = data.species_key;
@@ -194,7 +243,7 @@ function detectFishWithAI() {
     })
     .catch(err => {
         aiBtn.disabled = false;
-        aiBtn.innerHTML = '<i class="fas fa-magic me-1"></i>🤖 AI Tự nhận diện từ ảnh';
+        aiBtn.innerHTML = '<i class="fas fa-magic me-1"></i>👁️ Gemini Vision';
         showToast('Lỗi khi gọi AI nhận diện', 'danger');
     });
 }

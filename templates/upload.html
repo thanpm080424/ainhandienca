@@ -16,9 +16,14 @@
                         <label for="speciesSelect" class="form-label fw-semibold mb-0">
                             <i class="fas fa-fish me-1"></i> Chọn loài cá
                         </label>
-                        <button type="button" class="btn btn-sm btn-outline-primary" id="aiDetectBtn" onclick="detectFishWithAI()" style="display: none;">
-                            <i class="fas fa-magic me-1"></i>🤖 AI Tự nhận diện từ ảnh
-                        </button>
+                        <div class="btn-group" id="detectBtnGroup" style="display: none;">
+                            <button type="button" class="btn btn-sm btn-outline-success" id="yoloDetectBtn" onclick="detectFishWithYOLO()">
+                                <i class="fas fa-bolt me-1"></i>🚀 YOLOv8 Edge AI
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-primary" id="aiDetectBtn" onclick="detectFishWithAI()">
+                                <i class="fas fa-magic me-1"></i>👁️ Gemini Vision
+                            </button>
+                        </div>
                     </div>
                     <select class="form-select form-select-lg" id="speciesSelect">
                         <option value="">-- Chọn loài cá --</option>
