@@ -29,9 +29,9 @@
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-body p-4">
         <div class="row g-3 align-items-end">
-            <div class="col-md-5">
-                <label class="form-label fw-semibold"><i class="fas fa-fish me-1"></i>Chọn loài cá cần quét kiểm tra:</label>
-                <select class="form-select form-select-lg" id="auditSpeciesSelect">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold"><i class="fas fa-fish me-1"></i>Chọn loài cá cần quét:</label>
+                <select class="form-select" id="auditSpeciesSelect">
                     {% for s in stats|sort(attribute='name') %}
                     <option value="{{ s.folder }}" data-count="{{ s.count }}">
                         {{ s.name }} ({{ s.count }} ảnh hiện có)
@@ -40,21 +40,36 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-md-4">
-                <label class="form-label fw-semibold"><i class="fas fa-tachometer-alt me-1"></i>Số lượng ảnh muốn quét:</label>
-                <select class="form-select form-select-lg" id="auditLimitSelect">
+            <div class="col-md-3">
+                <label class="form-label fw-semibold"><i class="fas fa-tachometer-alt me-1"></i>Số lượng ảnh:</label>
+                <select class="form-select" id="auditLimitSelect">
                     <option value="15" selected>15 ảnh mẫu</option>
                     <option value="30">30 ảnh</option>
                     <option value="50">50 ảnh</option>
                     <option value="100">100 ảnh</option>
-                    <option value="200">200 ảnh</option>
-                    <option value="all">⚡ Toàn bộ thư mục loài này</option>
+                    <option value="all">⚡ Toàn bộ thư mục loài</option>
                 </select>
             </div>
             <div class="col-md-3">
-                <button class="btn btn-primary btn-lg w-100" id="startAuditBtn" onclick="startAudit()">
-                    <i class="fas fa-search me-2"></i>Bắt đầu quét AI
+                <label class="form-label fw-semibold"><i class="fas fa-microchip me-1"></i>Công nghệ AI duyệt:</label>
+                <select class="form-select border-primary" id="auditEngineSelect">
+                    <option value="yolo" selected>🚀 YOLOv8 Edge AI (Cực Nhanh, Không Cần Mạng)</option>
+                    <option value="gemini">👁️ Gemini Vision (Cần API Key)</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100" id="startAuditBtn" onclick="startAudit()">
+                    <i class="fas fa-search me-1"></i>Bắt đầu duyệt
                 </button>
+            </div>
+            <div class="col-12 mt-2 pt-1 border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" id="autoQuarantineCheck" checked>
+                    <label class="form-check-label small fw-semibold text-danger" for="autoQuarantineCheck">
+                        <i class="fas fa-shield-alt me-1"></i>Tự động cách ly ảnh sai/mờ vào thư mục <code>_anh_nghi_ngo/</code> ngay khi phát hiện
+                    </label>
+                </div>
+                <small class="text-muted"><i class="fas fa-info-circle me-1"></i>YOLOv8 Edge duyệt ~5ms/ảnh, độ chính xác cao dựa trên nhận diện thị giác.</small>
             </div>
         </div>
     </div>
@@ -184,7 +199,10 @@ async function startAudit() {
     document.getElementById('auditResultsTitle').innerHTML = 
         `<i class="fas fa-clipboard-check me-2"></i>Kết quả thẩm định: <strong>${speciesName}</strong>`;
 
-    const CHUNK_SIZE = 15;
+    const engine = document.getElementById('auditEngineSelect')?.value || 'yolo';
+    const autoQuarantine = document.getElementById('autoQuarantineCheck')?.checked || false;
+
+    const CHUNK_SIZE = (engine === 'yolo') ? 40 : 15;
     let offset = 0;
 
     while (offset < targetTotal && !shouldStopAudit) {
@@ -195,11 +213,11 @@ async function startAudit() {
         document.getElementById('auditProgressBar').style.width = percent + '%';
         document.getElementById('auditProgressPercent').textContent = percent + '%';
         document.getElementById('auditProgressTitle').innerHTML = 
-            `<i class="fas fa-spinner fa-spin me-2"></i>Đang quét: <strong>${speciesName}</strong> [${offset}/${targetTotal} ảnh]`;
+            `<i class="fas fa-spinner fa-spin me-2"></i>Đang duyệt: <strong>${speciesName}</strong> [${offset}/${targetTotal} ảnh]`;
         document.getElementById('auditProgressCount').textContent = `Đã thẩm định ${offset}/${targetTotal} ảnh (${suspectCount} nghi ngờ)`;
 
         try {
-            const resp = await fetch(`/api/audit/${species}?offset=${offset}&limit=${batchLimit}`);
+            const resp = await fetch(`/api/audit/${species}?offset=${offset}&limit=${batchLimit}&engine=${engine}&auto_quarantine=${autoQuarantine}`);
             const data = await resp.json();
 
             if (!data.success) {

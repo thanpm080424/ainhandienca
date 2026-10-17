@@ -45,11 +45,21 @@ SPECIES_MAP = {
 }
 
 
+_CACHED_MODEL = None
+_CACHED_PATH = None
+
 def load_model():
+    global _CACHED_MODEL, _CACHED_PATH
+    if _CACHED_MODEL is not None:
+        return _CACHED_MODEL, _CACHED_PATH
+
     for p in MODEL_PATHS:
         if os.path.exists(p):
-            return YOLO(p), p
+            _CACHED_MODEL = YOLO(p)
+            _CACHED_PATH = p
+            return _CACHED_MODEL, _CACHED_PATH
     return None, None
+
 
 
 def predict_image(image_path, as_json=False):

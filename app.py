@@ -1146,9 +1146,14 @@ def api_yolo_classify():
 
 @app.route('/api/audit/<species>', methods=['GET'])
 def api_audit(species):
-    """Kiểm tra ảnh của loài theo từng đợt (chunk) bằng AI Gemini tránh timeout trình duyệt."""
-    if not gemini_client:
-        return jsonify({'success': False, 'error': 'Chưa cấu hình GEMINI_API_KEY'}), 500
+    """Kiểm tra ảnh của loài theo từng đợt (chunk) bằng YOLOv8 Edge AI hoặc Gemini Vision."""
+    engine = request.args.get('engine', 'auto').lower()
+    auto_quarantine = request.args.get('auto_quarantine', 'false').lower() == 'true'
+
+    use_gemini = (engine == 'gemini') or (engine == 'auto' and gemini_client is not None)
+
+    if engine == 'gemini' and not gemini_client:
+        return jsonify({'success': False, 'error': 'Chưa cấu hình GEMINI_API_KEY để dùng Gemini Vision'}), 500
 
     if species not in SPECIES_MAP:
         return jsonify({'success': False, 'error': 'Loài không hợp lệ'}), 400
@@ -1159,7 +1164,7 @@ def api_audit(species):
     if not os.path.exists(folder):
         return jsonify({'success': True, 'results': [], 'total_scanned': 0, 'total_in_folder': 0, 'done': True})
 
-    valid_ext = ('.jpg', '.jpeg', '.png', '.webp')
+    valid_ext = ('.jpg', '.jpeg', '.png', '.webp', '.bmp')
     all_files = [f for f in sorted(os.listdir(folder)) if f.lower().endswith(valid_ext)]
     total_in_folder = len(all_files)
     files = all_files[offset : offset + limit]
@@ -1168,13 +1173,16 @@ def api_audit(species):
     results = []
 
     audit_data = load_audit_log()
+    engine_name = 'Gemini Vision' if use_gemini else 'YOLOv8 Edge AI'
     audit_data['current_status'] = {
         'is_busy': True,
-        'action': f"Đang quét kiểm tra: {SPECIES_MAP[species]}",
+        'action': f"Đang quét kiểm tra ({engine_name}): {SPECIES_MAP[species]}",
         'item': f"Đợt [{offset+1}-{offset+len(files)} / {total_in_folder}] ảnh",
         'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
     save_audit_log(audit_data)
+
+    import predict_fish
 
     for idx, fname in enumerate(files):
         p = os.path.join(folder, fname)
@@ -1182,11 +1190,15 @@ def api_audit(species):
         audit_data['current_status']['item'] = f"[{curr_num}/{total_in_folder}] {fname[:35]}..."
         save_audit_log(audit_data)
 
-        try:
-            img = Image.open(p)
-            img.thumbnail((512, 512))
+        md5_val, blur_score = check_image_quality(p)
+        is_blur = (blur_score > 0 and blur_score < 18.0)
 
-            prompt = f"""Phân tích ảnh này xem có đúng là: {spec_desc} không.
+        if use_gemini:
+            try:
+                img = Image.open(p)
+                img.thumbnail((512, 512))
+
+                prompt = f"""Phân tích ảnh này xem có đúng là: {spec_desc} không.
 Trả về JSON:
 {{
     "is_fish": true,
@@ -1198,70 +1210,160 @@ Trả về JSON:
 }}
 Chỉ trả về JSON duy nhất."""
 
-            response, used_model = call_gemini_vision(
-                gemini_client,
-                contents=[img, prompt]
-            )
+                response, used_model = call_gemini_vision(
+                    gemini_client,
+                    contents=[img, prompt]
+                )
 
-            text = response.text.strip()
-            if text.startswith('```json'):
-                text = text[7:-3].strip()
-            elif text.startswith('```'):
-                text = text[3:-3].strip()
-            parsed = json.loads(text)
+                text = response.text.strip()
+                if text.startswith('```json'):
+                    text = text[7:-3].strip()
+                elif text.startswith('```'):
+                    text = text[3:-3].strip()
+                parsed = json.loads(text)
 
-            is_ok = parsed.get('is_fish') and parsed.get('is_correct')
-            res_entry = {
-                'file': fname,
-                'is_correct': is_ok,
-                'status': 'Đúng' if is_ok else 'Nghi ngờ sai',
-                'identified_as': parsed.get('identified_as', ''),
-                'suggested_key': parsed.get('suggested_key', 'khac'),
-                'reason': parsed.get('reason', '')
-            }
-            results.append(res_entry)
+                is_ok = parsed.get('is_fish') and parsed.get('is_correct')
+                res_entry = {
+                    'file': fname,
+                    'is_correct': is_ok,
+                    'status': 'Đúng chuẩn' if is_ok else 'Nghi ngờ sai',
+                    'identified_as': parsed.get('identified_as', ''),
+                    'suggested_key': parsed.get('suggested_key', 'khac'),
+                    'reason': parsed.get('reason', ''),
+                    'engine': used_model
+                }
+                time.sleep(0.5)
+            except Exception as e:
+                # Fallback sang YOLOv8 nếu Gemini gặp lỗi
+                pred_res = predict_fish.predict_image(p, as_json=False)
+                if pred_res and pred_res.get('success'):
+                    top1 = pred_res.get('top1', {})
+                    pred_key = top1.get('species_key')
+                    pred_name = top1.get('name')
+                    conf = top1.get('confidence', 0.0)
+                    is_ok = (pred_key == species) and not is_blur
+                    res_entry = {
+                        'file': fname,
+                        'is_correct': is_ok,
+                        'status': 'Đúng chuẩn' if is_ok else ('Ảnh mờ' if is_blur else 'Nghi ngờ sai loài'),
+                        'identified_as': pred_name,
+                        'suggested_key': pred_key,
+                        'reason': f"YOLOv8 Edge: {pred_name} ({conf:.1f}%)" if is_ok else f"YOLOv8 nhận diện {pred_name} ({conf:.1f}%) thay vì {SPECIES_MAP[species]}",
+                        'engine': 'YOLOv8 (Fallback)'
+                    }
+                else:
+                    res_entry = {
+                        'file': fname,
+                        'is_correct': False,
+                        'status': 'Lỗi quét',
+                        'identified_as': 'Lỗi',
+                        'suggested_key': 'khac',
+                        'reason': str(e),
+                        'engine': 'Error'
+                    }
+        else:
+            # Chạy trực tiếp bằng YOLOv8 Edge AI siêu tốc (~5ms)
+            try:
+                pred_res = predict_fish.predict_image(p, as_json=False)
+                if pred_res and pred_res.get('success'):
+                    top1 = pred_res.get('top1', {})
+                    pred_key = top1.get('species_key')
+                    pred_name = top1.get('name')
+                    conf = top1.get('confidence', 0.0)
 
-            # Record into audit history
-            now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            if is_ok:
-                audit_data['recent_approved'].insert(0, {
+                    if is_blur:
+                        is_ok = False
+                        status_str = 'Ảnh mờ/Kém nét'
+                        reason_str = f"Độ nét Laplacian quá thấp ({blur_score} < 18). Ảnh mờ hoặc rung nhòe."
+                    elif pred_key == species:
+                        is_ok = True
+                        status_str = 'Đúng chuẩn'
+                        reason_str = f"YOLOv8 đối chiếu chính xác đặc trưng {pred_name} (Độ tin cậy: {conf:.1f}%)"
+                    else:
+                        is_ok = False
+                        status_str = 'Nghi ngờ sai loài'
+                        reason_str = f"YOLOv8 phát hiện đặc trưng giống {pred_name} ({conf:.1f}%) hơn là {SPECIES_MAP[species]}"
+
+                    res_entry = {
+                        'file': fname,
+                        'is_correct': is_ok,
+                        'status': status_str,
+                        'identified_as': pred_name,
+                        'suggested_key': pred_key,
+                        'reason': reason_str,
+                        'blur_score': blur_score,
+                        'confidence': f"{conf:.1f}%",
+                        'engine': 'YOLOv8 Edge AI'
+                    }
+                else:
+                    res_entry = {
+                        'file': fname,
+                        'is_correct': False,
+                        'status': 'Lỗi nhận diện',
+                        'identified_as': 'Không rõ',
+                        'suggested_key': 'khac',
+                        'reason': 'Không chạy được mô hình nhận diện',
+                        'engine': 'YOLOv8 Edge AI'
+                    }
+            except Exception as e:
+                res_entry = {
+                    'file': fname,
+                    'is_correct': False,
+                    'status': 'Lỗi file ảnh',
+                    'identified_as': 'Lỗi',
+                    'suggested_key': 'khac',
+                    'reason': str(e),
+                    'engine': 'YOLOv8 Edge AI'
+                }
+
+        # Tự động cách ly nếu auto_quarantine=True và ảnh không đạt
+        if auto_quarantine and not res_entry.get('is_correct'):
+            suspect_sub = os.path.join(DATASET_DIR, '_anh_nghi_ngo', species)
+            os.makedirs(suspect_sub, exist_ok=True)
+            target_suspect_path = os.path.join(suspect_sub, fname)
+            try:
+                shutil.move(p, target_suspect_path)
+                res_entry['auto_quarantined'] = True
+                res_entry['status'] += ' (Đã tự động cách ly)'
+            except Exception:
+                pass
+
+        results.append(res_entry)
+
+        # Cập nhật lịch sử audit
+        now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        if res_entry.get('is_correct'):
+            audit_data['recent_approved'].insert(0, {
+                'filename': fname,
+                'species': species,
+                'species_name': SPECIES_MAP[species],
+                'identified_as': res_entry.get('identified_as', SPECIES_MAP[species]),
+                'confidence': res_entry.get('confidence', 'high'),
+                'reason': res_entry.get('reason', 'Đặc điểm cá chuẩn loài.'),
+                'source': f"Kiểm định {res_entry.get('engine', 'AI')}",
+                'timestamp': now_str
+            })
+            if len(audit_data['recent_approved']) > 50:
+                audit_data['recent_approved'] = audit_data['recent_approved'][:50]
+        else:
+            exists = any(item.get('filename') == fname and item.get('original_species') == species
+                         for item in audit_data['flagged_wrong'])
+            if not exists:
+                audit_data['flagged_wrong'].insert(0, {
+                    'id': f"flag_{int(time.time()*1000)}_{curr_num}",
                     'filename': fname,
-                    'species': species,
-                    'species_name': SPECIES_MAP[species],
-                    'identified_as': parsed.get('identified_as', SPECIES_MAP[species]),
-                    'confidence': parsed.get('confidence', 'high'),
-                    'reason': parsed.get('reason', 'Đặc điểm cá chuẩn loài.'),
-                    'source': 'Bộ lọc AI Kiểm Định',
+                    'original_species': species,
+                    'original_species_name': SPECIES_MAP[species],
+                    'detected_as': res_entry.get('identified_as', 'Không rõ / Khác'),
+                    'suggested_species_key': res_entry.get('suggested_key', 'khac'),
+                    'reason': res_entry.get('reason', 'Ảnh nghi ngờ không đúng chuẩn.'),
                     'timestamp': now_str
                 })
-                audit_data['recent_approved'] = audit_data['recent_approved'][:30]
-            else:
-                exists = any(item.get('filename') == fname and item.get('original_species') == species
-                             for item in audit_data['flagged_wrong'])
-                if not exists:
-                    audit_data['flagged_wrong'].insert(0, {
-                        'id': f"flag_{int(time.time())}_{curr_num}",
-                        'filename': fname,
-                        'original_species': species,
-                        'original_species_name': SPECIES_MAP[species],
-                        'detected_as': parsed.get('identified_as', 'Không rõ / Khác'),
-                        'suggested_species_key': parsed.get('suggested_key', 'khac'),
-                        'reason': parsed.get('reason', 'Ảnh không đúng loài cá này.'),
-                        'timestamp': now_str
-                    })
+                if len(audit_data['flagged_wrong']) > 50:
                     audit_data['flagged_wrong'] = audit_data['flagged_wrong'][:50]
 
-            save_audit_log(audit_data)
-            time.sleep(0.8)
-        except Exception as e:
-            results.append({
-                'file': fname,
-                'is_correct': False,
-                'status': 'Lỗi quét',
-                'identified_as': 'Lỗi',
-                'suggested_key': 'khac',
-                'reason': str(e)
-            })
+        save_audit_log(audit_data)
+
 
     is_done = (offset + len(files) >= total_in_folder)
     audit_data['current_status'] = {
