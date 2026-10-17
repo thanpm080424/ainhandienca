@@ -130,11 +130,12 @@ python evaluate_model.py
 **Bảng kết quả benchmark trên CPU (Intel Core i7):**
 | Chỉ số (Metric) | Kết quả thực nghiệm | Ý nghĩa đồ án IoT |
 |:---|:---:|:---|
-| **Top-1 Accuracy** | **58.92%** | Độ chính xác nhận diện tuyệt đối |
-| **Top-5 Accuracy** | **83.12%** | Khả năng nằm trong Top-5 gợi ý hàng đầu |
-| **Inference Latency** | **5.12 ms / ảnh** | Cực nhanh, đáp ứng thời gian thực (Real-time) |
-| **Tốc độ xử lý (FPS)** | **~195 FPS** | Xử lý mượt mà luồng stream từ camera hồ cá |
+| **Top-1 Accuracy** | **72.29%** | Độ chính xác nhận diện tuyệt đối (Tăng từ 58.9%) |
+| **Top-5 Accuracy** | **89.33%** | Khả năng nằm trong Top-5 gợi ý hàng đầu (Tăng từ 83.1%) |
+| **Inference Latency** | **6.02 ms / ảnh** | Cực nhanh, đáp ứng thời gian thực (Real-time) |
+| **Tốc độ xử lý (FPS)** | **~166.1 FPS** | Xử lý mượt mà luồng stream từ camera hồ cá |
 | **Định dạng Edge** | **ONNX (5.6 MB)** | Nhẹ, dễ dàng nạp lên thiết bị nhúng |
+
 
 ### 8. Huấn Luyện Lại Hoặc Tinh Chỉnh Mô Hình (Tùy Chọn)
 ```bash

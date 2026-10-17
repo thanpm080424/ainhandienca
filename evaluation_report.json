@@ -5,8 +5,8 @@
     "Pham Minh Than (DH52201428)"
   ],
   "model": "YOLOv8n-cls",
-  "top1_accuracy": 58.92,
-  "top5_accuracy": 83.12,
-  "speed_ms_per_image": 5.12071019111781,
-  "timestamp": "2026-10-17 16:13:42"
+  "top1_accuracy": 72.29,
+  "top5_accuracy": 89.33,
+  "speed_ms_per_image": 6.020923885501992,
+  "timestamp": "2026-10-17 20:43:49"
 }
