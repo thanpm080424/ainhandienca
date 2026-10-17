@@ -12,6 +12,7 @@ venv/
 *.tar.gz
 *.rar
 _temp_crawler/
+_temp_uploads/
 
 # Raw Image Dataset (Kept locally to avoid exceeding GitHub repository size limits)
 dataset_ca/
