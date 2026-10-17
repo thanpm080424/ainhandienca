@@ -65,6 +65,28 @@ def check_image_quality(img_path):
     return md5_val, blur_score
 
 
+_FACE_CASCADE = None
+
+def detect_human_face(img_path):
+    """Phát hiện khuôn mặt người bằng OpenCV Haar Cascade để loại bỏ ảnh người/hội thảo."""
+    global _FACE_CASCADE
+    try:
+        if _FACE_CASCADE is None:
+            import cv2
+            cascade_p = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
+            _FACE_CASCADE = cv2.CascadeClassifier(cascade_p)
+        from PIL import Image
+        import numpy as np
+        import cv2
+        im = Image.open(img_path).convert('RGB')
+        im.thumbnail((640, 640))
+        gray = cv2.cvtColor(np.array(im), cv2.COLOR_RGB2GRAY)
+        faces = _FACE_CASCADE.detectMultiScale(gray, 1.1, 4)
+        return len(faces) > 0, len(faces)
+    except Exception:
+        return False, 0
+
+
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
 if not GEMINI_API_KEY:
     env_file = os.path.join(BASE_DIR, '.env')
@@ -989,6 +1011,16 @@ def api_upload():
         temp_path = os.path.join(TEMP_UPLOADS_DIR, f"upl_{int(time.time() * 1000)}_{raw_filename}")
         file.save(temp_path)
 
+        # Lọc an toàn: Từ chối ảnh có khuôn mặt người (tránh nhầm người/hội thảo vào dataset)
+        has_human, face_cnt = detect_human_face(temp_path)
+        if has_human:
+            try:
+                os.remove(temp_path)
+            except Exception:
+                pass
+            errors.append(f"Từ chối '{file.filename}': Phát hiện {face_cnt} khuôn mặt người trong ảnh. Hệ thống chỉ chấp nhận ảnh cá cảnh thật!")
+            continue
+
         md5_val, blur_score = check_image_quality(temp_path)
 
         # Chạy YOLOv8 nhận diện nhanh (~5ms)
@@ -1283,16 +1315,26 @@ Chỉ trả về JSON duy nhất."""
                     top1 = pred_res.get('top1', {})
                     pred_key = top1.get('species_key')
                     pred_name = top1.get('name')
-                    conf = top1.get('confidence', 0.0)
+                    has_human, face_cnt = detect_human_face(p)
 
-                    if is_blur:
+                    if has_human:
+                        is_ok = False
+                        status_str = 'Ảnh có người / Không phải cá'
+                        reason_str = f"OpenCV Face Guard phát hiện {face_cnt} khuôn mặt người trong ảnh. Không phải cá cảnh!"
+                        pred_name = "Người / Hội thảo"
+                        pred_key = "khac"
+                    elif is_blur:
                         is_ok = False
                         status_str = 'Ảnh mờ/Kém nét'
                         reason_str = f"Độ nét Laplacian quá thấp ({blur_score} < 18). Ảnh mờ hoặc rung nhòe."
-                    elif pred_key == species:
+                    elif pred_key == species and conf >= 45.0:
                         is_ok = True
                         status_str = 'Đúng chuẩn'
                         reason_str = f"YOLOv8 đối chiếu chính xác đặc trưng {pred_name} (Độ tin cậy: {conf:.1f}%)"
+                    elif pred_key == species and conf < 45.0:
+                        is_ok = False
+                        status_str = 'Độ tin cậy thấp'
+                        reason_str = f"YOLOv8 nhận diện {pred_name} nhưng độ tin cậy quá thấp ({conf:.1f}% < 45%)"
                     else:
                         is_ok = False
                         status_str = 'Nghi ngờ sai loài'
