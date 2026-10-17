@@ -132,29 +132,42 @@ function clearPreview() {
     document.getElementById('fileInput').value = '';
 }
 
-/**
- * Cập nhật trạng thái nút upload
- */
 function updateUploadButton() {
     const uploadBtn = document.getElementById('uploadBtn');
     const speciesSelect = document.getElementById('speciesSelect');
+    const smartNote = document.getElementById('smartAutoNote');
 
     if (uploadBtn) {
         const hasFiles = selectedFiles.length > 0;
-        const hasSpecies = speciesSelect && speciesSelect.value !== '';
+        const isAuto = !speciesSelect || speciesSelect.value === 'auto' || speciesSelect.value === '';
+        const hasSpecies = Boolean(speciesSelect && speciesSelect.value !== '');
+
+        if (smartNote) {
+            smartNote.style.display = isAuto ? 'block' : 'none';
+        }
+
         uploadBtn.disabled = !(hasFiles && hasSpecies);
 
         if (hasFiles) {
-            uploadBtn.innerHTML = `<i class="fas fa-upload me-2"></i>Tải lên ${selectedFiles.length} ảnh`;
+            if (isAuto) {
+                uploadBtn.className = 'btn btn-primary btn-lg shadow-sm';
+                uploadBtn.innerHTML = `<i class="fas fa-bolt text-warning me-2"></i>🚀 Tải lên & AI Tự Động Phân Loại (${selectedFiles.length} ảnh)`;
+            } else {
+                uploadBtn.className = 'btn btn-success btn-lg';
+                const sName = speciesSelect.options[speciesSelect.selectedIndex]?.text.split('(')[0].trim() || 'Loài đã chọn';
+                uploadBtn.innerHTML = `<i class="fas fa-upload me-2"></i>Tải lên ${selectedFiles.length} ảnh vào ${sName}`;
+            }
             const detectGroup = document.getElementById('detectBtnGroup') || document.getElementById('aiDetectBtn');
             if (detectGroup) detectGroup.style.display = 'inline-flex';
         } else {
+            uploadBtn.className = 'btn btn-success btn-lg';
             uploadBtn.innerHTML = `<i class="fas fa-upload me-2"></i>Tải lên`;
             const detectGroup = document.getElementById('detectBtnGroup') || document.getElementById('aiDetectBtn');
             if (detectGroup) detectGroup.style.display = 'none';
         }
     }
 }
+
 
 /**
  * Nhận diện loài cá bằng mô hình YOLOv8 chạy trực tiếp cục bộ (Edge IoT)
@@ -312,20 +325,86 @@ function uploadFiles() {
 
         if (xhr.status === 200) {
             const data = JSON.parse(xhr.responseText);
-            resultDiv.innerHTML = `
-                <div class="alert alert-success">
-                    <h6><i class="fas fa-check-circle me-2"></i>Tải lên thành công!</h6>
-                    <p class="mb-1">Đã thêm <strong>${data.uploaded_count}</strong> ảnh vào <strong>${data.species_name}</strong></p>
-                    ${data.errors.length > 0 ? '<p class="text-danger mb-0"><small>' + data.errors.join('<br>') + '</small></p>' : ''}
-                    <hr>
-                    <a href="/gallery/${data.species}" class="btn btn-sm btn-outline-success me-2">
-                        <i class="fas fa-images me-1"></i>Xem ảnh
-                    </a>
-                    <button class="btn btn-sm btn-outline-primary" onclick="location.reload()">
-                        <i class="fas fa-plus me-1"></i>Thêm ảnh tiếp
-                    </button>
-                </div>
-            `;
+            if (data.mode === 'auto') {
+                let summaryBadges = '';
+                if (data.species_summary) {
+                    for (const [sKey, sCount] of Object.entries(data.species_summary)) {
+                        summaryBadges += `<a href="/gallery/${sKey}" class="badge bg-primary text-decoration-none p-2 me-2 mb-2"><i class="fas fa-fish me-1"></i>${sKey}: <strong>+${sCount}</strong> ảnh</a>`;
+                    }
+                }
+
+                let itemsTable = '';
+                if (data.items && data.items.length > 0) {
+                    itemsTable = `
+                        <div class="table-responsive mt-3" style="max-height: 250px; overflow-y: auto;">
+                            <table class="table table-sm table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Tên file</th>
+                                        <th>AI Nhận diện</th>
+                                        <th>Độ tin cậy</th>
+                                        <th>Độ nét (Laplacian)</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${data.items.map(it => `
+                                        <tr>
+                                            <td class="small text-truncate" style="max-width: 160px;" title="${it.original_name}">${it.original_name}</td>
+                                            <td><span class="badge bg-success-subtle text-success border border-success">${it.species_name}</span></td>
+                                            <td><strong>${it.confidence.toFixed(1)}%</strong></td>
+                                            <td><span class="badge ${it.is_sharp ? 'bg-light text-dark' : 'bg-warning text-dark'}">${it.blur_score}</span></td>
+                                            <td><i class="fas fa-check-circle text-success me-1"></i>Đã nạp</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+                }
+
+                resultDiv.innerHTML = `
+                    <div class="alert alert-success border-0 shadow-sm p-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-bolt fa-2x text-warning me-3"></i>
+                            <div>
+                                <h5 class="mb-0 text-success fw-bold">🚀 AI Tự Động Phân Loại Thành Công!</h5>
+                                <small class="text-muted">Đã nhận diện & nạp ${data.uploaded_count} ảnh vào các thư mục tương ứng trong ~vài mili-giây</small>
+                            </div>
+                        </div>
+                        <hr class="my-2">
+                        <div class="d-flex flex-wrap align-items-center mt-2 mb-1">
+                            <span class="fw-semibold me-2 small">Phân bố loài:</span>
+                            ${summaryBadges}
+                        </div>
+                        ${itemsTable}
+                        ${data.errors.length > 0 ? '<div class="alert alert-warning py-1 px-2 mt-2 mb-0 small">' + data.errors.join('<br>') + '</div>' : ''}
+                        <div class="mt-3 d-flex justify-content-between">
+                            <button class="btn btn-sm btn-outline-primary" onclick="clearPreview(); document.getElementById('uploadResult').classList.add('d-none');">
+                                <i class="fas fa-plus me-1"></i>Thêm tiếp đợt ảnh khác
+                            </button>
+                            <a href="/" class="btn btn-sm btn-success">
+                                <i class="fas fa-chart-line me-1"></i>Về Dashboard xem tiến độ
+                            </a>
+                        </div>
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        <h6><i class="fas fa-check-circle me-2"></i>Tải lên thành công!</h6>
+                        <p class="mb-1">Đã thêm <strong>${data.uploaded_count}</strong> ảnh vào <strong>${data.species_name}</strong></p>
+                        ${data.errors.length > 0 ? '<p class="text-danger mb-0"><small>' + data.errors.join('<br>') + '</small></p>' : ''}
+                        <hr>
+                        <a href="/gallery/${data.species}" class="btn btn-sm btn-outline-success me-2">
+                            <i class="fas fa-images me-1"></i>Xem ảnh
+                        </a>
+                        <button class="btn btn-sm btn-outline-primary" onclick="location.reload()">
+                            <i class="fas fa-plus me-1"></i>Thêm ảnh tiếp
+                        </button>
+                    </div>
+                `;
+            }
             clearPreview();
         } else {
             const data = JSON.parse(xhr.responseText);

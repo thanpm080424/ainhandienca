@@ -25,17 +25,22 @@
                             </button>
                         </div>
                     </div>
-                    <select class="form-select form-select-lg" id="speciesSelect">
-                        <option value="">-- Chọn loài cá --</option>
-                        {% for s in stats|sort(attribute='name') %}
-                        <option value="{{ s.folder }}"
-                                data-count="{{ s.count }}"
-                                data-status="{{ s.status }}">
-                            {{ s.name }} ({{ s.count }} ảnh)
-                            {% if s.status != 'enough' %} ⚠️ Cần thêm {{ s.need_more }}{% endif %}
-                        </option>
-                        {% endfor %}
+                    <select class="form-select form-select-lg border-primary shadow-sm" id="speciesSelect">
+                        <option value="auto" selected>✨ 🤖 Tự Động Phân Loại Bằng AI (YOLOv8 Edge - Nhanh & Chính Xác Nhất)</option>
+                        <optgroup label="── Hoặc chọn cố định 1 loài cụ thể ──">
+                            {% for s in stats|sort(attribute='name') %}
+                            <option value="{{ s.folder }}"
+                                    data-count="{{ s.count }}"
+                                    data-status="{{ s.status }}">
+                                {{ s.name }} ({{ s.count }} ảnh)
+                                {% if s.status != 'enough' %} ⚠️ Cần thêm {{ s.need_more }}{% endif %}
+                            </option>
+                            {% endfor %}
+                        </optgroup>
                     </select>
+                    <div id="smartAutoNote" class="form-text text-primary mt-1">
+                        <i class="fas fa-magic me-1"></i><strong>Chế độ thông minh:</strong> Bạn chỉ cần kéo thả 1 hoặc nhiều ảnh của bất kỳ loài nào, mô hình YOLOv8 Edge AI sẽ tự động soi đặc điểm và phân loại vào đúng thư mục chỉ trong vài mili-giây!
+                    </div>
                     <div id="aiDetectAlert" class="mt-2 d-none"></div>
                 </div>
 

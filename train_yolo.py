@@ -23,15 +23,23 @@ OUTPUT_DIR = os.path.join(BASE_DIR, 'runs')
 WEIGHTS_DIR = os.path.join(BASE_DIR, 'weights')
 
 
-def train_fish_model(model_size='n', epochs=20, batch_size=16, imgsz=224):
+def train_fish_model(model_size='n', epochs=15, batch_size=16, imgsz=224):
     device = '0' if torch.cuda.is_available() else 'cpu'
+    if device == 'cpu':
+        # Tối ưu hóa đa luồng trên CPU Intel Core i7
+        try:
+            torch.set_num_threads(8)
+        except Exception:
+            pass
+
     model_name = f'yolov8{model_size}-cls.pt'
 
     print("=" * 70)
     print("🎯 KHỞI ĐỘNG HUẤN LUYỆN YOLOV8 CLASSIFICATION (20 LOÀI CÁ CẢNH)")
+    print("   Sinh viên thực hiện: Lê Quốc Trí (DH52201621) & Phạm Minh Thân (DH52201428)")
     print("=" * 70)
     print(f"📦 Mô hình gốc:     {model_name}")
-    print(f"⚙️ Thiết bị:        {device.upper()} ({torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU Processor'})")
+    print(f"⚙️ Thiết bị:        {device.upper()} ({torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'Intel Core CPU 8-Threads Multi-Core'})")
     print(f"📊 Số Epochs:       {epochs}")
     print(f"📏 Kích thước ảnh:  {imgsz}x{imgsz}")
     print(f"📦 Batch size:      {batch_size}")
@@ -55,7 +63,7 @@ def train_fish_model(model_size='n', epochs=20, batch_size=16, imgsz=224):
         project=os.path.join(OUTPUT_DIR, 'classify'),
         name='fish_yolov8_model',
         exist_ok=True,
-        workers=2,
+        workers=4,
         verbose=True
     )
 
@@ -66,16 +74,16 @@ def train_fish_model(model_size='n', epochs=20, batch_size=16, imgsz=224):
     # Đánh giá trên tập Validation
     print("📊 Đang đánh giá độ chính xác (Validation)...")
     val_results = model.val()
-    print(f"✅ Top-1 Accuracy: {val_results.top1:.4f} ({val_results.top1*100:.2f}%)")
-    print(f"✅ Top-5 Accuracy: {val_results.top5:.4f} ({val_results.top5*100:.2f}%)")
+    print(f"✅ Val Top-1 Accuracy: {val_results.top1:.4f} ({val_results.top1*100:.2f}%)")
+    print(f"✅ Val Top-5 Accuracy: {val_results.top5:.4f} ({val_results.top5*100:.2f}%)")
 
     # Lưu trọng số mô hình tốt nhất vào thư mục weights/
     os.makedirs(WEIGHTS_DIR, exist_ok=True)
     best_pt_path = os.path.join(OUTPUT_DIR, 'classify', 'fish_yolov8_model', 'weights', 'best.pt')
     target_pt = os.path.join(WEIGHTS_DIR, 'best_fish_yolov8.pt')
 
+    import shutil
     if os.path.exists(best_pt_path):
-        import shutil
         shutil.copy2(best_pt_path, target_pt)
         print(f"💾 Trọng số tốt nhất đã lưu: {target_pt}")
 
@@ -90,8 +98,33 @@ def train_fish_model(model_size='n', epochs=20, batch_size=16, imgsz=224):
     except Exception as e:
         print(f"⚠️ Chưa xuất ONNX được: {e}")
 
+    # Đánh giá độc lập trên tập Test
+    try:
+        print("\n🧪 Đang đánh giá độc lập trên tập Test (628 ảnh)...")
+        test_metrics = model.val(split='test')
+        print(f"🎯 Test Top-1 Accuracy: {test_metrics.top1:.4f} ({test_metrics.top1*100:.2f}%)")
+        print(f"🎯 Test Top-5 Accuracy: {test_metrics.top5:.4f} ({test_metrics.top5*100:.2f}%)")
+
+        report_data = {
+            'project': 'He thong nhan dien 20 loai ca canh IoT & Web',
+            'authors': ['Le Quoc Tri (DH52201621)', 'Pham Minh Than (DH52201428)'],
+            'model': 'YOLOv8n-cls',
+            'epochs': epochs,
+            'val_top1_accuracy': round(val_results.top1 * 100, 2),
+            'val_top5_accuracy': round(val_results.top5 * 100, 2),
+            'test_top1_accuracy': round(test_metrics.top1 * 100, 2),
+            'test_top5_accuracy': round(test_metrics.top5 * 100, 2),
+            'speed_ms_per_image': test_metrics.speed.get('inference', 0.0) if test_metrics.speed else 0.0,
+            'timestamp': time.strftime('%Y-%m-%d %H:%M:%S')
+        }
+        with open(os.path.join(BASE_DIR, 'evaluation_report.json'), 'w', encoding='utf-8') as f:
+            json.dump(report_data, f, ensure_ascii=False, indent=2)
+        print("💾 Đã cập nhật evaluation_report.json!")
+    except Exception as e:
+        print(f"⚠️ Đánh giá test gặp lỗi: {e}")
+
     print("\n✨ Bạn có thể kiểm tra thử bằng lệnh:")
-    print("   python predict_fish.py path/to/image.jpg")
+    print("   python predict_fish.py sample_images/ca_koi.jpg")
 
 
 if __name__ == '__main__':

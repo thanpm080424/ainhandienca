@@ -30,11 +30,40 @@ app.secret_key = 'fish-dataset-secret-key-2026'
 # ============================================================
 # CẤU HÌNH
 # ============================================================
-DATASET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dataset_ca')
-AUDIT_LOG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audit_log.json')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATASET_DIR = os.path.join(BASE_DIR, 'dataset_ca')
+AUDIT_LOG_FILE = os.path.join(BASE_DIR, 'audit_log.json')
+TEMP_UPLOADS_DIR = os.path.join(BASE_DIR, '_temp_uploads')
+os.makedirs(TEMP_UPLOADS_DIR, exist_ok=True)
+
 MIN_IMAGES = 500  # Mục tiêu số ảnh tối thiểu cho đồ án IoT (500 - 1000 ảnh/loài)
 IMAGES_PER_PAGE = 24  # Số ảnh mỗi trang gallery
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp'}
+
+def check_image_quality(img_path):
+    """Tính toán mã băm MD5 và điểm độ nét Laplacian của ảnh."""
+    import hashlib
+    hasher = hashlib.md5()
+    try:
+        with open(img_path, 'rb') as f:
+            for chunk in iter(lambda: f.read(65536), b""):
+                hasher.update(chunk)
+        md5_val = hasher.hexdigest()
+    except Exception:
+        md5_val = ""
+
+    blur_score = 0.0
+    try:
+        import cv2
+        cv_img = cv2.imread(img_path)
+        if cv_img is not None:
+            gray = cv2.cvtColor(cv_img, cv2.COLOR_BGR2GRAY)
+            blur_score = round(float(cv2.Laplacian(gray, cv2.CV_64F).var()), 1)
+    except Exception:
+        pass
+
+    return md5_val, blur_score
+
 
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
 gemini_client = None
@@ -915,10 +944,12 @@ def api_audit_logs():
 
 @app.route('/api/upload', methods=['POST'])
 def api_upload():
-    """API upload ảnh mới."""
-    species = request.form.get('species')
-    if not species or species not in SPECIES_MAP:
-        return jsonify({'success': False, 'error': 'Loài cá không hợp lệ!'}), 400
+    """API upload ảnh mới hỗ trợ cả chọn loài thủ công và Tự Động Phân Loại Bằng AI (YOLOv8 Edge)."""
+    species = (request.form.get('species') or 'auto').strip()
+    is_auto = (species in ('auto', '', 'all', 'none'))
+
+    if not is_auto and species not in SPECIES_MAP:
+        return jsonify({'success': False, 'error': f"Loài cá '{species}' không hợp lệ!"}), 400
 
     if 'files' not in request.files:
         return jsonify({'success': False, 'error': 'Không có file nào được chọn!'}), 400
@@ -927,36 +958,96 @@ def api_upload():
     if not files or files[0].filename == '':
         return jsonify({'success': False, 'error': 'Không có file nào được chọn!'}), 400
 
-    folder_path = os.path.join(DATASET_DIR, species)
-    os.makedirs(folder_path, exist_ok=True)
-
-    uploaded = []
+    os.makedirs(TEMP_UPLOADS_DIR, exist_ok=True)
+    audit_data = load_audit_log()
+    processed_items = []
     errors = []
+    species_summary = {}
+
+    import predict_fish
 
     for file in files:
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            base, ext = os.path.splitext(filename)
-            counter = 1
-            save_path = os.path.join(folder_path, filename)
-            while os.path.exists(save_path):
-                filename = f"{base}_{counter}{ext}"
-                save_path = os.path.join(folder_path, filename)
-                counter += 1
-
-            file.save(save_path)
-            uploaded.append(filename)
-        else:
+        if not file or not allowed_file(file.filename):
             errors.append(f"File '{file.filename}' không hợp lệ (chỉ chấp nhận: {', '.join(ALLOWED_EXTENSIONS)})")
+            continue
+
+        raw_filename = secure_filename(file.filename)
+        temp_path = os.path.join(TEMP_UPLOADS_DIR, f"upl_{int(time.time() * 1000)}_{raw_filename}")
+        file.save(temp_path)
+
+        md5_val, blur_score = check_image_quality(temp_path)
+
+        # Chạy YOLOv8 nhận diện nhanh (~5ms)
+        pred_res = predict_fish.predict_image(temp_path, as_json=False)
+        pred_key = None
+        pred_name = None
+        confidence = 0.0
+
+        if pred_res and pred_res.get('success'):
+            top1 = pred_res.get('top1', {})
+            pred_key = top1.get('species_key')
+            pred_name = top1.get('name')
+            confidence = top1.get('confidence', 0.0)
+
+        # Quyết định thư mục đích
+        if is_auto:
+            target_species = pred_key if pred_key in SPECIES_MAP else 'ca_ba_duoi'
+            target_name = SPECIES_MAP.get(target_species, target_species)
+        else:
+            target_species = species
+            target_name = SPECIES_MAP[species]
+
+        target_folder = os.path.join(DATASET_DIR, target_species)
+        os.makedirs(target_folder, exist_ok=True)
+
+        # Tránh trùng tên file trong thư mục đích
+        base, ext = os.path.splitext(raw_filename)
+        clean_ext = ext if ext else '.jpg'
+        final_filename = f"{target_species}_{int(time.time() * 1000)}{clean_ext}"
+        final_save_path = os.path.join(target_folder, final_filename)
+
+        # Di chuyển từ temp sang thư mục đích
+        shutil.move(temp_path, final_save_path)
+
+        species_summary[target_species] = species_summary.get(target_species, 0) + 1
+
+        # Cập nhật nhật ký audit log cho Dashboard
+        audit_data.setdefault('recent_approved', []).insert(0, {
+            'file': final_filename,
+            'species': target_species,
+            'species_name': target_name,
+            'source': 'YOLOv8 Edge Auto-Sort' if is_auto else 'Manual Upload',
+            'confidence': f"{confidence:.1f}%",
+            'blur_score': blur_score,
+            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        })
+        if len(audit_data['recent_approved']) > 50:
+            audit_data['recent_approved'] = audit_data['recent_approved'][:50]
+
+        processed_items.append({
+            'original_name': file.filename,
+            'filename': final_filename,
+            'species_key': target_species,
+            'species_name': target_name,
+            'confidence': confidence,
+            'blur_score': blur_score,
+            'is_sharp': blur_score >= 25.0,
+            'status': 'success'
+        })
+
+    save_audit_log(audit_data)
 
     return jsonify({
         'success': True,
-        'uploaded': uploaded,
-        'uploaded_count': len(uploaded),
+        'mode': 'auto' if is_auto else 'manual',
+        'uploaded_count': len(processed_items),
+        'items': processed_items,
+        'species_summary': species_summary,
         'errors': errors,
-        'species': species,
-        'species_name': SPECIES_MAP[species]
+        'species': species if not is_auto else 'auto',
+        'species_name': 'Tự động phân loại bằng AI (YOLOv8)' if is_auto else SPECIES_MAP.get(species, '')
     })
+
 
 
 @app.route('/api/ai_classify', methods=['POST'])
