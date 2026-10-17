@@ -36,7 +36,7 @@ if not API_KEY:
     env_file = os.path.join(BASE_DIR, '.env')
     if os.path.exists(env_file):
         try:
-            with open(env_file, 'r', encoding='utf-8') as f:
+            with open(env_file, 'r', encoding='utf-8-sig') as f:
                 for line in f:
                     line = line.strip()
                     if line.startswith('GEMINI_API_KEY='):
@@ -191,7 +191,7 @@ Chỉ trả về JSON duy nhất theo định dạng này:
   "reason": "Giải thích ngắn gọn 1 câu lý do KEEP hoặc REJECT"
 }}"""
 
-        models_to_try = ['gemini-4-argon', 'gemini-3.5-flash', 'gemini-flash-lite-latest']
+        models_to_try = ['gemini-2.5-flash', 'gemini-3.5-flash', 'gemini-flash-lite-latest', 'gemini-3.8-flash']
         for model_name in models_to_try:
             try:
                 response = client.models.generate_content(

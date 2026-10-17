@@ -20,6 +20,19 @@ if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
 API_KEY = os.environ.get('GEMINI_API_KEY', '')
+if not API_KEY:
+    _env_p = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env')
+    if os.path.exists(_env_p):
+        try:
+            with open(_env_p, 'r', encoding='utf-8-sig') as _ef:
+                for _line in _ef:
+                    _line = _line.strip()
+                    if _line.startswith('GEMINI_API_KEY='):
+                        API_KEY = _line.split('=', 1)[1].strip().strip('"').strip("'")
+                        break
+        except Exception:
+            pass
+
 client = genai.Client(api_key=API_KEY) if API_KEY else None
 
 DATASET_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dataset_ca')
@@ -136,7 +149,7 @@ Chi tra ve JSON duy nhat dung dinh dang nay:
     "reason": "..."
 }}"""
 
-        models_to_try = ['gemini-4-argon', 'gemini-3.5-flash', 'gemini-flash-lite-latest']
+        models_to_try = ['gemini-2.5-flash', 'gemini-3.5-flash', 'gemini-flash-lite-latest', 'gemini-3.8-flash']
         for model_name in models_to_try:
             try:
                 response = client.models.generate_content(

@@ -70,7 +70,7 @@ if not GEMINI_API_KEY:
     env_file = os.path.join(BASE_DIR, '.env')
     if os.path.exists(env_file):
         try:
-            with open(env_file, 'r', encoding='utf-8') as f:
+            with open(env_file, 'r', encoding='utf-8-sig') as f:
                 for line in f:
                     line = line.strip()
                     if line.startswith('GEMINI_API_KEY='):
@@ -88,8 +88,8 @@ if GEMINI_API_KEY:
 
 
 def call_gemini_vision(client, contents, **kwargs):
-    """Gọi Gemini ưu tiên Gemini 4 Argon, tự động fallback sang Gemini 3.5 Flash."""
-    models_to_try = ['gemini-4-argon', 'gemini-3.5-flash', 'gemini-flash-lite-latest']
+    """Gọi Gemini ưu tiên Gemini 2.5 Flash, tự động fallback sang Gemini 3.5 Flash / Lite."""
+    models_to_try = ['gemini-2.5-flash', 'gemini-3.5-flash', 'gemini-flash-lite-latest', 'gemini-3.8-flash']
     last_err = None
     for m in models_to_try:
         try:

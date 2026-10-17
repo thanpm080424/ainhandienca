@@ -31,7 +31,7 @@ if not GEMINI_API_KEY:
     _env_p = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env')
     if os.path.exists(_env_p):
         try:
-            with open(_env_p, 'r', encoding='utf-8') as _ef:
+            with open(_env_p, 'r', encoding='utf-8-sig') as _ef:
                 for _line in _ef:
                     _line = _line.strip()
                     if _line.startswith('GEMINI_API_KEY='):
@@ -554,7 +554,7 @@ TIÊU CHUẨN NGHIÊM NGẶT:
 Chỉ trả về JSON duy nhất:
 {{"is_live_fish": true, "is_correct_species": true, "has_large_text": false, "verdict": "KEEP", "visual_content": "...", "reason": "..."}}"""
 
-    models_to_try = ['gemini-4-argon', 'gemini-3.5-flash', 'gemini-flash-lite-latest']
+    models_to_try = ['gemini-2.5-flash', 'gemini-3.5-flash', 'gemini-flash-lite-latest', 'gemini-3.8-flash']
     for model_name in models_to_try:
         try:
             resp = gemini_client.models.generate_content(
