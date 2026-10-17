@@ -19,6 +19,8 @@ dataset_ca/
 dataset_yolo/
 runs/
 *.pt
+!weights/best_fish_yolov8.pt
 
 # Hash Cache
 dataset_hash_cache.json
+

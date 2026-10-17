@@ -1,0 +1,12 @@
+{
+  "project": "He thong nhan dien 20 loai ca canh IoT & Web",
+  "authors": [
+    "Le Quoc Tri (DH52201621)",
+    "Pham Minh Than (DH52201428)"
+  ],
+  "model": "YOLOv8n-cls",
+  "top1_accuracy": 58.92,
+  "top5_accuracy": 83.12,
+  "speed_ms_per_image": 5.12071019111781,
+  "timestamp": "2026-10-17 16:13:42"
+}

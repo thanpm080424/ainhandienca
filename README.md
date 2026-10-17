@@ -106,3 +106,42 @@ python run_batch_collector.py
 # Rà quét 50 ảnh của loài cá dạ quang
 python ai_vision_audit_cleaner.py ca_da_quang 50
 ```
+
+### 6. Thử nghiệm Nhận Diện Loài Cá (YOLOv8 & ONNX)
+Mô hình đã được huấn luyện sẵn và lưu tại thư mục `weights/`:
+* `weights/best_fish_yolov8.pt` (PyTorch model)
+* `weights/best_fish_yolov8.onnx` (ONNX model tối ưu cho thiết bị Edge IoT: Raspberry Pi, Jetson Nano, ESP32 Gateway)
+
+Thử nhận diện ngay trên ảnh mẫu có sẵn trong thư mục `sample_images/`:
+```bash
+# Nhận diện cá Koi mẫu
+python predict_fish.py sample_images/ca_koi.jpg
+
+# Nhận diện cá Neon mẫu
+python predict_fish.py sample_images/ca_neon.jpg
+```
+
+### 7. Đánh Giá Hiệu Năng Mô Hình (Evaluation on Test Set)
+Chạy kịch bản đánh giá độc lập trên 628 ảnh test:
+```bash
+python evaluate_model.py
+```
+
+**Bảng kết quả benchmark trên CPU (Intel Core i7):**
+| Chỉ số (Metric) | Kết quả thực nghiệm | Ý nghĩa đồ án IoT |
+|:---|:---:|:---|
+| **Top-1 Accuracy** | **58.92%** | Độ chính xác nhận diện tuyệt đối |
+| **Top-5 Accuracy** | **83.12%** | Khả năng nằm trong Top-5 gợi ý hàng đầu |
+| **Inference Latency** | **5.12 ms / ảnh** | Cực nhanh, đáp ứng thời gian thực (Real-time) |
+| **Tốc độ xử lý (FPS)** | **~195 FPS** | Xử lý mượt mà luồng stream từ camera hồ cá |
+| **Định dạng Edge** | **ONNX (5.6 MB)** | Nhẹ, dễ dàng nạp lên thiết bị nhúng |
+
+### 8. Huấn Luyện Lại Hoặc Tinh Chỉnh Mô Hình (Tùy Chọn)
+```bash
+# Chuẩn bị chia tập dữ liệu 80/10/10
+python prepare_dataset_yolo.py
+
+# Huấn luyện YOLOv8n-cls (15 epochs)
+python train_yolo.py --epochs 15 --batch 16
+```
+
