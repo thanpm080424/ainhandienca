@@ -66,12 +66,26 @@ def check_image_quality(img_path):
 
 
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
+if not GEMINI_API_KEY:
+    env_file = os.path.join(BASE_DIR, '.env')
+    if os.path.exists(env_file):
+        try:
+            with open(env_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line.startswith('GEMINI_API_KEY='):
+                        GEMINI_API_KEY = line.split('=', 1)[1].strip().strip('"').strip("'")
+                        break
+        except Exception:
+            pass
+
 gemini_client = None
 if GEMINI_API_KEY:
     try:
         gemini_client = genai.Client(api_key=GEMINI_API_KEY)
     except Exception as e:
         print(f"Loi khoi tao Gemini: {e}")
+
 
 def call_gemini_vision(client, contents, **kwargs):
     """Gọi Gemini ưu tiên Gemini 4 Argon, tự động fallback sang Gemini 3.5 Flash."""

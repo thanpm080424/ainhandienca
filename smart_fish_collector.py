@@ -27,12 +27,26 @@ from PIL import Image
 from google import genai
 
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
+if not GEMINI_API_KEY:
+    _env_p = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env')
+    if os.path.exists(_env_p):
+        try:
+            with open(_env_p, 'r', encoding='utf-8') as _ef:
+                for _line in _ef:
+                    _line = _line.strip()
+                    if _line.startswith('GEMINI_API_KEY='):
+                        GEMINI_API_KEY = _line.split('=', 1)[1].strip().strip('"').strip("'")
+                        break
+        except Exception:
+            pass
+
 gemini_client = None
 if GEMINI_API_KEY:
     try:
         gemini_client = genai.Client(api_key=GEMINI_API_KEY)
     except Exception:
         pass
+
 
 # Reconfigure console Windows UTF-8
 if hasattr(sys.stdout, 'reconfigure'):

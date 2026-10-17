@@ -32,7 +32,21 @@ SUSPECT_DIR = os.path.join(DATASET_DIR, '_anh_nghi_ngo')
 AUDIT_LOG_FILE = os.path.join(BASE_DIR, 'audit_log.json')
 
 API_KEY = os.environ.get('GEMINI_API_KEY', '')
+if not API_KEY:
+    env_file = os.path.join(BASE_DIR, '.env')
+    if os.path.exists(env_file):
+        try:
+            with open(env_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line.startswith('GEMINI_API_KEY='):
+                        API_KEY = line.split('=', 1)[1].strip().strip('"').strip("'")
+                        break
+        except Exception:
+            pass
+
 client = genai.Client(api_key=API_KEY) if API_KEY else None
+
 
 SPECIES_GUIDE = {
     'ca_ba_duoi': {
