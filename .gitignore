@@ -24,3 +24,4 @@ runs/
 # Hash Cache
 dataset_hash_cache.json
 
+autonomous_collection.log

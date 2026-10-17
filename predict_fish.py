@@ -132,6 +132,36 @@ def predict_image(image_path, as_json=False):
     return output
 
 
+def predict_pil(pil_img):
+    """Dự đoán trực tiếp từ đối tượng PIL Image trong bộ nhớ (siêu tốc, không cần lưu ổ đĩa)."""
+    model, path_used = load_model()
+    if not model:
+        return None
+    try:
+        results = model.predict(source=pil_img, verbose=False)
+        r = results[0]
+        names = r.names
+        probs = r.probs.data.tolist()
+        ranked = sorted([(names[i], probs[i]) for i in range(len(probs))], key=lambda x: x[1], reverse=True)
+        top1_key, top1_prob = ranked[0]
+        top1_meta = SPECIES_MAP.get(top1_key, {'vn': top1_key, 'sci': '', 'temp': '24-28°C', 'ph': '6.5-7.5'})
+        top3 = []
+        for k, p in ranked[:3]:
+            m = SPECIES_MAP.get(k, {'vn': k})
+            top3.append({'species_key': k, 'name': m['vn'], 'confidence': round(p * 100, 2)})
+        return {
+            'success': True,
+            'top1': {
+                'species_key': top1_key,
+                'name': top1_meta['vn'],
+                'confidence': round(top1_prob * 100, 2)
+            },
+            'top3': top3
+        }
+    except Exception:
+        return None
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Predict fish species using YOLOv8")
     parser.add_argument('image', type=str, help="Path to input fish image")
