@@ -146,3 +146,20 @@ python prepare_dataset_yolo.py
 python train_yolo.py --epochs 15 --batch 16
 ```
 
+### Huấn luyện bộ phân loại cá cảnh từ `dataset_ca/`
+
+Script `train_fish_classifier.py` chia ảnh từ `dataset_ca/<ma_loai>/` theo tỷ lệ 80/10/10 vào thư mục riêng dưới `runs/prepared_datasets/`, sau đó fine-tune YOLOv8 Classification. Script không xóa hay ghi đè `dataset_yolo/` hiện có.
+
+```powershell
+python -m pip install -r requirements-train.txt
+python train_fish_classifier.py
+```
+
+Mặc định dùng YOLOv8n-cls, tối đa 50 epoch, batch 32, ảnh 224 px, AdamW, patience 10 và thêm biến thể khúc xạ nước cho 25% ảnh train mỗi lớp. Có thể chọn ảnh 384 px, model khác hoặc tắt tăng cường offline:
+
+```powershell
+python train_fish_classifier.py --imgsz 384 --model s --water-augment-ratio 0
+```
+
+Thư mục `runs/classify/fish_classifier/thesis_report/` (hoặc tên tương ứng với `--name`) chứa báo cáo JSON, chỉ số Precision/Recall/F1/Top-1/Top-5 theo loài, ma trận nhầm lẫn CSV/PNG và đồ thị loss/accuracy. Checkpoint tốt nhất được sao chép sang `weights/best_fish_yolov8.pt`. Dùng `--force` nếu muốn tạo lại thư mục đã chỉ định bằng `--dataset-output`.
+
