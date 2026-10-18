@@ -150,9 +150,9 @@ def send_capture(server_url: str, image_path: Path, device_id: str,
     endpoint = server_url.rstrip("/") + "/api/iot/predict"
     fields: dict[str, str] = {"device_id": device_id}
     if temp_actual is not None:
-        fields["temp_actual"] = f"{temp_actual:.3f}"
+        fields["temperature"] = f"{temp_actual:.3f}"
     if ph_actual is not None:
-        fields["ph_actual"] = f"{ph_actual:.3f}"
+        fields["ph"] = f"{ph_actual:.3f}"
     try:
         with image_path.open("rb") as image_file:
             response = requests.post(endpoint, data=fields,

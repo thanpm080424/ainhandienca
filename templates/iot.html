@@ -15,9 +15,17 @@
                             Hệ thống AI xử lý dữ liệu từ camera IoT (ESP32-CAM, Raspberry Pi): Nhận diện loài cá trong môi trường nước và tự động tra cứu điều kiện môi trường sống (Nhiệt độ, pH, Tầng nước, Tập tính bể nuôi).
                         </p>
                     </div>
-                    <span class="badge bg-light text-primary px-3 py-2 fs-6">
-                        <i class="fas fa-satellite-dish me-1"></i>Endpoint: <code>/api/iot/predict</code>
-                    </span>
+                    <div class="d-flex align-items-center flex-wrap gap-2">
+                        <span class="badge bg-light text-primary px-3 py-2 fs-6">
+                            <i class="fas fa-satellite-dish me-1"></i>Endpoint: <code>/api/iot/predict</code>
+                        </span>
+                        <a href="/api/iot/export_pdf?days=7" class="btn btn-warning btn-sm fw-bold shadow-sm" target="_blank" title="Xuất báo cáo PDF lịch sử 7 ngày gần nhất">
+                            <i class="fas fa-file-pdf me-1"></i>Xuất Báo Cáo PDF (7 ngày)
+                        </a>
+                        <a href="/api/iot/export_pdf?days=30" class="btn btn-outline-light btn-sm fw-bold" target="_blank" title="Xuất báo cáo PDF 30 ngày cho phụ lục Luận Văn">
+                            <i class="fas fa-calendar-alt me-1"></i>30 ngày
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -240,6 +248,75 @@
         </div>
     </div>
 </div>
+
+<!-- Khối Lịch Sử Giám Sát IoT & Telemetry SQLite -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h5 class="mb-0 fw-bold text-dark">
+                    <i class="fas fa-database me-2 text-primary"></i>Nhật Ký Giám Sát Telemetry & Cảnh Báo Bể Cá (SQLite)
+                </h5>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-sm btn-outline-primary" onclick="loadTelemetryHistory()">
+                        <i class="fas fa-sync-alt me-1"></i>Làm mới
+                    </button>
+                    <a href="/api/iot/export_pdf?days=7" class="btn btn-sm btn-outline-danger" target="_blank">
+                        <i class="fas fa-file-pdf me-1"></i>Tải Báo Cáo PDF
+                    </a>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <!-- Thống kê nhanh telemetry -->
+                <div class="p-3 bg-light border-bottom d-flex flex-wrap gap-3 align-items-center justify-content-around text-center" id="telemetryStatsSummary">
+                    <div>
+                        <div class="small text-muted">Tổng mẫu ghi</div>
+                        <h5 class="fw-bold mb-0 text-primary" id="statTotalLogs">0</h5>
+                    </div>
+                    <div>
+                        <div class="small text-muted">Bình thường</div>
+                        <h5 class="fw-bold mb-0 text-success" id="statNormalLogs">0</h5>
+                    </div>
+                    <div>
+                        <div class="small text-muted">Cảnh báo nhiệt độ</div>
+                        <h5 class="fw-bold mb-0 text-danger" id="statTempWarnings">0</h5>
+                    </div>
+                    <div>
+                        <div class="small text-muted">Cảnh báo pH</div>
+                        <h5 class="fw-bold mb-0 text-warning" id="statPhWarnings">0</h5>
+                    </div>
+                    <div>
+                        <div class="small text-muted">Cảnh báo lai tạp</div>
+                        <h5 class="fw-bold mb-0 text-info" id="statHybridAlerts">0</h5>
+                    </div>
+                </div>
+
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-hover align-middle mb-0 small">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th style="width: 15%;">Thời gian</th>
+                                <th style="width: 15%;">Thiết bị IoT</th>
+                                <th style="width: 20%;">Loài cá nhận diện</th>
+                                <th style="width: 10%;">Độ tin cậy</th>
+                                <th style="width: 15%;">Nhiệt độ đo / Tối ưu</th>
+                                <th style="width: 15%;">pH đo / Tối ưu</th>
+                                <th style="width: 10%;">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="telemetryTableBody">
+                            <tr>
+                                <td colspan="7" class="text-center py-4 text-muted">
+                                    <i class="fas fa-spinner fa-spin me-2"></i>Đang tải dữ liệu telemetry...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -378,6 +455,7 @@ function sendToIotAI() {
             }
 
             showToast(`Nhận diện thành công: ${det.species_name}!`, 'success');
+            loadTelemetryHistory();
         } else {
             waitingPlaceholder.classList.remove('d-none');
             showToast(data.error || 'Lỗi nhận diện IoT', 'danger');
@@ -391,5 +469,71 @@ function sendToIotAI() {
         showToast('Lỗi kết nối máy chủ!', 'danger');
     });
 }
+
+function loadTelemetryHistory() {
+    fetch('/api/iot/history?limit=30&days=7')
+        .then(r => r.json())
+        .then(data => {
+            if (!data.success) return;
+            
+            const stats = data.statistics || {};
+            const alerts = stats.alerts || {};
+            const elTotal = document.getElementById('statTotalLogs');
+            const elNormal = document.getElementById('statNormalLogs');
+            const elTemp = document.getElementById('statTempWarnings');
+            const elPh = document.getElementById('statPhWarnings');
+            const elHyb = document.getElementById('statHybridAlerts');
+
+            if (elTotal) elTotal.textContent = stats.total_logs || 0;
+            if (elNormal) elNormal.textContent = alerts.NORMAL || 0;
+            if (elTemp) elTemp.textContent = alerts.TEMP_WARNING || 0;
+            if (elPh) elPh.textContent = alerts.PH_WARNING || 0;
+            if (elHyb) elHyb.textContent = alerts.HYBRID_ALERT || 0;
+
+            const tbody = document.getElementById('telemetryTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            const logs = data.logs || [];
+            if (logs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-muted"><i class="fas fa-inbox me-2"></i>Chưa có bản ghi telemetry nào trong SQLite. Dữ liệu sẽ xuất hiện khi thiết bị IoT gửi ảnh hoặc người dùng bấm nhận diện.</td></tr>';
+                return;
+            }
+
+            logs.forEach(item => {
+                let badgeClass = 'bg-success';
+                let statusText = 'Bình thường';
+                if (item.alert_status === 'TEMP_WARNING') {
+                    badgeClass = 'bg-danger';
+                    statusText = 'Lệch nhiệt độ';
+                } else if (item.alert_status === 'PH_WARNING') {
+                    badgeClass = 'bg-warning text-dark';
+                    statusText = 'Lệch pH';
+                } else if (item.alert_status === 'HYBRID_ALERT') {
+                    badgeClass = 'bg-info text-dark';
+                    statusText = 'Lai tạp';
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-nowrap text-muted">${item.timestamp}</td>
+                    <td class="fw-semibold text-truncate" style="max-width: 140px;" title="${item.device_id}"><code>${item.device_id}</code></td>
+                    <td class="fw-bold text-primary">${item.species_name || 'N/A'}</td>
+                    <td>${item.confidence ? Number(item.confidence).toFixed(1) + '%' : '-'}</td>
+                    <td>${item.temp_measured !== null && item.temp_measured !== undefined ? item.temp_measured + '°C' : '-'} <small class="text-muted">(${item.optimal_temp || '-'})</small></td>
+                    <td>${item.ph_measured !== null && item.ph_measured !== undefined ? 'pH ' + item.ph_measured : '-'} <small class="text-muted">(${item.optimal_ph || '-'})</small></td>
+                    <td><span class="badge ${badgeClass}">${statusText}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        })
+        .catch(err => {
+            console.error('Lỗi khi tải lịch sử telemetry:', err);
+        });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadTelemetryHistory();
+});
 </script>
 {% endblock %}

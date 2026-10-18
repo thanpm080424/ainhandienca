@@ -1,510 +1,460 @@
 {
   "current_status": {
     "is_busy": true,
-    "action": "Đang quét: Cá Molly",
-    "item": "Đã quét 160/473 ảnh",
-    "timestamp": "2026-10-18 17:03:27"
+    "action": "Đang thu thập: Cá Sóc Ngựa",
+    "item": "Đạt chuẩn #27 (verified_clean_ca_soc_ngua_1792320374866_27.jpg) - YOLOv8: 99.1%",
+    "timestamp": "2026-10-18 17:46:14"
   },
   "recent_approved": [
     {
-      "filename": "verified_clean_ca_molly_1792248418876_80.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "63.0%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 63.0%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:27"
+      "file": "verified_clean_ca_soc_ngua_1792320374866_27.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.1%",
+      "blur_score": 37.06155014038086,
+      "timestamp": "2026-10-18 17:46:14"
     },
     {
-      "filename": "verified_clean_ca_molly_1792248395080_78.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "90.6%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 90.6%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:27"
+      "file": "verified_clean_ca_soc_ngua_1792320367378_26.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "100.0%",
+      "blur_score": 38.959678649902344,
+      "timestamp": "2026-10-18 17:46:07"
     },
     {
-      "filename": "verified_clean_ca_molly_1792248392988_77.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "92.5%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 92.5%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:26"
+      "file": "verified_clean_ca_soc_ngua_1792320364352_25.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "100.0%",
+      "blur_score": 74.28455352783203,
+      "timestamp": "2026-10-18 17:46:04"
     },
     {
-      "filename": "verified_clean_ca_molly_1792248390787_76.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "98.1%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 98.1%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:26"
+      "file": "verified_clean_ca_soc_ngua_1792320360966_24.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "95.3%",
+      "blur_score": 327.3045654296875,
+      "timestamp": "2026-10-18 17:46:00"
     },
     {
-      "filename": "verified_clean_ca_molly_1792248386385_75.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "66.0%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 66.0%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:25"
+      "file": "verified_clean_ca_soc_ngua_1792320341142_23.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.9%",
+      "blur_score": 34.027286529541016,
+      "timestamp": "2026-10-18 17:45:41"
     },
     {
-      "filename": "verified_clean_ca_molly_1792248371354_73.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "75.4%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 75.4%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:25"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248366310_72.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "82.9%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 82.9%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:24"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248360017_70.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "98.4%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 98.4%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:24"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248355129_69.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "62.0%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 62.0%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:24"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248347550_67.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "71.0%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 71.0%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:23"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248335629_66.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "91.8%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 91.8%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:23"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248332978_65.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "84.4%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 84.4%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:22"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248326916_62.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "92.2%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 92.2%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:22"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248324917_61.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "90.8%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 90.8%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:22"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248322820_60.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "74.8%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 74.8%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:21"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248321077_59.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "78.9%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 78.9%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:21"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248309667_57.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "79.0%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 79.0%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:21"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248295632_55.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "79.5%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 79.5%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:20"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248261399_50.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "62.9%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 62.9%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:19"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248255417_49.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "99.5%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 99.5%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:19"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248251320_48.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "97.0%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 97.0%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:18"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248248418_47.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "68.1%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 68.1%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:18"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248242339_45.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "97.0%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 97.0%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:17"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248215179_43.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "97.8%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 97.8%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:16"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248213437_42.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "90.2%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 90.2%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:16"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248211867_41.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "63.7%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 63.7%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:16"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248164914_29.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "98.2%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 98.2%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:15"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248142006_27.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "83.4%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 83.4%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:15"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248126137_26.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "93.4%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 93.4%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:14"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248113892_22.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "79.3%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 79.3%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:14"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248105940_20.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "96.3%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 96.3%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:13"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248103030_19.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "86.6%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 86.6%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:13"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248100350_18.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "78.6%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 78.6%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:12"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248095235_16.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "93.2%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 93.2%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:12"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248092488_15.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "91.0%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 91.0%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:12"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248090243_14.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "82.2%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 82.2%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:12"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248087940_13.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "61.6%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 61.6%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:11"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248085543_12.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "83.9%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 83.9%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:11"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248083183_11.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "85.6%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 85.6%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:11"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248079478_10.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "98.3%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 98.3%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:10"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248077086_9.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "82.8%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 82.8%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:10"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248074059_8.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "99.6%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 99.6%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:10"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248070398_7.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "99.7%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 99.7%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:10"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248068039_6.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "82.2%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 82.2%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:10"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248063884_5.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "83.0%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 83.0%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:09"
-    },
-    {
-      "filename": "verified_clean_ca_molly_1792248054299_1.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "86.8%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 86.8%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:08"
-    },
-    {
-      "filename": "img.lazcdn.com_g_ff_kf_Sce4590b4fc1a4e76b9ccb80840.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
+      "file": "verified_clean_ca_soc_ngua_1792320332718_22.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
       "confidence": "99.8%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 99.8%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:08"
+      "blur_score": 35.90927505493164,
+      "timestamp": "2026-10-18 17:45:32"
     },
     {
-      "filename": "ca-molly-short-vang - Cá Cảnh - Bể Cá & Thiết Bị Bể Cá.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "62.0%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 62.0%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:08"
-    },
-    {
-      "filename": "ca-molly-bo-sua - Cá Cảnh - Bể Cá & Thiết Bị Bể Cá.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
+      "file": "verified_clean_ca_soc_ngua_1792320248013_21.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
       "confidence": "99.4%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 99.4%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:08"
+      "blur_score": 66.51141357421875,
+      "timestamp": "2026-10-18 17:44:08"
     },
     {
-      "filename": "Tổng hợp nhiều dòng cá molly đa dạng, cùng nhiều combo chỉ từ 99k _DLB Vlog.jpg",
-      "species": "ca_molly",
-      "species_name": "Cá Molly",
-      "identified_as": "Cá Molly / Bình Tích",
-      "confidence": "72.3%",
-      "reason": "YOLOv8 đối chiếu chính xác cá rõ nét Cá Molly / Bình Tích (Độ tin cậy cao: 72.3%)",
-      "source": "Kiểm định YOLOv8 Edge AI",
-      "timestamp": "2026-10-18 17:03:08"
+      "file": "verified_clean_ca_soc_ngua_1792320244764_20.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "94.1%",
+      "blur_score": 637.8787231445312,
+      "timestamp": "2026-10-18 17:44:04"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792320241497_19.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.4%",
+      "blur_score": 120.45110321044922,
+      "timestamp": "2026-10-18 17:44:01"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792320235848_18.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.9%",
+      "blur_score": 42.09906768798828,
+      "timestamp": "2026-10-18 17:43:55"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792320198860_17.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.8%",
+      "blur_score": 48.39514923095703,
+      "timestamp": "2026-10-18 17:43:18"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792320192872_16.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.1%",
+      "blur_score": 41.97043228149414,
+      "timestamp": "2026-10-18 17:43:12"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792320133644_15.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.8%",
+      "blur_score": 40.74940490722656,
+      "timestamp": "2026-10-18 17:42:13"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792320111510_14.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.9%",
+      "blur_score": 94.82299041748047,
+      "timestamp": "2026-10-18 17:41:51"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792320031322_13.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "100.0%",
+      "blur_score": 72.83197021484375,
+      "timestamp": "2026-10-18 17:40:31"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792320026725_12.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "100.0%",
+      "blur_score": 95.18282318115234,
+      "timestamp": "2026-10-18 17:40:26"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792320022377_11.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.8%",
+      "blur_score": 93.92572021484375,
+      "timestamp": "2026-10-18 17:40:22"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792320015968_10.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.9%",
+      "blur_score": 37.44089889526367,
+      "timestamp": "2026-10-18 17:40:16"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792319966496_9.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.8%",
+      "blur_score": 38.24242401123047,
+      "timestamp": "2026-10-18 17:39:26"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792319948496_8.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.9%",
+      "blur_score": 46.44702911376953,
+      "timestamp": "2026-10-18 17:39:08"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792319914963_7.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.8%",
+      "blur_score": 32.45657730102539,
+      "timestamp": "2026-10-18 17:38:35"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792319908025_6.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "94.3%",
+      "blur_score": 39.52489471435547,
+      "timestamp": "2026-10-18 17:38:28"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792319843647_5.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "100.0%",
+      "blur_score": 35.04840087890625,
+      "timestamp": "2026-10-18 17:37:23"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792319843173_4.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.8%",
+      "blur_score": 82.09384155273438,
+      "timestamp": "2026-10-18 17:37:23"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792319780222_3.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "99.8%",
+      "blur_score": 53.528587341308594,
+      "timestamp": "2026-10-18 17:36:20"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792319780094_2.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "95.4%",
+      "blur_score": 292.60308837890625,
+      "timestamp": "2026-10-18 17:36:20"
+    },
+    {
+      "file": "verified_clean_ca_soc_ngua_1792319778091_1.jpg",
+      "species": "ca_soc_ngua",
+      "species_name": "Cá Sóc Ngựa",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "96.7%",
+      "blur_score": 483.8742980957031,
+      "timestamp": "2026-10-18 17:36:18"
+    },
+    {
+      "file": "verified_clean_ca_diec_anh_dao_1792319708193_2.jpg",
+      "species": "ca_diec_anh_dao",
+      "species_name": "Cá Diếc Anh Đào",
+      "source": "Autonomous Collector (Wikimedia)",
+      "confidence": "99.9%",
+      "blur_score": 50.64784240722656,
+      "timestamp": "2026-10-18 17:35:08"
+    },
+    {
+      "file": "verified_clean_ca_diec_anh_dao_1792319454902_1.jpg",
+      "species": "ca_diec_anh_dao",
+      "species_name": "Cá Diếc Anh Đào",
+      "source": "Autonomous Collector (GBIF)",
+      "confidence": "89.7%",
+      "blur_score": 64.4695053100586,
+      "timestamp": "2026-10-18 17:30:54"
+    },
+    {
+      "file": "verified_clean_ca_thien_than_1792319346504_2.jpg",
+      "species": "ca_thien_than",
+      "species_name": "Cá Thần Tiên",
+      "source": "Autonomous Collector (Wikimedia)",
+      "confidence": "99.9%",
+      "blur_score": 1005.5414428710938,
+      "timestamp": "2026-10-18 17:29:06"
+    },
+    {
+      "file": "verified_clean_ca_thien_than_1792319346335_1.jpg",
+      "species": "ca_thien_than",
+      "species_name": "Cá Thần Tiên",
+      "source": "Autonomous Collector (Wikimedia)",
+      "confidence": "100.0%",
+      "blur_score": 363.8493347167969,
+      "timestamp": "2026-10-18 17:29:06"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319185376_19.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "64.6%",
+      "blur_score": 155.47967529296875,
+      "timestamp": "2026-10-18 17:26:25"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319182673_18.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "78.7%",
+      "blur_score": 271.9313659667969,
+      "timestamp": "2026-10-18 17:26:22"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319177785_17.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "59.1%",
+      "blur_score": 152.96604919433594,
+      "timestamp": "2026-10-18 17:26:17"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319175035_16.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "73.5%",
+      "blur_score": 1650.3798828125,
+      "timestamp": "2026-10-18 17:26:15"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319174614_15.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "60.5%",
+      "blur_score": 2543.1533203125,
+      "timestamp": "2026-10-18 17:26:14"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319167158_14.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "72.2%",
+      "blur_score": 257.12103271484375,
+      "timestamp": "2026-10-18 17:26:07"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319160921_13.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "78.6%",
+      "blur_score": 218.2368621826172,
+      "timestamp": "2026-10-18 17:26:00"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319160234_12.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "82.9%",
+      "blur_score": 121.25331115722656,
+      "timestamp": "2026-10-18 17:26:00"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319159374_11.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "70.4%",
+      "blur_score": 109.40455627441406,
+      "timestamp": "2026-10-18 17:25:59"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319159198_10.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "97.0%",
+      "blur_score": 108.590576171875,
+      "timestamp": "2026-10-18 17:25:59"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319158786_9.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "91.5%",
+      "blur_score": 107.00527954101562,
+      "timestamp": "2026-10-18 17:25:58"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319158447_8.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "69.5%",
+      "blur_score": 142.5784912109375,
+      "timestamp": "2026-10-18 17:25:58"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319156949_7.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "66.9%",
+      "blur_score": 257.36309814453125,
+      "timestamp": "2026-10-18 17:25:56"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319153210_6.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "59.5%",
+      "blur_score": 209.38792419433594,
+      "timestamp": "2026-10-18 17:25:53"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319146589_5.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "65.4%",
+      "blur_score": 52.593299865722656,
+      "timestamp": "2026-10-18 17:25:46"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319130031_4.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "66.5%",
+      "blur_score": 199.2222442626953,
+      "timestamp": "2026-10-18 17:25:30"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319116416_3.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "62.5%",
+      "blur_score": 297.0977783203125,
+      "timestamp": "2026-10-18 17:25:16"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319106050_2.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "67.2%",
+      "blur_score": 55.598026275634766,
+      "timestamp": "2026-10-18 17:25:06"
+    },
+    {
+      "file": "verified_clean_ca_bay_mau_1792319103863_1.jpg",
+      "species": "ca_bay_mau",
+      "species_name": "Cá Bảy Màu",
+      "source": "Autonomous Collector (iNaturalist)",
+      "confidence": "69.9%",
+      "blur_score": 115.17475891113281,
+      "timestamp": "2026-10-18 17:25:03"
     }
   ],
   "flagged_wrong": [

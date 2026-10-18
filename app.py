@@ -18,7 +18,7 @@ import urllib.parse
 from datetime import datetime
 from flask import (
     Flask, render_template, request, jsonify,
-    send_from_directory, redirect, url_for, flash
+    send_from_directory, redirect, url_for, flash, send_file
 )
 from werkzeug.utils import secure_filename
 from google import genai
@@ -1768,7 +1768,7 @@ Chỉ trả về JSON hợp lệ, không kèm văn bản nào khác."""
                 }
             }
 
-        return jsonify({
+        response_data = {
             'success': True,
             'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             'device_type': request.headers.get('User-Agent', 'IoT-Device'),
@@ -1795,8 +1795,106 @@ Chỉ trả về JSON hợp lệ, không kèm văn bản nào khác."""
             },
             'hybrid_analysis': yolo_res.get('hybrid_analysis') if yolo_res else None,
             'iot_sensor_thresholds': env_info['iot_sensor_rules']
-        })
+        }
+
+        # Ghi telemetry khi thiết bị gửi kèm định danh hoặc số đo. Hỗ trợ tên
+        # temperature/ph theo giao thức hiện tại và tên temp_actual/ph_actual cũ.
+        telemetry_fields = ('device_id', 'temperature', 'ph', 'temp_actual', 'ph_actual')
+        if any(field in request.form for field in telemetry_fields):
+            def parse_measurement(*keys):
+                for key in keys:
+                    raw_value = request.form.get(key, '').strip()
+                    if raw_value:
+                        try:
+                            return float(raw_value)
+                        except ValueError:
+                            raise ValueError(f"Trường '{key}' phải là số thực.")
+                return None
+
+            temperature = parse_measurement('temperature', 'temp_actual')
+            measured_ph = parse_measurement('ph', 'ph_actual')
+            temp_range = response_data['aquatic_environment'].get('temp_range') or {}
+            ph_range = response_data['aquatic_environment'].get('ph_range') or {}
+            hybrid = bool((response_data.get('hybrid_analysis') or {}).get('is_hybrid_alert', False))
+
+            def outside_range(value, bounds):
+                try:
+                    return value is not None and (value < float(bounds['min']) or value > float(bounds['max']))
+                except (KeyError, TypeError, ValueError):
+                    return False
+
+            if outside_range(temperature, temp_range):
+                alert_status = 'TEMP_WARNING'
+            elif outside_range(measured_ph, ph_range):
+                alert_status = 'PH_WARNING'
+            elif hybrid:
+                alert_status = 'HYBRID_ALERT'
+            else:
+                alert_status = 'NORMAL'
+
+            try:
+                import history_logger
+                response_data['history_id'] = history_logger.log_telemetry(
+                    device_id=request.form.get('device_id') or request.headers.get('User-Agent', 'IoT-Device'),
+                    species_key=response_data['detection'].get('species_key'),
+                    species_name=response_data['detection'].get('species_name'),
+                    confidence=response_data['detection'].get('confidence'),
+                    temp_measured=temperature,
+                    ph_measured=measured_ph,
+                    optimal_temp=response_data['aquatic_environment'].get('optimal_temperature'),
+                    optimal_ph=response_data['aquatic_environment'].get('optimal_ph'),
+                    is_hybrid=hybrid,
+                    alert_status=alert_status,
+                    image_path=None,
+                )
+            except ValueError as e:
+                return jsonify({'success': False, 'error': str(e)}), 400
+            except Exception:
+                app.logger.exception('Không lưu được telemetry vào SQLite')
+                response_data['history_error'] = 'Không ghi được lịch sử telemetry.'
+
+        return jsonify(response_data)
+    except ValueError as e:
+        return jsonify({'success': False, 'error': str(e)}), 400
     except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+@app.route('/api/iot/history', methods=['GET'])
+def api_iot_history():
+    """Trả danh sách mẫu gần nhất và tổng hợp theo ngày cho dashboard/biểu đồ."""
+    try:
+        import history_logger
+        limit = request.args.get('limit', default=50, type=int)
+        days = request.args.get('days', default=7, type=int)
+        device_id = (request.args.get('device_id') or '').strip() or None
+        logs = history_logger.get_recent_logs(limit=limit or 50, device_id=device_id)
+        statistics = history_logger.get_statistics(days=days or 7)
+        return jsonify({'success': True, 'count': len(logs), 'logs': logs, 'statistics': statistics})
+    except ValueError as e:
+        return jsonify({'success': False, 'error': str(e)}), 400
+    except Exception as e:
+        app.logger.exception('Không đọc được lịch sử IoT')
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+@app.route('/api/iot/export_pdf', methods=['GET'])
+def api_iot_export_pdf():
+    """Tạo báo cáo PDF trong bộ nhớ và trả về dạng tải xuống."""
+    try:
+        days = request.args.get('days', default=7, type=int)
+        if not days or days < 1:
+            return jsonify({'success': False, 'error': 'Tham số days phải là số nguyên dương.'}), 400
+        from export_pdf_report import build_pdf
+        pdf_data = build_pdf(days)
+        return send_file(
+            io.BytesIO(pdf_data), mimetype='application/pdf', as_attachment=True,
+            download_name=f'aquarium_report_{days}days.pdf', max_age=0
+        )
+    except FileNotFoundError as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+    except Exception as e:
+        app.logger.exception('Không xuất được báo cáo PDF IoT')
         return jsonify({'success': False, 'error': str(e)}), 500
 
 

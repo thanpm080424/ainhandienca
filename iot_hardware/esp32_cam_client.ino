@@ -135,7 +135,7 @@ bool postCapture(camera_fb_t *frame, float actualTemp) {
   prefix += "Content-Disposition: form-data; name=\"device_id\"\r\n\r\n";
   prefix += DEVICE_ID;
   prefix += "\r\n--" + boundary + "\r\n";
-  prefix += "Content-Disposition: form-data; name=\"temp_actual\"\r\n\r\n";
+  prefix += "Content-Disposition: form-data; name=\"temperature\"\r\n\r\n";
   prefix += isnan(actualTemp) ? "" : String(actualTemp, 2);
   prefix += "\r\n--" + boundary + "\r\n";
   prefix += "Content-Disposition: form-data; name=\"file\"; filename=\"capture.jpg\"\r\n";

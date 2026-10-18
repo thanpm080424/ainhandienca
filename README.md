@@ -163,3 +163,22 @@ python train_fish_classifier.py --imgsz 384 --model s --water-augment-ratio 0
 
 Thư mục `runs/classify/fish_classifier/thesis_report/` (hoặc tên tương ứng với `--name`) chứa báo cáo JSON, chỉ số Precision/Recall/F1/Top-1/Top-5 theo loài, ma trận nhầm lẫn CSV/PNG và đồ thị loss/accuracy. Checkpoint tốt nhất được sao chép sang `weights/best_fish_yolov8.pt`. Dùng `--force` nếu muốn tạo lại thư mục đã chỉ định bằng `--dataset-output`.
 
+### Lịch sử IoT và báo cáo PDF
+
+API `/api/iot/predict` ghi số đo vào `data/history.db` khi multipart form có `device_id`, `temperature` hoặc `ph`. Có thể xem 50 bản ghi mới nhất cùng thống kê theo ngày tại:
+
+```text
+GET /api/iot/history
+GET /api/iot/history?days=30&device_id=raspberry-pi-aquarium-01
+GET /api/iot/export_pdf?days=7
+```
+
+Cài ReportLab cùng các phụ thuộc ứng dụng và xuất báo cáo từ terminal:
+
+```powershell
+python -m pip install -r requirements.txt
+python export_pdf_report.py --days 7 --output report.pdf
+```
+
+Dùng `--days 30` cho tháng gần nhất. PDF có thống kê lượt nhận diện theo loài, số liệu trung bình theo ngày và nhật ký cảnh báo; font Arial hoặc DejaVu Sans được tự dò để hiển thị tiếng Việt. Đặt `FISH_HISTORY_DB` để chọn vị trí SQLite khác. Endpoint tải PDF trả trực tiếp file, ví dụ `http://127.0.0.1:5000/api/iot/export_pdf?days=7`.
+

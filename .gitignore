@@ -21,6 +21,11 @@ runs/
 *.pt
 !weights/best_fish_yolov8.pt
 
+# Runtime telemetry database and SQLite sidecar files
+data/*.db
+data/*.db-shm
+data/*.db-wal
+
 # Hash Cache
 dataset_hash_cache.json
 

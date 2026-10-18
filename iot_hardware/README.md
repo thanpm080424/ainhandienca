@@ -30,7 +30,7 @@ Board ESP32-CAM có rất ít GPIO trống. Thiết kế dùng GPIO13/14 nên kh
 
 Đặt `SERVER_URL` thành địa chỉ LAN của máy chạy Flask, ví dụ `http://192.168.1.20:5000/api/iot/predict`; không dùng `127.0.0.1` vì đó là loopback của thiết bị. `app.py` mặc định chỉ lắng nghe loopback; chạy server với `FLASK_HOST=0.0.0.0` để cho phép thiết bị trong LAN kết nối (PowerShell: `$env:FLASK_HOST="0.0.0.0"; python app.py`; Linux/macOS: `FLASK_HOST=0.0.0.0 python app.py`). Debug mặc định tắt; chỉ bật `FLASK_DEBUG=1` khi phát triển trên máy tin cậy.
 
-Firmware đọc `detection.species_name`, `detection.confidence`, `aquatic_environment.optimal_temperature`, `aquatic_environment.optimal_ph`, `iot_sensor_thresholds.temp_alert`, `hybrid_analysis.is_hybrid_alert` và `aquatic_environment.temp_range`. DS18B20 được so sánh với min/max số của `temp_range` để bật quạt/sưởi cục bộ. `temp_actual` và `device_id` được gửi kèm multipart, nhưng API Flask hiện tại chỉ đọc ảnh và chưa lưu các trường cảm biến.
+Firmware đọc `detection.species_name`, `detection.confidence`, `aquatic_environment.optimal_temperature`, `aquatic_environment.optimal_ph`, `iot_sensor_thresholds.temp_alert`, `hybrid_analysis.is_hybrid_alert` và `aquatic_environment.temp_range`. DS18B20 được so sánh với min/max số của `temp_range` để bật quạt/sưởi cục bộ. Firmware gửi `temperature` và `device_id` kèm multipart; Flask lưu các trường này trong lịch sử.
 
 ## 2. Raspberry Pi
 
@@ -64,7 +64,7 @@ python3 pi_sensor_client.py --keep-image
 python3 pi_sensor_client.py --server http://192.168.1.20:5000 --ph-actual 7.1 --loop --interval 60
 ```
 
-Client đọc DS18B20, chụp ảnh, gửi trường ảnh `file` cùng `device_id`, `temp_actual` và pH nếu có. Nó in kết quả nhận diện, khoảng nhiệt độ/pH phù hợp, số đo thực tế và cảnh báo lai tạp. Route hiện tại `/api/iot/predict` chỉ đọc `file`; các field cảm biến gửi kèm chưa được Flask xử lý/lưu. Vì vậy việc so sánh số đo và ngưỡng trong bản client này được thực hiện tại Raspberry Pi sau khi nhận response.
+Client đọc DS18B20, chụp ảnh, gửi trường ảnh `file` cùng `device_id`, `temperature` và `ph` nếu có. Nó in kết quả nhận diện, khoảng nhiệt độ/pH phù hợp, số đo thực tế và cảnh báo lai tạp. Flask lưu mẫu vào `data/history.db` khi có telemetry; nếu chỉ gửi ảnh không kèm các field telemetry thì endpoint không thêm bản ghi lịch sử.
 
 ## 3. Xử lý sự cố nhanh
 
