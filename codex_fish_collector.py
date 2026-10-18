@@ -40,19 +40,30 @@ ACCEPTED_INAT_LICENSES = {
     "cc0", "pd", "cc-by", "cc-by-sa", "cc-by-nc", "cc-by-nc-sa",
 }
 BLOCKED_TITLE_WORDS = re.compile(
-    r"\b(logo|icon|clip.?art|vector|diagram|symbol|sticker|banner|watermark|emblem)\b", re.I
+    r"\b(logo|icon|clip.?art|vector|diagram|symbol|sticker|banner|watermark|emblem|"
+    r"drawing|illustration|cartoon|sketch|coloring|recipe|cooked|food|dish|market|"
+    r"fried|steamed|aquarium equipment|filter sponge|led light|human face|selfie|"
+    r"holding fish|fishing rod|fish tank without fish)\b|chế biến", re.I
 )
+SPECIES_NEGATIVES = {
+    "ca_but_chi": re.compile(r"\b(flying fox fish|chinese algae eater|pencil stationery)\b", re.I),
+    "ca_da_quang": re.compile(r"\b(neon tetra|neon fish)\b", re.I),
+    "ca_dia": re.compile(r"\b(severum)\b", re.I),
+}
+SHARPNESS_MIN = 35.0
+IMAGE_BYTES_MIN = 25 * 1024
+IMAGE_SIDE_MIN = 400
 USER_AGENT = "CodexFishCollector/1.0 (educational fish image dataset; contact: project maintainers)"
 
 # Từ khóa theo danh mục lớp trong predict_fish.py; không import module đó vì
 # import model YOLO sẽ làm CLI nặng và có thể tự tải weights.
 SPECIES_QUERIES: dict[str, tuple[str, ...]] = {
     "ca_ba_duoi": ("Carassius auratus fancy goldfish aquarium", "cá ba đuôi cá vàng hồ cá", "fancy goldfish"),
-    "ca_bay_mau": ("Poecilia reticulata fancy guppy aquarium", "Guppy fish male fancy tail", "cá bảy màu full gold"),
-    "ca_but_chi": ("Crossocheilus oblongus aquarium", "Crossocheilus siamensis", "cá bút chì ăn rêu"),
+    "ca_bay_mau": ("fancy guppy male tail Poecilia reticulata", "Poecilia reticulata champion", "cá bảy màu full gold"),
+    "ca_but_chi": ("Crossocheilus oblongus aquarium", "Crossocheilus siamensis aquarium", "Crossocheilus oblongus cá bút chì"),
     "ca_chuot": ("Corydoras aquarium fish", "Corydoras paleatus", "cá chuột cảnh hồ thủy sinh"),
-    "ca_da_quang": ("GloFish tetra fluorescent aquarium", "GloFish Danio rerio", "cá dạ quang thủy sinh"),
-    "ca_dia": ("Discus fish Symphysodon aquarium", "Symphysodon aequifasciatus", "cá dĩa bồ câu Blue Diamond"),
+    "ca_da_quang": ("GloFish fluorescent tetra aquarium", "transgenic tetra fluorescent", "GloFish fluorescent Danio rerio"),
+    "ca_dia": ("Symphysodon discus high grade aquarium", "Symphysodon aequifasciatus aquarium", "cá dĩa bồ câu Blue Diamond"),
     "ca_diec_anh_dao": ("Puntius titteya cherry barb aquarium", "cherry barb fish aquarium", "cá diếc anh đào cảnh"),
     "ca_duoi_kiem": ("Xiphophorus hellerii swordtail aquarium", "swordtail fish aquarium", "cá đuôi kiếm cảnh"),
     "ca_hong_ket": ("blood parrot cichlid aquarium", "hybrid parrot cichlid fish", "cá hồng két thủy sinh"),
@@ -99,16 +110,94 @@ class Candidate:
 
 
 class Collector:
-    def __init__(self, dataset_dir: Path, workers: int = 8, allow_unlicensed: bool = False):
+    def __init__(self, dataset_dir: Path, workers: int = 8, allow_unlicensed: bool = False,
+                 verify_yolo: bool = True, confidence_min: float = 60.0):
         self.dataset_dir = dataset_dir.resolve()
         self.workers = max(1, min(16, workers))
         self.allow_unlicensed = allow_unlicensed
+        self.verify_yolo = verify_yolo
+        self.confidence_min = max(60.0, confidence_min)
+        self.yolo_model = None
+        self.detector_model = None
+        self.yolo_lock = threading.Lock()
         self.lock = threading.Lock()
         self.manifest_lock = threading.Lock()
         self.hashes: dict[str, set[str]] = {}
         self.indices: dict[str, int] = {}
         self.reserved_counts: dict[str, int] = {}
         self.manifest_path = self.dataset_dir / "codex_fish_collector_manifest.jsonl"
+
+    def load_yolo(self) -> None:
+        """Nạp checkpoint phân loại cá và mô hình nhận diện đối tượng yolov8n.pt."""
+        model_path = next((path for path in (
+            BASE_DIR / "weights" / "best_fish_yolov8.pt",
+            BASE_DIR / "runs" / "classify" / "fish_yolov8_model" / "weights" / "best.pt",
+        ) if path.is_file()), None)
+        if model_path is None:
+            raise RuntimeError("Không tìm thấy weights/best_fish_yolov8.pt hoặc checkpoint classify best.pt.")
+        try:
+            from ultralytics import YOLO
+        except ImportError as exc:
+            raise RuntimeError("Thiếu ultralytics; cài bằng `python -m pip install -r requirements-train.txt`.") from exc
+        self.yolo_model = YOLO(str(model_path))
+        print(f"[YOLO] Đã nạp model phân loại cá: {model_path}")
+
+        det_path = BASE_DIR / "yolov8n.pt"
+        if det_path.is_file():
+            self.detector_model = YOLO(str(det_path))
+            print(f"[YOLO] Đã nạp model phát hiện đối tượng người/chim/thú: {det_path}")
+
+    def _has_human_or_predator(self, image: Image.Image) -> tuple[bool, str]:
+        """Chốt chặn nghiêm ngặt: loại ảnh người, tay người cầm cá, ngón tay giữ cá và động vật ăn cá."""
+        # 1. Quét bằng YOLOv8n detector
+        if self.detector_model is not None:
+            try:
+                with self.yolo_lock:
+                    det_res = self.detector_model.predict(source=image, verbose=False, conf=0.22)[0]
+                for box in det_res.boxes:
+                    cls_name = det_res.names[int(box.cls[0])]
+                    conf = float(box.conf[0])
+                    if cls_name == 'person':
+                        return True, f"Phát hiện người / tay người cầm cá ({conf*100:.1f}%)"
+                    elif cls_name == 'bird':
+                        return True, f"Phát hiện chim bắt/ăn cá ({conf*100:.1f}%)"
+                    elif cls_name in ('cat', 'dog', 'bear'):
+                        return True, f"Phát hiện động vật săn mồi {cls_name} ({conf*100:.1f}%)"
+            except Exception:
+                pass
+
+        # 2. Quét tỷ lệ màu da người YCrCb (loại trừ tay người cầm cá ngoài không gian bể)
+        try:
+            import cv2
+            import numpy as np
+            thumb = image.copy()
+            thumb.thumbnail((320, 320))
+            img_np = np.array(thumb.convert('RGB'))
+            ycrcb = cv2.cvtColor(img_np, cv2.COLOR_RGB2YCrCb)
+            lower_skin = np.array([0, 133, 77], dtype=np.uint8)
+            upper_skin = np.array([255, 173, 127], dtype=np.uint8)
+            mask = cv2.inRange(ycrcb, lower_skin, upper_skin)
+            skin_ratio = float(np.count_nonzero(mask)) / mask.size
+            if skin_ratio >= 0.16:
+                return True, f"Tỷ lệ màu da người lớn ({skin_ratio*100:.1f}% >= 16%): phát hiện bàn tay người giữ cá"
+        except Exception:
+            pass
+
+        return False, "Sạch"
+
+    def _verify_species(self, image: Image.Image, species: str) -> tuple[bool, str, float]:
+        if self.yolo_model is None:
+            raise RuntimeError("YOLO chưa được nạp; gọi load_yolo() trước khi thu thập.")
+        with self.yolo_lock:
+            result = self.yolo_model.predict(source=image, verbose=False)[0]
+            if result.probs is None:
+                return False, "khong_phat_hien", 0.0
+            class_index = int(result.probs.top1)
+            names = result.names
+            predicted_key = str(names[class_index] if isinstance(names, (list, tuple)) else names.get(class_index, "unknown"))
+            confidence = float(result.probs.top1conf.item()) * 100.0
+        accepted = predicted_key == species and confidence >= self.confidence_min
+        return accepted, predicted_key, confidence
 
     def _existing_hashes(self, species: str) -> set[str]:
         target = self.dataset_dir / species
@@ -327,10 +416,14 @@ class Collector:
         return candidates
 
     @staticmethod
-    def _read_image(candidate: Candidate, allow_unlicensed: bool) -> tuple[bytes, Image.Image] | None:
+    def _read_image(candidate: Candidate, allow_unlicensed: bool,
+                    species: str) -> tuple[bytes, Image.Image, float] | None:
         if candidate.license == "unknown" and not allow_unlicensed:
             return None
-        if BLOCKED_TITLE_WORDS.search(candidate.title):
+        searchable = f"{candidate.title} {candidate.url} {candidate.page_url}"
+        if BLOCKED_TITLE_WORDS.search(searchable):
+            return None
+        if SPECIES_NEGATIVES.get(species) and SPECIES_NEGATIVES[species].search(searchable):
             return None
         if not Collector._safe_https_url(candidate.url):
             return None
@@ -354,7 +447,7 @@ class Collector:
                     response.raise_for_status()
                     content_type = response.headers.get("Content-Type", "").split(";", 1)[0].lower()
                     declared_size = int(response.headers.get("Content-Length") or 0)
-                    if declared_size and declared_size < 15 * 1024:
+                    if declared_size and declared_size < IMAGE_BYTES_MIN:
                         response.close()
                         return None
                     if declared_size > 20 * 1024 * 1024:
@@ -369,7 +462,7 @@ class Collector:
                                 return None
                     response.close()
                     raw = bytes(chunks)
-                    if len(raw) < 15 * 1024 or (content_type and not content_type.startswith("image/")):
+                    if len(raw) < IMAGE_BYTES_MIN or (content_type and not content_type.startswith("image/")):
                         return None
                     try:
                         with Image.open(io.BytesIO(raw)) as check:
@@ -377,10 +470,10 @@ class Collector:
                                 return None
                             check.verify()
                         with Image.open(io.BytesIO(raw)) as image:
-                            if image.width < 350 or image.height < 350:
+                            if image.width < IMAGE_SIDE_MIN or image.height < IMAGE_SIDE_MIN:
                                 return None
                             ratio = image.width / image.height
-                            if not 0.45 <= ratio <= 2.4:
+                            if not 0.5 <= ratio <= 2.2:
                                 return None
                             if image.mode in {"RGBA", "LA"}:
                                 alpha = image.getchannel("A")
@@ -388,7 +481,18 @@ class Collector:
                                 if transparent_ratio > 0.45:
                                     return None
                             image.load()
-                            return raw, image.convert("RGB")
+                            rgb = image.convert("RGB")
+                            try:
+                                import cv2
+                                import numpy as np
+                            except ImportError as exc:
+                                raise RuntimeError("Bộ lọc độ nét cần OpenCV và NumPy; cài requirements-collector.txt.") from exc
+                            gray = cv2.cvtColor(np.asarray(rgb), cv2.COLOR_RGB2GRAY)
+                            sharpness = float(cv2.Laplacian(gray, cv2.CV_64F).var())
+                            if sharpness < SHARPNESS_MIN:
+                                print(f"[{species}] -> LOẠI: Ảnh quá mờ (Độ nét: {sharpness:.1f} < {SHARPNESS_MIN:.1f})")
+                                return None
+                            return raw, rgb, sharpness
                     except (UnidentifiedImageError, OSError, ValueError):
                         return None
                 return None
@@ -410,14 +514,27 @@ class Collector:
         with self.lock:
             if self.reserved_counts.get(species, 0) >= limit:
                 return False, "limit_reached"
-        result = self._read_image(candidate, self.allow_unlicensed)
+        if self.verify_yolo:
+            print(f"[{species}] Đang soi ảnh qua YOLOv8...")
+        result = self._read_image(candidate, self.allow_unlicensed, species)
         if result is None:
             return False, "quality/license/url"
-        raw, image = result
+        raw, image, sharpness = result
+        if self.verify_yolo:
+            has_bad, bad_reason = self._has_human_or_predator(image)
+            if has_bad:
+                print(f"[{species}] -> LOẠI: {bad_reason}")
+                return False, "human_or_predator"
+            accepted, predicted_key, confidence = self._verify_species(image, species)
+            if not accepted:
+                reason = "khong_phat_hien" if predicted_key == "khong_phat_hien" else "yolo_mismatch_or_low_confidence"
+                print(f"[{species}] -> LOẠI: YOLO đoán {predicted_key} ({confidence:.1f}%), yêu cầu đúng loài và >= {self.confidence_min:.1f}%")
+                return False, reason
+            print(f"[{species}] -> ĐẠT: Đúng loài {species} (Conf: {confidence:.1f}%, Độ nét: {sharpness:.1f})")
         encoded = io.BytesIO()
         image.save(encoded, format="JPEG", quality=92, optimize=True)
         converted = encoded.getvalue()
-        if len(converted) < 15 * 1024:
+        if len(converted) < IMAGE_BYTES_MIN:
             return False, "converted_small"
         digest = hashlib.sha256(converted).hexdigest()
         with self.lock:
@@ -447,11 +564,16 @@ class Collector:
                 "license": candidate.license,
                 "attribution": candidate.attribution,
                 "sha256_jpg": digest,
+                "sharpness_laplacian_variance": round(sharpness, 3),
+                "yolo_verified": self.verify_yolo,
+                "yolo_confidence_percent": round(confidence, 2) if self.verify_yolo else None,
                 "saved_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
             }
             with self.manifest_lock:
                 with self.manifest_path.open("a", encoding="utf-8") as manifest:
                     manifest.write(json.dumps(record, ensure_ascii=False) + "\n")
+            if self.verify_yolo:
+                print(f"[{species}] -> ĐÃ LƯU: {destination.name}")
             return True, "saved"
         except Exception:
             with self.lock:
@@ -527,6 +649,10 @@ def parse_args() -> argparse.Namespace:
                         help="Danh sách nguồn, phân cách dấu phẩy: commons,inaturalist,ddg.")
     parser.add_argument("--allow-unlicensed", action="store_true",
                         help="Cho phép ảnh DDG không có metadata giấy phép rõ ràng; hãy kiểm tra quyền sử dụng thủ công.")
+    parser.add_argument("--no-verify-yolo", action="store_true",
+                        help="Tắt xác thực YOLO (mặc định luôn BẬT xác thực đúng loài cá và chốt chặn người/chim/thú).")
+    parser.add_argument("--confidence-min", type=float, default=60.0,
+                        help="Ngưỡng confidence YOLO theo phần trăm (mặc định cứng: 60.0%%).")
     return parser.parse_args()
 
 
@@ -541,6 +667,9 @@ def main() -> int:
     if not 1 <= args.workers <= 16:
         print("--workers cần nằm trong 1..16.", file=sys.stderr)
         return 2
+    if not 0.0 <= args.confidence_min <= 100.0:
+        print("--confidence-min cần nằm trong 0..100.", file=sys.stderr)
+        return 2
     aliases = {"inaturalist": "inat"}
     sources = {aliases.get(item.strip().lower(), item.strip().lower())
                for item in args.sources.split(",") if item.strip()}
@@ -550,8 +679,15 @@ def main() -> int:
         return 2
 
     dataset_dir = args.dataset_dir.expanduser().resolve()
-    dataset_dir.mkdir(parents=True, exist_ok=True)
-    collector = Collector(dataset_dir, args.workers, args.allow_unlicensed)
+    verify_yolo = not args.no_verify_yolo
+    collector = Collector(dataset_dir, args.workers, args.allow_unlicensed,
+                          verify_yolo, args.confidence_min)
+    if verify_yolo:
+        try:
+            collector.load_yolo()
+        except RuntimeError as exc:
+            print(f"[ERROR] {exc}", file=sys.stderr)
+            return 2
     if args.species:
         limit = args.limit if args.limit is not None else 100
         collector.collect(args.species, limit, sources)

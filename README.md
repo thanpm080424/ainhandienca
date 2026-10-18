@@ -192,5 +192,14 @@ python codex_fish_collector.py --species ca_but_chi --limit 100
 python codex_fish_collector.py --auto-fill
 ```
 
-`--auto-fill` ưu tiên lớp thiếu nhiều nhất tới mốc 500 ảnh; `--limit N` giới hạn số ảnh mới cho mỗi lớp trong chế độ này. Nguồn DDG không cung cấp giấy phép đáng tin cậy qua kết quả tìm kiếm nên các ảnh đó bị bỏ qua mặc định; chỉ dùng `--allow-unlicensed` khi bạn sẽ kiểm tra quyền sử dụng thủ công. Dù lấy từ truy vấn tên loài, ảnh vẫn cần được rà soát/kiểm định AI trước khi đưa vào tập huấn luyện, vì script lọc chất lượng ảnh chứ không xác nhận nhãn sinh học.
+`--auto-fill` ưu tiên lớp thiếu nhiều nhất tới mốc 500 ảnh; `--limit N` giới hạn số ảnh mới cho mỗi lớp trong chế độ này. Nguồn DDG không cung cấp giấy phép đáng tin cậy qua kết quả tìm kiếm nên các ảnh đó bị bỏ qua mặc định; chỉ dùng `--allow-unlicensed` khi bạn sẽ kiểm tra quyền sử dụng thủ công. Mặc định collector không xác nhận nhãn sinh học; bật `--verify-yolo` để áp dụng bước kiểm tra phân loại tùy chọn.
+
+Bộ lọc thị giác hiện yêu cầu ảnh tối thiểu 400×400, 25 KB, tỷ lệ 0.5–2.2 và độ nét Laplacian tối thiểu 35; tiêu đề/URL có từ khóa tranh vẽ, đồ ăn, thiết bị bể cá hoặc truy vấn gây nhầm loài sẽ bị loại. Để bật xác minh phân loại bằng checkpoint đã huấn luyện (bắt buộc Top-1 trùng mã loài và confidence tối thiểu 60%):
+
+```powershell
+python -m pip install -r requirements-train.txt
+python codex_fish_collector.py --species ca_but_chi --limit 50 --verify-yolo
+```
+
+`--confidence-min 60` có thể dùng để đổi ngưỡng. Chế độ `--verify-yolo` yêu cầu `weights/best_fish_yolov8.pt` hoặc checkpoint `runs/classify/fish_yolov8_model/weights/best.pt`; ảnh bị từ chối sẽ không được lưu. Đây là bộ lọc tự động dựa trên mô hình và ngưỡng, không thể bảo đảm nhãn chính xác tuyệt đối; ảnh thu thập vẫn nên được kiểm duyệt thủ công.
 

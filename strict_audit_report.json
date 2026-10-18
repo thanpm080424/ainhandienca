@@ -1,0 +1,2565 @@
+[
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333441756_41.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333441756_41.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (65.2%)",
+      "Tỷ lệ màu da người lớn (99.2% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 99.2,
+      "detected_objects": {
+        "person": 0.6522316932678223,
+        "orange": 0.29535675048828125
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 71.14
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333441030_40.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333441030_40.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (61.6%)",
+      "Tỷ lệ màu da người lớn (87.7% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 87.7,
+      "detected_objects": {
+        "person": 0.6156162023544312,
+        "hot dog": 0.5494869351387024
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 92.88
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333439775_39.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333439775_39.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (94.0% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 94.0,
+      "detected_objects": {
+        "banana": 0.34333333373069763
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 84.59
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333439672_38.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333439672_38.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (45.2%)"
+    ],
+    "details": {
+      "skin_ratio": 3.8,
+      "detected_objects": {
+        "bird": 0.4515896439552307
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 90.94
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333438747_37.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333438747_37.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (29.2% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 29.2,
+      "detected_objects": {
+        "broccoli": 0.32473331689834595,
+        "sandwich": 0.23403257131576538
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 74.32
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333438444_36.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333438444_36.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (69.0% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 69.0,
+      "detected_objects": {
+        "hot dog": 0.5590131282806396,
+        "carrot": 0.2689693570137024
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 77.3
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333434338_34.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333434338_34.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (36.2%)",
+      "Tỷ lệ màu da người lớn (97.5% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 97.5,
+      "detected_objects": {
+        "person": 0.36170828342437744,
+        "banana": 0.2723260819911957
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 61.03
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333432891_33.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333432891_33.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (74.0% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 74.0,
+      "detected_objects": {
+        "carrot": 0.414429634809494
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 90.05
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333427774_31.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333427774_31.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (71.9%)",
+      "Tỷ lệ màu da người lớn (24.1% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 24.1,
+      "detected_objects": {
+        "bird": 0.7190198302268982
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 95.67
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333427702_30.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333427702_30.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (95.2% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 95.2,
+      "detected_objects": {
+        "knife": 0.22745594382286072
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 91.23
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333427282_29.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333427282_29.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (41.0%)"
+    ],
+    "details": {
+      "skin_ratio": 7.7,
+      "detected_objects": {
+        "person": 0.4103870987892151,
+        "bottle": 0.27871131896972656
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 93.18
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333425200_24.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333425200_24.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (78.2%)",
+      "Tỷ lệ màu da người lớn (34.7% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 34.7,
+      "detected_objects": {
+        "person": 0.7822510004043579
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 98.91
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333424556_23.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333424556_23.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (17.8% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 17.8,
+      "detected_objects": {},
+      "predicted_species": "ca_but_chi",
+      "confidence": 97.76
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333424197_21.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333424197_21.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (38.4% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 38.4,
+      "detected_objects": {},
+      "predicted_species": "ca_but_chi",
+      "confidence": 62.22
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333423855_20.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333423855_20.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (18.2% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 18.2,
+      "detected_objects": {
+        "broccoli": 0.2358083426952362
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 92.35
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333423359_19.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333423359_19.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (43.8% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 43.8,
+      "detected_objects": {},
+      "predicted_species": "ca_but_chi",
+      "confidence": 92.74
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333422583_18.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333422583_18.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (97.5% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 58.1%"
+    ],
+    "details": {
+      "skin_ratio": 97.5,
+      "detected_objects": {
+        "banana": 0.5092829465866089
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 58.14
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333421818_17.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333421818_17.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (70.9%)",
+      "Tỷ lệ màu da người lớn (65.4% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 65.4,
+      "detected_objects": {
+        "person": 0.709186851978302,
+        "hot dog": 0.24768787622451782
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 99.86
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333421058_16.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333421058_16.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (68.7%)",
+      "Tỷ lệ màu da người lớn (68.5% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 68.5,
+      "detected_objects": {
+        "person": 0.6874251961708069,
+        "hot dog": 0.5749157667160034
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 99.77
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333420868_15.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333420868_15.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (63.7%)",
+      "Tỷ lệ màu da người lớn (77.4% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 77.4,
+      "detected_objects": {
+        "person": 0.6368964910507202,
+        "hot dog": 0.5207129120826721
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 99.74
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333420759_14.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333420759_14.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (75.4%)",
+      "Tỷ lệ màu da người lớn (73.4% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 73.4,
+      "detected_objects": {
+        "person": 0.754410445690155,
+        "hot dog": 0.7212035059928894,
+        "carrot": 0.3466145098209381
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 99.63
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333420524_13.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333420524_13.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (68.3%)",
+      "Tỷ lệ màu da người lớn (69.9% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 69.9,
+      "detected_objects": {
+        "person": 0.6830381751060486,
+        "hot dog": 0.5739977359771729
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 99.89
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333420399_12.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333420399_12.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (59.4%)",
+      "Tỷ lệ màu da người lớn (69.3% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 69.3,
+      "detected_objects": {
+        "hot dog": 0.6729268431663513,
+        "person": 0.5940617322921753
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 99.28
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333420180_11.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333420180_11.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (62.1%)",
+      "Tỷ lệ màu da người lớn (69.1% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 69.1,
+      "detected_objects": {
+        "person": 0.6207037568092346,
+        "hot dog": 0.5449844598770142
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 98.7
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333419434_10.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333419434_10.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (68.5%)",
+      "Tỷ lệ màu da người lớn (63.6% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 63.6,
+      "detected_objects": {
+        "person": 0.6845658421516418
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 99.61
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333418968_9.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333418968_9.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (70.4%)",
+      "Tỷ lệ màu da người lớn (85.7% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 85.7,
+      "detected_objects": {
+        "person": 0.7043459415435791
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 98.9
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333418651_8.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333418651_8.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (58.2%)",
+      "Tỷ lệ màu da người lớn (70.0% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 70.0,
+      "detected_objects": {
+        "person": 0.5824251770973206,
+        "hot dog": 0.5340926051139832
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 99.17
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333418523_7.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333418523_7.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (55.0%)",
+      "Tỷ lệ màu da người lớn (63.1% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 63.1,
+      "detected_objects": {
+        "person": 0.5499404072761536,
+        "hot dog": 0.46794193983078003
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 97.53
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333418407_6.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333418407_6.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (71.6%)",
+      "Tỷ lệ màu da người lớn (71.2% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 71.2,
+      "detected_objects": {
+        "person": 0.7162331342697144
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 98.5
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333418001_5.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333418001_5.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (67.5%)",
+      "Tỷ lệ màu da người lớn (85.0% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 85.0,
+      "detected_objects": {
+        "person": 0.6748630404472351
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 98.46
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333416053_2.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333416053_2.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (42.3% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 42.3,
+      "detected_objects": {},
+      "predicted_species": "ca_but_chi",
+      "confidence": 99.22
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792333415857_1.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792333415857_1.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (32.7% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 32.7,
+      "detected_objects": {
+        "surfboard": 0.4332921504974365
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 72.95
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792332600005_2.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792332600005_2.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (38.5%)",
+      "Tỷ lệ màu da người lớn (42.5% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 59.4%"
+    ],
+    "details": {
+      "skin_ratio": 42.5,
+      "detected_objects": {
+        "person": 0.3850595951080322,
+        "knife": 0.37938645482063293
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 59.44
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792332597266_1.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792332597266_1.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (64.2%)",
+      "Tỷ lệ màu da người lớn (38.4% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 38.4,
+      "detected_objects": {
+        "person": 0.6418384909629822,
+        "hot dog": 0.6153957843780518,
+        "banana": 0.4376150667667389
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 77.86
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "codex_ca_but_chi_1792326464_03.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\codex_ca_but_chi_1792326464_03.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (43.5%)",
+      "Tỷ lệ màu da người lớn (42.4% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 39.0%"
+    ],
+    "details": {
+      "skin_ratio": 42.4,
+      "detected_objects": {
+        "bird": 0.4352208971977234
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 38.95
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "codex_ca_but_chi_1792326464_02.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\codex_ca_but_chi_1792326464_02.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (58.4%)"
+    ],
+    "details": {
+      "skin_ratio": 2.6,
+      "detected_objects": {
+        "bird": 0.5842427015304565
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 91.61
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "codex_ca_but_chi_1792326463_01.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\codex_ca_but_chi_1792326463_01.jpg",
+    "reasons": [
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 52.0%"
+    ],
+    "details": {
+      "skin_ratio": 0.1,
+      "detected_objects": {
+        "vase": 0.28237801790237427
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 52.02
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792324700767_3.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792324700767_3.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (59.0%)",
+      "Phát hiện chim bắt/ăn cá (28.7%)",
+      "Tỷ lệ màu da người lớn (65.4% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 65.4,
+      "detected_objects": {
+        "person": 0.5903608798980713,
+        "kite": 0.3065704107284546,
+        "bird": 0.2868810296058655
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 77.14
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792318910127_3.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792318910127_3.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (59.0%)",
+      "Phát hiện chim bắt/ăn cá (28.7%)",
+      "Tỷ lệ màu da người lớn (65.4% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 65.4,
+      "detected_objects": {
+        "person": 0.5903608798980713,
+        "kite": 0.3065704107284546,
+        "bird": 0.2868810296058655
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 77.14
+    }
+  },
+  {
+    "species": "ca_but_chi",
+    "filename": "verified_clean_ca_but_chi_1792316258994_3.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_but_chi\\verified_clean_ca_but_chi_1792316258994_3.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (59.0%)",
+      "Phát hiện chim bắt/ăn cá (28.7%)",
+      "Tỷ lệ màu da người lớn (65.4% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 65.4,
+      "detected_objects": {
+        "person": 0.5903608798980713,
+        "kite": 0.3065704107284546,
+        "bird": 0.2868810296058655
+      },
+      "predicted_species": "ca_but_chi",
+      "confidence": 77.14
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792332526058_2.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792332526058_2.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (57.4%)",
+      "Tỷ lệ màu da người lớn (22.1% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 22.1,
+      "detected_objects": {
+        "person": 0.5744214653968811,
+        "hot dog": 0.27921754121780396,
+        "carrot": 0.27604588866233826
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 88.42
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792332521323_1.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792332521323_1.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (87.9%)",
+      "Tỷ lệ màu da người lớn (18.2% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 18.2,
+      "detected_objects": {
+        "bird": 0.8789889216423035
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 78.4
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792328858116_4.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792328858116_4.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (69.8% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 69.8,
+      "detected_objects": {
+        "banana": 0.31546077132225037
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 98.48
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792328835246_3.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792328835246_3.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (57.6%)"
+    ],
+    "details": {
+      "skin_ratio": 16.0,
+      "detected_objects": {
+        "bird": 0.5762062072753906
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 61.56
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792328817316_2.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792328817316_2.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (24.2%)",
+      "Tỷ lệ màu da người lớn (30.1% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 30.1,
+      "detected_objects": {
+        "banana": 0.26588064432144165,
+        "bird": 0.24246934056282043
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 69.38
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312625504_14.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312625504_14.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (25.8%)",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 33.6%"
+    ],
+    "details": {
+      "skin_ratio": 9.0,
+      "detected_objects": {
+        "bird": 0.25777146220207214
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 33.64
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312594827_13.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312594827_13.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (40.7%)",
+      "Tỷ lệ màu da người lớn (58.1% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 40.0%"
+    ],
+    "details": {
+      "skin_ratio": 58.1,
+      "detected_objects": {
+        "bird": 0.4074646234512329,
+        "sink": 0.25767001509666443
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 40.01
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312582543_12.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312582543_12.jpg",
+    "reasons": [
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 33.2%"
+    ],
+    "details": {
+      "skin_ratio": 0.3,
+      "detected_objects": {
+        "kite": 0.32712605595588684,
+        "airplane": 0.24371695518493652
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 33.2
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312577733_11.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312577733_11.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (72.1%)",
+      "Tỷ lệ màu da người lớn (68.9% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 68.9,
+      "detected_objects": {
+        "person": 0.720801830291748,
+        "sandwich": 0.5891345739364624
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 79.45
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312574034_10.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312574034_10.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (67.2% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 32.5%"
+    ],
+    "details": {
+      "skin_ratio": 67.2,
+      "detected_objects": {
+        "chair": 0.3271189033985138,
+        "boat": 0.2241852879524231
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 32.5
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312568341_9.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312568341_9.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (25.6%)",
+      "Tỷ lệ màu da người lớn (20.5% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 57.6%"
+    ],
+    "details": {
+      "skin_ratio": 20.5,
+      "detected_objects": {
+        "person": 0.2563577890396118
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 57.56
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312561458_8.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312561458_8.jpg",
+    "reasons": [
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 35.0%"
+    ],
+    "details": {
+      "skin_ratio": 12.3,
+      "detected_objects": {},
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 34.95
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312559494_7.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312559494_7.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (27.6% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 34.0%"
+    ],
+    "details": {
+      "skin_ratio": 27.6,
+      "detected_objects": {},
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 33.98
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312553521_6.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312553521_6.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (69.1%)",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 46.7%"
+    ],
+    "details": {
+      "skin_ratio": 5.2,
+      "detected_objects": {
+        "bird": 0.6906424164772034
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 46.66
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312550379_5.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312550379_5.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (65.0% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 65.0,
+      "detected_objects": {},
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 81.94
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312550034_4.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312550034_4.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (31.3% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 31.3,
+      "detected_objects": {},
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 71.5
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312544917_3.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312544917_3.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (23.7% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 23.7,
+      "detected_objects": {},
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 67.41
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312544017_2.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312544017_2.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (100.0% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 41.1%"
+    ],
+    "details": {
+      "skin_ratio": 100.0,
+      "detected_objects": {
+        "knife": 0.4704139530658722
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 41.09
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792312529023_1.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792312529023_1.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (57.3%)",
+      "Tỷ lệ màu da người lớn (73.3% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 38.5%"
+    ],
+    "details": {
+      "skin_ratio": 73.3,
+      "detected_objects": {
+        "person": 0.5733991861343384,
+        "sandwich": 0.3634151816368103
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 38.46
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311991244_16.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311991244_16.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (87.8% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 32.7%"
+    ],
+    "details": {
+      "skin_ratio": 87.8,
+      "detected_objects": {},
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 32.73
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311980923_15.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311980923_15.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (20.7% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 45.3%"
+    ],
+    "details": {
+      "skin_ratio": 20.7,
+      "detected_objects": {
+        "elephant": 0.2858734130859375
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 45.32
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311980508_14.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311980508_14.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (28.5% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 33.4%"
+    ],
+    "details": {
+      "skin_ratio": 28.5,
+      "detected_objects": {},
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 33.39
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311974400_13.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311974400_13.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (49.4%)",
+      "Tỷ lệ màu da người lớn (22.4% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 59.9%"
+    ],
+    "details": {
+      "skin_ratio": 22.4,
+      "detected_objects": {
+        "bird": 0.49358928203582764
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 59.92
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311973078_12.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311973078_12.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (65.1%)",
+      "Tỷ lệ màu da người lớn (33.9% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 53.9%"
+    ],
+    "details": {
+      "skin_ratio": 33.9,
+      "detected_objects": {
+        "bird": 0.6514063477516174
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 53.87
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311959701_11.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311959701_11.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (67.4%)",
+      "Tỷ lệ màu da người lớn (40.3% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 34.2%"
+    ],
+    "details": {
+      "skin_ratio": 40.3,
+      "detected_objects": {
+        "person": 0.6740853786468506,
+        "apple": 0.25866490602493286
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 34.16
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311949337_10.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311949337_10.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (69.9%)"
+    ],
+    "details": {
+      "skin_ratio": 3.1,
+      "detected_objects": {
+        "bird": 0.6990411877632141
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 70.4
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311945370_9.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311945370_9.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (20.3% >= 16%): nghi vấn tay người cầm cá",
+      "Sai loài: Mô hình nhận diện là 'Cá Hồng Két' (49.1%) thay vì 'ca_ba_duoi'"
+    ],
+    "details": {
+      "skin_ratio": 20.3,
+      "detected_objects": {
+        "orange": 0.22785234451293945
+      },
+      "predicted_species": "ca_hong_ket",
+      "confidence": 49.08
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311942436_8.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311942436_8.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (21.5% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 30.4%"
+    ],
+    "details": {
+      "skin_ratio": 21.5,
+      "detected_objects": {
+        "bed": 0.25291553139686584
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 30.45
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311941290_7.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311941290_7.jpg",
+    "reasons": [
+      "Phát hiện mèo bắt/ăn cá (24.9%)",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 44.0%"
+    ],
+    "details": {
+      "skin_ratio": 12.1,
+      "detected_objects": {
+        "bed": 0.3637658655643463,
+        "cat": 0.2485620677471161
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 43.95
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311938219_6.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311938219_6.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (47.8%)",
+      "Sai loài: Mô hình nhận diện là 'Cá Đuôi Kiếm' (41.4%) thay vì 'ca_ba_duoi'"
+    ],
+    "details": {
+      "skin_ratio": 11.9,
+      "detected_objects": {
+        "bird": 0.4784565269947052
+      },
+      "predicted_species": "ca_duoi_kiem",
+      "confidence": 41.41
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311934805_5.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311934805_5.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (52.9%)",
+      "Tỷ lệ màu da người lớn (22.1% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 33.7%"
+    ],
+    "details": {
+      "skin_ratio": 22.1,
+      "detected_objects": {
+        "person": 0.5286150574684143,
+        "banana": 0.2341756969690323
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 33.66
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311933989_4.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311933989_4.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (49.3%)",
+      "Tỷ lệ màu da người lớn (36.2% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 36.2,
+      "detected_objects": {
+        "person": 0.4931052625179291,
+        "hot dog": 0.3917560577392578
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 62.6
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311933366_3.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311933366_3.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (23.6%)",
+      "Tỷ lệ màu da người lớn (44.7% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 44.7,
+      "detected_objects": {
+        "sandwich": 0.36611196398735046,
+        "hot dog": 0.34375038743019104,
+        "person": 0.2360367476940155
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 87.77
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311932237_2.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311932237_2.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (43.8%)",
+      "Tỷ lệ màu da người lớn (34.7% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 34.7,
+      "detected_objects": {
+        "person": 0.4376601278781891
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 66.05
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311928402_1.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311928402_1.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (30.6%)",
+      "Phát hiện mèo bắt/ăn cá (58.1%)",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 38.6%"
+    ],
+    "details": {
+      "skin_ratio": 9.7,
+      "detected_objects": {
+        "cat": 0.5807087421417236,
+        "bird": 0.3064822554588318
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 38.62
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311404580_9.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311404580_9.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (34.9%)",
+      "Tỷ lệ màu da người lớn (21.0% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 21.0,
+      "detected_objects": {
+        "bird": 0.348669171333313
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 83.14
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311395093_8.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311395093_8.jpg",
+    "reasons": [
+      "Phát hiện chó (28.5%)",
+      "Tỷ lệ màu da người lớn (46.0% >= 16%): nghi vấn tay người cầm cá",
+      "Sai loài: Mô hình nhận diện là 'Cá Đuôi Kiếm' (37.9%) thay vì 'ca_ba_duoi'"
+    ],
+    "details": {
+      "skin_ratio": 46.0,
+      "detected_objects": {
+        "dog": 0.2848849296569824
+      },
+      "predicted_species": "ca_duoi_kiem",
+      "confidence": 37.86
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311389994_7.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311389994_7.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (76.0%)",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 45.5%"
+    ],
+    "details": {
+      "skin_ratio": 3.1,
+      "detected_objects": {
+        "bird": 0.7603619694709778
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 45.52
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311389260_6.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311389260_6.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (66.5%)",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 39.5%"
+    ],
+    "details": {
+      "skin_ratio": 0.8,
+      "detected_objects": {
+        "bird": 0.6651871800422668
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 39.46
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311385592_5.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311385592_5.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (26.9%)",
+      "Phát hiện chim bắt/ăn cá (33.2%)",
+      "Tỷ lệ màu da người lớn (89.4% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 35.7%"
+    ],
+    "details": {
+      "skin_ratio": 89.4,
+      "detected_objects": {
+        "bird": 0.33217793703079224,
+        "person": 0.2689143121242523,
+        "sports ball": 0.24844390153884888
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 35.72
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311374023_4.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311374023_4.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (62.1%)",
+      "Tỷ lệ màu da người lớn (17.6% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 56.1%"
+    ],
+    "details": {
+      "skin_ratio": 17.6,
+      "detected_objects": {
+        "bird": 0.6211276054382324
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 56.14
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311355191_3.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311355191_3.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (36.5%)",
+      "Sai loài: Mô hình nhận diện là 'Cá Hồng Két' (30.1%) thay vì 'ca_ba_duoi'"
+    ],
+    "details": {
+      "skin_ratio": 7.6,
+      "detected_objects": {
+        "frisbee": 0.660953938961029,
+        "person": 0.36520394682884216
+      },
+      "predicted_species": "ca_hong_ket",
+      "confidence": 30.07
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311343771_2.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311343771_2.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (24.4%)",
+      "Tỷ lệ màu da người lớn (24.6% >= 16%): nghi vấn tay người cầm cá",
+      "Sai loài: Mô hình nhận diện là 'Cá Hồng Két' (58.8%) thay vì 'ca_ba_duoi'"
+    ],
+    "details": {
+      "skin_ratio": 24.6,
+      "detected_objects": {
+        "person": 0.2437557876110077
+      },
+      "predicted_species": "ca_hong_ket",
+      "confidence": 58.82
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792311327568_1.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792311327568_1.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (38.6%)",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 35.3%"
+    ],
+    "details": {
+      "skin_ratio": 7.8,
+      "detected_objects": {
+        "bird": 0.3861734867095947
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 35.28
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310787801_13.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310787801_13.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (74.1%)",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 48.6%"
+    ],
+    "details": {
+      "skin_ratio": 12.8,
+      "detected_objects": {
+        "baseball bat": 0.7797464728355408,
+        "person": 0.7411742806434631,
+        "hot dog": 0.4964504837989807
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 48.56
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310765957_12.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310765957_12.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (50.1% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 50.1,
+      "detected_objects": {},
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 93.81
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310764369_11.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310764369_11.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (27.2% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 46.5%"
+    ],
+    "details": {
+      "skin_ratio": 27.2,
+      "detected_objects": {
+        "banana": 0.39922043681144714,
+        "hot dog": 0.36149442195892334
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 46.45
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310762757_10.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310762757_10.jpg",
+    "reasons": [
+      "Phát hiện chó (67.1%)",
+      "Tỷ lệ màu da người lớn (19.4% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 45.2%"
+    ],
+    "details": {
+      "skin_ratio": 19.4,
+      "detected_objects": {
+        "dog": 0.6709319353103638
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 45.16
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310761822_9.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310761822_9.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (43.9% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 43.9,
+      "detected_objects": {},
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 77.94
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310761060_7.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310761060_7.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (25.0%)",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 35.4%"
+    ],
+    "details": {
+      "skin_ratio": 10.1,
+      "detected_objects": {
+        "bird": 0.2498542070388794
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 35.36
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310760741_6.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310760741_6.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (27.3% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 27.3,
+      "detected_objects": {
+        "sandwich": 0.4361611008644104
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 63.82
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310747438_4.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310747438_4.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (56.4% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 33.2%"
+    ],
+    "details": {
+      "skin_ratio": 56.4,
+      "detected_objects": {},
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 33.22
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310738015_3.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310738015_3.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (62.9% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 36.2%"
+    ],
+    "details": {
+      "skin_ratio": 62.9,
+      "detected_objects": {},
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 36.22
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310726975_2.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310726975_2.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (22.0% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 22.0,
+      "detected_objects": {
+        "banana": 0.5878019332885742
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 61.95
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310721349_1.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310721349_1.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (29.8%)",
+      "Tỷ lệ màu da người lớn (19.6% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 19.6,
+      "detected_objects": {
+        "hot dog": 0.3256637752056122,
+        "person": 0.2978918254375458
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 82.86
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310152097_10.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310152097_10.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (24.5% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 24.5,
+      "detected_objects": {
+        "sandwich": 0.29260891675949097
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 75.61
+    }
+  },
+  {
+    "species": "ca_ba_duoi",
+    "filename": "verified_clean_ca_ba_duoi_1792310141395_9.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_ba_duoi\\verified_clean_ca_ba_duoi_1792310141395_9.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (26.6%)",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 32.7%"
+    ],
+    "details": {
+      "skin_ratio": 7.4,
+      "detected_objects": {
+        "bird": 0.26597002148628235
+      },
+      "predicted_species": "ca_ba_duoi",
+      "confidence": 32.68
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792333349139_4.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792333349139_4.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (77.5%)"
+    ],
+    "details": {
+      "skin_ratio": 4.6,
+      "detected_objects": {
+        "bird": 0.7749738097190857
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 80.26
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792333342810_3.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792333342810_3.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (83.8% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 83.8,
+      "detected_objects": {
+        "carrot": 0.41086500883102417,
+        "bottle": 0.2346787005662918
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 84.25
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792333305165_2.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792333305165_2.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (99.0% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 99.0,
+      "detected_objects": {},
+      "predicted_species": "ca_mun",
+      "confidence": 73.29
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792333300311_1.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792333300311_1.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (57.7%)",
+      "Tỷ lệ màu da người lớn (32.4% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 32.4,
+      "detected_objects": {
+        "bird": 0.5771525502204895,
+        "banana": 0.2348952740430832
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 68.43
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332479262_19.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332479262_19.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (83.8%)",
+      "Tỷ lệ màu da người lớn (74.2% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 74.2,
+      "detected_objects": {
+        "person": 0.8376749753952026,
+        "bed": 0.32237836718559265
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 86.06
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332471267_18.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332471267_18.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (77.3%)",
+      "Tỷ lệ màu da người lớn (40.1% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 40.1,
+      "detected_objects": {
+        "bird": 0.773286759853363,
+        "tennis racket": 0.7030764818191528
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 77.24
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332465282_17.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332465282_17.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (77.7%)"
+    ],
+    "details": {
+      "skin_ratio": 9.3,
+      "detected_objects": {
+        "bird": 0.7766515612602234
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 78.12
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332465069_16.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332465069_16.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (29.5%)"
+    ],
+    "details": {
+      "skin_ratio": 14.8,
+      "detected_objects": {
+        "bird": 0.29547205567359924
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 70.4
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332457980_14.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332457980_14.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (45.7%)",
+      "Tỷ lệ màu da người lớn (61.6% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 57.7%"
+    ],
+    "details": {
+      "skin_ratio": 61.6,
+      "detected_objects": {
+        "person": 0.45748400688171387,
+        "elephant": 0.24967102706432343
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 57.67
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332449849_13.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332449849_13.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (88.6% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 88.6,
+      "detected_objects": {
+        "carrot": 0.5162755846977234
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 85.37
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332446569_12.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332446569_12.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (21.2% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 21.2,
+      "detected_objects": {
+        "banana": 0.5495936274528503
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 76.23
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332441769_11.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332441769_11.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (88.3%)",
+      "Tỷ lệ màu da người lớn (29.7% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 29.7,
+      "detected_objects": {
+        "bird": 0.8828778266906738
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 62.53
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332436213_10.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332436213_10.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (49.4%)",
+      "Tỷ lệ màu da người lớn (79.0% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 79.0,
+      "detected_objects": {
+        "person": 0.4944787323474884,
+        "banana": 0.4821734130382538
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 74.53
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332429850_9.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332429850_9.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (49.7%)",
+      "Tỷ lệ màu da người lớn (59.9% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 59.9,
+      "detected_objects": {
+        "person": 0.49670344591140747,
+        "carrot": 0.2794150710105896
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 71.69
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332429426_8.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332429426_8.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (67.7%)",
+      "Tỷ lệ màu da người lớn (59.0% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 59.0,
+      "detected_objects": {
+        "person": 0.6766950488090515
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 63.29
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332427335_7.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332427335_7.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (36.8%)",
+      "Tỷ lệ màu da người lớn (50.3% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 50.3,
+      "detected_objects": {
+        "carrot": 0.5114263892173767,
+        "banana": 0.4292517602443695,
+        "person": 0.36809486150741577
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 74.58
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332421780_6.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332421780_6.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (76.1%)",
+      "Tỷ lệ màu da người lớn (80.5% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 80.5,
+      "detected_objects": {
+        "person": 0.7612588405609131,
+        "banana": 0.5687025785446167
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 79.11
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332418234_5.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332418234_5.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (82.7%)"
+    ],
+    "details": {
+      "skin_ratio": 15.4,
+      "detected_objects": {
+        "bird": 0.8270695805549622
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 74.57
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332418097_4.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332418097_4.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (83.7%)",
+      "Tỷ lệ màu da người lớn (21.0% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 21.0,
+      "detected_objects": {
+        "bird": 0.8373115062713623
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 74.5
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332417555_3.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332417555_3.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (80.5%)"
+    ],
+    "details": {
+      "skin_ratio": 12.8,
+      "detected_objects": {
+        "bird": 0.8050490021705627
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 92.28
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332416328_2.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332416328_2.jpg",
+    "reasons": [
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 59.0%"
+    ],
+    "details": {
+      "skin_ratio": 7.4,
+      "detected_objects": {},
+      "predicted_species": "ca_mun",
+      "confidence": 59.01
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792332412551_1.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792332412551_1.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (16.3% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 16.3,
+      "detected_objects": {},
+      "predicted_species": "ca_mun",
+      "confidence": 77.28
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328554318_29.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328554318_29.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (64.6% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 64.6,
+      "detected_objects": {
+        "carrot": 0.5606043934822083
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 83.09
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328551306_28.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328551306_28.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (16.1% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 16.1,
+      "detected_objects": {
+        "surfboard": 0.40763434767723083
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 75.52
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328544038_26.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328544038_26.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (73.1% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 73.1,
+      "detected_objects": {
+        "carrot": 0.5200281143188477
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 79.16
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328537964_24.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328537964_24.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (30.6% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 30.6,
+      "detected_objects": {
+        "elephant": 0.846529483795166
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 84.93
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328537868_23.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328537868_23.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (48.0%)"
+    ],
+    "details": {
+      "skin_ratio": 5.4,
+      "detected_objects": {
+        "bird": 0.48045533895492554
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 61.27
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328537504_22.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328537504_22.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (82.9% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 82.9,
+      "detected_objects": {
+        "carrot": 0.8468158841133118
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 77.55
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328537391_21.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328537391_21.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (29.2%)",
+      "Tỷ lệ màu da người lớn (83.4% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 83.4,
+      "detected_objects": {
+        "bird": 0.291941374540329
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 84.81
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328536818_20.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328536818_20.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (58.2% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 58.2,
+      "detected_objects": {
+        "carrot": 0.5217640995979309
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 69.17
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328535638_19.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328535638_19.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (64.9%)",
+      "Tỷ lệ màu da người lớn (78.6% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 78.6,
+      "detected_objects": {
+        "person": 0.6488656997680664,
+        "carrot": 0.4405061602592468
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 65.59
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328531426_18.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328531426_18.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (70.0%)",
+      "Tỷ lệ màu da người lớn (66.7% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 66.7,
+      "detected_objects": {
+        "person": 0.700039803981781,
+        "banana": 0.3263965845108032
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 72.92
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328528283_17.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328528283_17.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (29.3% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 29.3,
+      "detected_objects": {
+        "elephant": 0.4906660318374634
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 73.22
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328522333_16.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328522333_16.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (59.5% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 59.5,
+      "detected_objects": {
+        "carrot": 0.7741223573684692,
+        "fork": 0.7107081413269043
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 68.53
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328512612_15.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328512612_15.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (89.8% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 89.8,
+      "detected_objects": {
+        "hot dog": 0.3079702854156494,
+        "banana": 0.25584083795547485
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 67.83
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328510610_13.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328510610_13.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (19.5% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 19.5,
+      "detected_objects": {
+        "banana": 0.2869877815246582
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 84.65
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328508704_12.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328508704_12.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (79.8%)",
+      "Tỷ lệ màu da người lớn (21.4% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 21.4,
+      "detected_objects": {
+        "bird": 0.7978368997573853
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 84.17
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328508274_11.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328508274_11.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (67.0%)"
+    ],
+    "details": {
+      "skin_ratio": 7.4,
+      "detected_objects": {
+        "bird": 0.6697518229484558
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 83.45
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328507709_10.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328507709_10.jpg",
+    "reasons": [
+      "Phát hiện chim bắt/ăn cá (27.2%)"
+    ],
+    "details": {
+      "skin_ratio": 6.3,
+      "detected_objects": {
+        "bird": 0.27214619517326355
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 83.48
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328495499_8.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328495499_8.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (68.7%)",
+      "Tỷ lệ màu da người lớn (52.1% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 52.1,
+      "detected_objects": {
+        "person": 0.686738133430481,
+        "carrot": 0.6838604807853699,
+        "banana": 0.45248112082481384
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 62.43
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328494077_7.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328494077_7.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (74.3% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 74.3,
+      "detected_objects": {},
+      "predicted_species": "ca_mun",
+      "confidence": 62.19
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328477326_6.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328477326_6.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (52.1%)",
+      "Tỷ lệ màu da người lớn (32.7% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 32.7,
+      "detected_objects": {
+        "person": 0.5209824442863464
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 73.58
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328476888_5.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328476888_5.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (63.8%)",
+      "Tỷ lệ màu da người lớn (36.1% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 59.0%"
+    ],
+    "details": {
+      "skin_ratio": 36.1,
+      "detected_objects": {
+        "person": 0.6376291513442993
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 59.0
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328476816_4.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328476816_4.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (73.1%)",
+      "Tỷ lệ màu da người lớn (17.3% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 17.3,
+      "detected_objects": {
+        "person": 0.7306140065193176
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 82.65
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328476430_3.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328476430_3.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (23.3% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 23.3,
+      "detected_objects": {},
+      "predicted_species": "ca_mun",
+      "confidence": 65.35
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328474901_2.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328474901_2.jpg",
+    "reasons": [
+      "Phát hiện người / tay người cầm cá (25.3%)",
+      "Tỷ lệ màu da người lớn (47.1% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 47.1,
+      "detected_objects": {
+        "bed": 0.28163033723831177,
+        "person": 0.2532501220703125,
+        "orange": 0.223129004240036
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 63.86
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792328473688_1.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792328473688_1.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (89.6% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 59.9%"
+    ],
+    "details": {
+      "skin_ratio": 89.6,
+      "detected_objects": {
+        "couch": 0.5430970788002014,
+        "carrot": 0.31851908564567566
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 59.92
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792308336606_1.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792308336606_1.jpg",
+    "reasons": [
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 56.0%"
+    ],
+    "details": {
+      "skin_ratio": 5.2,
+      "detected_objects": {},
+      "predicted_species": "ca_mun",
+      "confidence": 55.95
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792293486365_1.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792293486365_1.jpg",
+    "reasons": [
+      "Sai loài: Mô hình nhận diện là 'Cá Hồng Két' (46.2%) thay vì 'ca_mun'"
+    ],
+    "details": {
+      "skin_ratio": 8.9,
+      "detected_objects": {},
+      "predicted_species": "ca_hong_ket",
+      "confidence": 46.17
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792272245889_10.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792272245889_10.jpg",
+    "reasons": [
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 50.8%"
+    ],
+    "details": {
+      "skin_ratio": 8.0,
+      "detected_objects": {},
+      "predicted_species": "ca_mun",
+      "confidence": 50.81
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792272245793_9.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792272245793_9.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (21.2% >= 16%): nghi vấn tay người cầm cá"
+    ],
+    "details": {
+      "skin_ratio": 21.2,
+      "detected_objects": {
+        "banana": 0.5495936274528503
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 76.23
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792272245317_8.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792272245317_8.jpg",
+    "reasons": [
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 48.3%"
+    ],
+    "details": {
+      "skin_ratio": 14.7,
+      "detected_objects": {},
+      "predicted_species": "ca_mun",
+      "confidence": 48.26
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792272245020_7.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792272245020_7.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (17.8% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 34.5%"
+    ],
+    "details": {
+      "skin_ratio": 17.8,
+      "detected_objects": {
+        "banana": 0.6745231747627258
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 34.55
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792272243655_6.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792272243655_6.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (18.6% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 39.2%"
+    ],
+    "details": {
+      "skin_ratio": 18.6,
+      "detected_objects": {},
+      "predicted_species": "ca_mun",
+      "confidence": 39.23
+    }
+  },
+  {
+    "species": "ca_mun",
+    "filename": "verified_clean_ca_mun_1792272242806_5.jpg",
+    "path": "C:\\Users\\super\\OneDrive\\Máy tính\\ainhandienca\\dataset_ca\\ca_mun\\verified_clean_ca_mun_1792272242806_5.jpg",
+    "reasons": [
+      "Tỷ lệ màu da người lớn (18.5% >= 16%): nghi vấn tay người cầm cá",
+      "Độ tin cậy dưới ngưỡng cứng 60%: chỉ đạt 49.8%"
+    ],
+    "details": {
+      "skin_ratio": 18.5,
+      "detected_objects": {
+        "banana": 0.42255374789237976,
+        "surfboard": 0.23159658908843994
+      },
+      "predicted_species": "ca_mun",
+      "confidence": 49.84
+    }
+  }
+]

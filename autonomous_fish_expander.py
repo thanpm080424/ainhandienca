@@ -373,32 +373,99 @@ SPECIES_CONFIG = {
 
 # --- CÁC HÀM HỖ TRỢ XỬ LÝ ẢNH & KIỂM ĐỊNH THỊ GIÁC ---
 
+_DETECTOR_MODEL = None
+_DETECTOR_LOCK = threading.Lock()
 _FACE_CASCADE = None
+_UPPERBODY_CASCADE = None
 _CV_LOCK = threading.Lock()
 
-def init_face_cascade():
-    global _FACE_CASCADE
+def init_cascades():
+    global _FACE_CASCADE, _UPPERBODY_CASCADE
     if _FACE_CASCADE is None:
         try:
-            p = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
-            _FACE_CASCADE = cv2.CascadeClassifier(p)
+            p_face = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
+            _FACE_CASCADE = cv2.CascadeClassifier(p_face)
+            p_upper = cv2.data.haarcascades + 'haarcascade_upperbody.xml'
+            _UPPERBODY_CASCADE = cv2.CascadeClassifier(p_upper)
         except Exception:
             _FACE_CASCADE = None
+            _UPPERBODY_CASCADE = None
 
-def has_human_face(pil_img):
-    """Lớp 1: Chốt chặn khuôn mặt người (OpenCV Haar Cascade)."""
-    init_face_cascade()
-    if _FACE_CASCADE is None:
-        return False
+def init_detector():
+    global _DETECTOR_MODEL
+    if _DETECTOR_MODEL is None:
+        try:
+            det_p = os.path.join(BASE_DIR, 'yolov8n.pt')
+            if os.path.exists(det_p):
+                from ultralytics import YOLO
+                _DETECTOR_MODEL = YOLO(det_p)
+        except Exception:
+            _DETECTOR_MODEL = None
+
+def detect_skin_ratio(pil_img):
+    """Tính tỷ lệ màu da người (YCrCb) để loại trừ tay người, ngón tay giữ cá."""
     try:
         thumb = pil_img.copy()
-        thumb.thumbnail((640, 640))
-        gray = cv2.cvtColor(np.array(thumb.convert('RGB')), cv2.COLOR_RGB2GRAY)
-        with _CV_LOCK:
-            faces = _FACE_CASCADE.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=4, minSize=(30, 30))
-        return len(faces) > 0
+        thumb.thumbnail((320, 320))
+        img_np = np.array(thumb.convert('RGB'))
+        ycrcb = cv2.cvtColor(img_np, cv2.COLOR_RGB2YCrCb)
+        lower_skin = np.array([0, 133, 77], dtype=np.uint8)
+        upper_skin = np.array([255, 173, 127], dtype=np.uint8)
+        mask = cv2.inRange(ycrcb, lower_skin, upper_skin)
+        skin_ratio = float(np.count_nonzero(mask)) / mask.size
+        return skin_ratio
     except Exception:
-        return False
+        return 0.0
+
+def has_human_or_predator(pil_img):
+    """
+    Lớp 1 Nâng Cấp Nghiêm Ngặt:
+    Chốt chặn con người, tay người cầm cá, ngón tay giữ cá, và động vật ăn/bắt cá (chim, mèo, chó).
+    """
+    # 1. Quét bằng YOLOv8n Object Detector (người, chim, mèo, chó)
+    init_detector()
+    if _DETECTOR_MODEL is not None:
+        try:
+            thumb = pil_img.copy()
+            thumb.thumbnail((640, 640))
+            with _DETECTOR_LOCK:
+                det_res = _DETECTOR_MODEL(thumb, verbose=False, conf=0.22)[0]
+            for box in det_res.boxes:
+                cls_name = det_res.names[int(box.cls[0])]
+                conf = float(box.conf[0])
+                if cls_name == 'person':
+                    return True, f"Phát hiện người / tay người cầm cá ({conf*100:.1f}%)"
+                elif cls_name == 'bird':
+                    return True, f"Phát hiện chim bắt/ăn cá ({conf*100:.1f}%)"
+                elif cls_name in ('cat', 'dog', 'bear'):
+                    return True, f"Phát hiện động vật săn mồi {cls_name} ({conf*100:.1f}%)"
+        except Exception:
+            pass
+
+    # 2. Quét tỷ lệ màu da người (loại trừ tay người cầm cá dù không thấy mặt)
+    skin_ratio = detect_skin_ratio(pil_img)
+    if skin_ratio >= 0.16:
+        return True, f"Tỷ lệ màu da người lớn ({skin_ratio*100:.1f}% >= 16%): phát hiện bàn tay người giữ cá"
+
+    # 3. Quét khuôn mặt & thân trên bằng Haar Cascade
+    init_cascades()
+    if _FACE_CASCADE is not None:
+        try:
+            thumb = pil_img.copy()
+            thumb.thumbnail((640, 640))
+            gray = cv2.cvtColor(np.array(thumb.convert('RGB')), cv2.COLOR_RGB2GRAY)
+            with _CV_LOCK:
+                faces = _FACE_CASCADE.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=4, minSize=(30, 30))
+                if len(faces) > 0:
+                    return True, "Phát hiện khuôn mặt người"
+                if _UPPERBODY_CASCADE is not None:
+                    upper = _UPPERBODY_CASCADE.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=3, minSize=(60, 60))
+                    if len(upper) > 0:
+                        return True, "Phát hiện cơ thể/thân người"
+        except Exception:
+            pass
+
+    return False, "Sạch"
 
 def check_sharpness(pil_img):
     """Lớp 2: Kiểm tra kích thước và độ sắc nét bằng phương sai Laplacian."""
@@ -480,12 +547,14 @@ def verify_with_yolov8(pil_img, target_species):
         pred_key = top1.get('species_key')
         conf = top1.get('confidence', 0.0)
         
-        # Tiêu chuẩn nghiêm ngặt: Bắt buộc Top-1 phải là target_species và conf >= 58.0%
-        # Loại bỏ hoàn toàn ảnh cá quá nhỏ ở xa hoặc nhạt nhòa trong khung hình
-        if pred_key == target_species and conf >= 58.0:
+        # Tiêu chuẩn nghiêm ngặt tuyệt đối: Bắt buộc Top-1 phải là target_species và conf >= 60.0%
+        # Loại bỏ hoàn toàn ảnh dưới 60%, ảnh mờ hoặc sai loài
+        if pred_key == target_species and conf >= 60.0:
             return True, f"YOLOv8 Top-1 chuẩn nét: {conf:.1f}%", conf
             
-        return False, f"YOLOv8 nhận diện {top1.get('name')} ({conf:.1f}% < 58.0%) thay vì {target_species}", conf
+        return False, f"YOLOv8 nhận diện {top1.get('name')} (Độ tin cậy {conf:.1f}% < 60.0% - Dưới ngưỡng chuẩn)", conf
+    except Exception as e:
+        return False, str(e), 0.0
     except Exception as e:
         return False, str(e), 0.0
 
@@ -600,8 +669,9 @@ def process_single_candidate(source, url, sp_key, vn_name, sp_dir, needed, state
         import io
         pil_img = Image.open(io.BytesIO(raw_bytes))
         
-        # Lớp 1: Chặn người và khuôn mặt
-        if has_human_face(pil_img):
+        # Lớp 1: Chặn con người, tay người cầm cá, ngón tay giữ cá và động vật ăn cá
+        has_bad, bad_reason = has_human_or_predator(pil_img)
+        if has_bad:
             with _ADD_LOCK:
                 state['rejected_human'] += 1
             return
