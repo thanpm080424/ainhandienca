@@ -43,12 +43,16 @@ BLOCKED_TITLE_WORDS = re.compile(
     r"\b(logo|icon|clip.?art|vector|diagram|symbol|sticker|banner|watermark|emblem|"
     r"drawing|illustration|cartoon|sketch|coloring|recipe|cooked|food|dish|market|"
     r"fried|steamed|aquarium equipment|filter sponge|led light|human face|selfie|"
-    r"holding fish|fishing rod|fish tank without fish)\b|chế biến", re.I
+    r"holding fish|fishing rod|fish tank without fish|wide angle|panoramic|panorama|"
+    r"full tank shot|fts|aquarium room|room setup|whole tank|co2 regulator|aquarium light|"
+    r"sponge filter|fish food|aquascape competition)\b|chế biến", re.I
 )
 SPECIES_NEGATIVES = {
-    "ca_but_chi": re.compile(r"\b(flying fox fish|chinese algae eater|pencil stationery)\b", re.I),
-    "ca_da_quang": re.compile(r"\b(neon tetra|neon fish)\b", re.I),
-    "ca_dia": re.compile(r"\b(severum)\b", re.I),
+    "ca_but_chi": re.compile(r"\b(flying fox fish|chinese algae eater|pencil stationery|epalzeorhynchos)\b", re.I),
+    "ca_da_quang": re.compile(r"\b(neon tetra|cardinal tetra|paracheirodon innesi|black tetra|gymnocorymbus ternetzi normal)\b", re.I),
+    "ca_dia": re.compile(r"\b(severum|heros severus)\b", re.I),
+    "ca_bay_mau": re.compile(r"\b(gambusia|mosquito fish|wild guppy stream)\b", re.I),
+    "ca_la_han": re.compile(r"\b(midas cichlid|red devil cichlid)\b", re.I),
 }
 SHARPNESS_MIN = 35.0
 IMAGE_BYTES_MIN = 25 * 1024
@@ -59,16 +63,46 @@ USER_AGENT = "CodexFishCollector/1.0 (educational fish image dataset; contact: p
 # import model YOLO sẽ làm CLI nặng và có thể tự tải weights.
 SPECIES_QUERIES: dict[str, tuple[str, ...]] = {
     "ca_ba_duoi": ("Carassius auratus fancy goldfish aquarium", "cá ba đuôi cá vàng hồ cá", "fancy goldfish"),
-    "ca_bay_mau": ("fancy guppy male tail Poecilia reticulata", "Poecilia reticulata champion", "cá bảy màu full gold"),
-    "ca_but_chi": ("Crossocheilus oblongus aquarium", "Crossocheilus siamensis aquarium", "Crossocheilus oblongus cá bút chì"),
+    "ca_bay_mau": (
+        "fancy guppy male tail Poecilia reticulata", "Poecilia reticulata champion", "cá bảy màu full gold",
+        "fancy guppy fish swimming in planted aquarium", "dumbo ear red tail guppy male planted tank",
+        "albino koi guppy male swimming in clear water", "full gold 24k guppy male planted aquarium",
+        "blue grass guppy male in aquarium tank", "dragon tuxedo guppy male close up",
+        "cá bảy màu dumbo tai voi bơi hồ thủy sinh", "cá bảy màu koi gen đỏ trắng bơi bể kính",
+        "cá bảy màu full gold bơi hồ cá cảnh", "albino full red guppy male aquarium",
+        "ribbon guppy swimming in planted tank"
+    ),
+    "ca_but_chi": (
+        "Crossocheilus oblongus aquarium", "Crossocheilus siamensis aquarium", "Crossocheilus oblongus cá bút chì",
+        "Crossocheilus oblongus swimming in planted tank", "siamese algae eater planted aquarium driftwood",
+        "Crossocheilus siamensis eating algae in tank", "cá bút chì dọn rêu bể thủy sinh bơi bám lũa",
+        "cá bút chì thái bơi trong hồ cá cảnh kính"
+    ),
     "ca_chuot": ("Corydoras aquarium fish", "Corydoras paleatus", "cá chuột cảnh hồ thủy sinh"),
-    "ca_da_quang": ("GloFish fluorescent tetra aquarium", "transgenic tetra fluorescent", "GloFish fluorescent Danio rerio"),
-    "ca_dia": ("Symphysodon discus high grade aquarium", "Symphysodon aequifasciatus aquarium", "cá dĩa bồ câu Blue Diamond"),
+    "ca_da_quang": (
+        "GloFish fluorescent tetra aquarium", "transgenic tetra fluorescent", "GloFish fluorescent Danio rerio",
+        "GloFish fluorescent tetra aquarium tank", "electric green glofish tetra dark background aquarium",
+        "starfire red glofish tetra swimming in tank", "sunburst orange glofish fluorescent fish",
+        "cosmic blue glofish tetra aquarium", "cá dạ quang bơi hồ thủy sinh",
+        "cá hắc quần dạ quang huỳnh quang", "GloFish barb fluorescent"
+    ),
+    "ca_dia": (
+        "Symphysodon discus high grade aquarium", "Symphysodon aequifasciatus aquarium", "cá dĩa bồ câu Blue Diamond",
+        "Discus fish Symphysodon swimming in planted aquarium", "Pigeon blood discus fish in planted tank",
+        "Blue diamond discus fish swimming in aquarium", "Red melon discus fish high grade aquarium",
+        "Leopard snakeskin discus fish planted tank", "cá dĩa bồ câu đỏ bơi hồ thủy sinh",
+        "cá dĩa xanh blue diamond bơi bể kính"
+    ),
     "ca_diec_anh_dao": ("Puntius titteya cherry barb aquarium", "cherry barb fish aquarium", "cá diếc anh đào cảnh"),
     "ca_duoi_kiem": ("Xiphophorus hellerii swordtail aquarium", "swordtail fish aquarium", "cá đuôi kiếm cảnh"),
     "ca_hong_ket": ("blood parrot cichlid aquarium", "hybrid parrot cichlid fish", "cá hồng két thủy sinh"),
     "ca_koi": ("Cyprinus carpio koi pond fish", "Japanese koi fish", "cá chép koi hồ"),
-    "ca_la_han": ("Flowerhorn cichlid aquarium", "Kamfa Flowerhorn", "cá la hán thái đỏ"),
+    "ca_la_han": (
+        "Flowerhorn cichlid aquarium", "Kamfa Flowerhorn", "cá la hán thái đỏ",
+        "Flowerhorn cichlid kok swimming in tank", "Kamfa Flowerhorn aquarium high grade",
+        "red dragon flowerhorn cichlid tank", "cá la hán thái đỏ đầu gù to bơi hồ",
+        "cá la hán kim mã lưu bơi bể kính", "golden base flowerhorn cichlid"
+    ),
     "ca_lau_kieng": ("Hypostomus plecostomus aquarium", "common pleco fish", "cá lau kiếng tỳ bà"),
     "ca_molly": ("Poecilia sphenops molly aquarium", "molly fish aquarium", "cá molly bình tích"),
     "ca_mun": ("Xiphophorus maculatus platy aquarium", "platy fish aquarium", "cá mún platy"),
@@ -384,7 +418,7 @@ class Collector:
         queries = SPECIES_QUERIES[species]
         per_query = min(100, max(30, needed))
         work: list[tuple[str, str]] = []
-        for query in queries[:3]:
+        for query in queries:
             for source in ("commons", "ddg"):
                 if source in sources:
                     work.append((source, query))
@@ -473,7 +507,7 @@ class Collector:
                             if image.width < IMAGE_SIDE_MIN or image.height < IMAGE_SIDE_MIN:
                                 return None
                             ratio = image.width / image.height
-                            if not 0.5 <= ratio <= 2.2:
+                            if not 0.55 <= ratio <= 1.85:
                                 return None
                             if image.mode in {"RGBA", "LA"}:
                                 alpha = image.getchannel("A")
