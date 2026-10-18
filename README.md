@@ -182,3 +182,15 @@ python export_pdf_report.py --days 7 --output report.pdf
 
 Dùng `--days 30` cho tháng gần nhất. PDF có thống kê lượt nhận diện theo loài, số liệu trung bình theo ngày và nhật ký cảnh báo; font Arial hoặc DejaVu Sans được tự dò để hiển thị tiếng Việt. Đặt `FISH_HISTORY_DB` để chọn vị trí SQLite khác. Endpoint tải PDF trả trực tiếp file, ví dụ `http://127.0.0.1:5000/api/iot/export_pdf?days=7`.
 
+### Thu thập ảnh bổ sung bằng Codex
+
+`codex_fish_collector.py` tìm ảnh từ Wikimedia Commons và iNaturalist; DuckDuckGo Images là nguồn bổ sung tùy chọn. Script lọc kích thước, định dạng, dung lượng, tỷ lệ khung hình, ảnh có nền trong suốt nhiều và tên có dấu hiệu logo/biểu tượng; ảnh lưu thành JPEG với tiền tố `codex_` và provenance/license được ghi ở `dataset_ca/codex_fish_collector_manifest.jsonl`.
+
+```powershell
+python -m pip install -r requirements-collector.txt
+python codex_fish_collector.py --species ca_but_chi --limit 100
+python codex_fish_collector.py --auto-fill
+```
+
+`--auto-fill` ưu tiên lớp thiếu nhiều nhất tới mốc 500 ảnh; `--limit N` giới hạn số ảnh mới cho mỗi lớp trong chế độ này. Nguồn DDG không cung cấp giấy phép đáng tin cậy qua kết quả tìm kiếm nên các ảnh đó bị bỏ qua mặc định; chỉ dùng `--allow-unlicensed` khi bạn sẽ kiểm tra quyền sử dụng thủ công. Dù lấy từ truy vấn tên loài, ảnh vẫn cần được rà soát/kiểm định AI trước khi đưa vào tập huấn luyện, vì script lọc chất lượng ảnh chứ không xác nhận nhãn sinh học.
+
