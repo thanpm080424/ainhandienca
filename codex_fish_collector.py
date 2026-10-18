@@ -53,6 +53,13 @@ SPECIES_NEGATIVES = {
     "ca_dia": re.compile(r"\b(severum|heros severus)\b", re.I),
     "ca_bay_mau": re.compile(r"\b(gambusia|mosquito fish|wild guppy stream)\b", re.I),
     "ca_la_han": re.compile(r"\b(midas cichlid|red devil cichlid)\b", re.I),
+    "ca_neon": re.compile(r"\b(cardinal tetra|paracheirodon axelrodi|glofish|green neon)\b", re.I),
+    "ca_thien_than": re.compile(r"\b(marine angelfish|saltwater|pomacanthidae|french angelfish|emperor angelfish|flame angel)\b", re.I),
+    "ca_diec_anh_dao": re.compile(r"\b(rosy barb|tiger barb|gold barb|odessa barb)\b", re.I),
+    "ca_xiem": re.compile(r"\b(fight ring|betta cup|small cup|plastic cup)\b", re.I),
+    "ca_duoi_kiem": re.compile(r"\b(swordfish|xiphias gladius|broadbill|marlin)\b", re.I),
+    "ca_soc_ngua": re.compile(r"\b(glofish danio|transgenic danio)\b", re.I),
+    "ca_rong": re.compile(r"\b(silver arowana|osteoglossum|black arowana)\b", re.I),
 }
 SHARPNESS_MIN = 35.0
 IMAGE_BYTES_MIN = 25 * 1024
@@ -70,13 +77,17 @@ SPECIES_QUERIES: dict[str, tuple[str, ...]] = {
         "blue grass guppy male in aquarium tank", "dragon tuxedo guppy male close up",
         "cá bảy màu dumbo tai voi bơi hồ thủy sinh", "cá bảy màu koi gen đỏ trắng bơi bể kính",
         "cá bảy màu full gold bơi hồ cá cảnh", "albino full red guppy male aquarium",
-        "ribbon guppy swimming in planted tank"
+        "ribbon guppy swimming in planted tank", "blue moscow guppy male planted tank",
+        "yellow tiger guppy swimming in glass tank", "green jade guppy planted aquarium",
+        "cá bảy màu rồng đỏ bơi hồ thủy sinh", "cá bảy màu moscow blue bơi hồ kính"
     ),
     "ca_but_chi": (
         "Crossocheilus oblongus aquarium", "Crossocheilus siamensis aquarium", "Crossocheilus oblongus cá bút chì",
         "Crossocheilus oblongus swimming in planted tank", "siamese algae eater planted aquarium driftwood",
         "Crossocheilus siamensis eating algae in tank", "cá bút chì dọn rêu bể thủy sinh bơi bám lũa",
-        "cá bút chì thái bơi trong hồ cá cảnh kính"
+        "cá bút chì thái bơi trong hồ cá cảnh kính", "Crossocheilus siamensis on anubias plant",
+        "true siamese algae eater Crossocheilus aquarium", "cá bút chì thật bơi dọn rêu bể thủy sinh",
+        "cá bút chì ăn rêu tóc bơi hồ thủy sinh"
     ),
     "ca_chuot": ("Corydoras aquarium fish", "Corydoras paleatus", "cá chuột cảnh hồ thủy sinh"),
     "ca_da_quang": (
@@ -84,34 +95,81 @@ SPECIES_QUERIES: dict[str, tuple[str, ...]] = {
         "GloFish fluorescent tetra aquarium tank", "electric green glofish tetra dark background aquarium",
         "starfire red glofish tetra swimming in tank", "sunburst orange glofish fluorescent fish",
         "cosmic blue glofish tetra aquarium", "cá dạ quang bơi hồ thủy sinh",
-        "cá hắc quần dạ quang huỳnh quang", "GloFish barb fluorescent"
+        "cá hắc quần dạ quang huỳnh quang", "GloFish barb fluorescent",
+        "GloFish galactic purple tetra aquarium", "cá cánh buồm dạ quang bơi hồ thủy sinh",
+        "cá tứ vân dạ quang huỳnh quang bơi bể kính", "cá dạ quang xanh lá bơi hồ thủy sinh",
+        "cá dạ quang hồng đỏ bơi bể cá cảnh"
     ),
     "ca_dia": (
         "Symphysodon discus high grade aquarium", "Symphysodon aequifasciatus aquarium", "cá dĩa bồ câu Blue Diamond",
         "Discus fish Symphysodon swimming in planted aquarium", "Pigeon blood discus fish in planted tank",
         "Blue diamond discus fish swimming in aquarium", "Red melon discus fish high grade aquarium",
         "Leopard snakeskin discus fish planted tank", "cá dĩa bồ câu đỏ bơi hồ thủy sinh",
-        "cá dĩa xanh blue diamond bơi bể kính"
+        "cá dĩa xanh blue diamond bơi bể kính", "wild brown discus Symphysodon aquarium",
+        "checkerboard discus fish planted tank", "cá dĩa da rắn leopard bơi bể kính",
+        "cá dĩa bồ câu vàng bơi hồ thủy sinh", "cá dĩa tuyết trắng bơi hồ cá cảnh"
     ),
-    "ca_diec_anh_dao": ("Puntius titteya cherry barb aquarium", "cherry barb fish aquarium", "cá diếc anh đào cảnh"),
-    "ca_duoi_kiem": ("Xiphophorus hellerii swordtail aquarium", "swordtail fish aquarium", "cá đuôi kiếm cảnh"),
+    "ca_diec_anh_dao": (
+        "Puntius titteya cherry barb aquarium", "cherry barb fish aquarium", "cá diếc anh đào cảnh",
+        "cherry barb male red swimming in planted aquarium", "Puntius titteya swimming in glass tank",
+        "cá diếc anh đào đực đỏ bơi hồ thủy sinh", "albino cherry barb fish aquarium",
+        "cherry barb planted tank high grade", "cá anh đào đỏ bơi hồ cá cảnh",
+        "Puntius titteya longfin cherry barb aquarium", "cá diếc anh đào vây dài bơi hồ thủy sinh"
+    ),
+    "ca_duoi_kiem": (
+        "Xiphophorus hellerii swordtail aquarium", "swordtail fish aquarium", "cá đuôi kiếm cảnh",
+        "red wag swordtail fish swimming in planted tank", "koi kohaku swordtail fish aquarium",
+        "cá đuôi kiếm đỏ bơi hồ thủy sinh", "green swordtail male fish in tank",
+        "cá hoàng kiếm bơi hồ cá cảnh thủy sinh", "tuxedo swordtail fish aquarium",
+        "neon swordtail fish swimming in aquarium", "cá kiếm đỏ mắt đỏ bơi bể cá cảnh"
+    ),
     "ca_hong_ket": ("blood parrot cichlid aquarium", "hybrid parrot cichlid fish", "cá hồng két thủy sinh"),
     "ca_koi": ("Cyprinus carpio koi pond fish", "Japanese koi fish", "cá chép koi hồ"),
     "ca_la_han": (
         "Flowerhorn cichlid aquarium", "Kamfa Flowerhorn", "cá la hán thái đỏ",
         "Flowerhorn cichlid kok swimming in tank", "Kamfa Flowerhorn aquarium high grade",
         "red dragon flowerhorn cichlid tank", "cá la hán thái đỏ đầu gù to bơi hồ",
-        "cá la hán kim mã lưu bơi bể kính", "golden base flowerhorn cichlid"
+        "cá la hán kim mã lưu bơi bể kính", "golden base flowerhorn cichlid",
+        "Thai Silk flowerhorn cichlid aquarium", "cá la hán thái silk bơi hồ kính",
+        "cá la hán kim cương bơi bể cá cảnh", "cá la hán short body bơi hồ thủy sinh"
     ),
     "ca_lau_kieng": ("Hypostomus plecostomus aquarium", "common pleco fish", "cá lau kiếng tỳ bà"),
     "ca_molly": ("Poecilia sphenops molly aquarium", "molly fish aquarium", "cá molly bình tích"),
     "ca_mun": ("Xiphophorus maculatus platy aquarium", "platy fish aquarium", "cá mún platy"),
-    "ca_neon": ("Paracheirodon innesi neon tetra aquarium", "neon tetra fish", "cá neon xanh"),
-    "ca_rong": ("Scleropages formosus Asian arowana", "Asian arowana aquarium", "cá rồng châu Á"),
+    "ca_neon": (
+        "Paracheirodon innesi neon tetra aquarium", "neon tetra fish", "cá neon xanh",
+        "neon tetra fish swimming in planted tank", "Paracheirodon innesi in clear water aquarium",
+        "cá neon xanh bơi hồ thủy sinh", "diamond neon tetra swimming in aquarium",
+        "neon tetra close up swimming planted tank", "cá neon kim cương bơi bể kính",
+        "neon tetra school swimming clear water aquarium", "cá neon vua bơi hồ thủy sinh"
+    ),
+    "ca_rong": (
+        "Scleropages formosus Asian arowana", "Asian arowana aquarium", "cá rồng châu Á",
+        "super red arowana swimming in aquarium tank", "crossback golden arowana swimming in glass tank",
+        "cá rồng huyết long bơi hồ kính", "cá rồng kim long quá bối bơi hồ cá cảnh",
+        "Asian arowana high back golden planted tank", "cá rồng kim long úc bơi hồ kính"
+    ),
     "ca_sac": ("Trichogaster gourami aquarium", "dwarf gourami fish", "cá sặc cảnh thủy sinh"),
-    "ca_soc_ngua": ("Danio rerio zebra danio aquarium", "zebrafish aquarium", "cá sọc ngựa"),
-    "ca_thien_than": ("Pterophyllum scalare angelfish aquarium", "freshwater angelfish", "cá thần tiên nước ngọt"),
-    "ca_xiem": ("Betta splendens Siamese fighting fish", "Betta fish aquarium", "cá xiêm betta"),
+    "ca_soc_ngua": (
+        "Danio rerio zebra danio aquarium", "zebrafish aquarium", "cá sọc ngựa",
+        "Danio rerio swimming in aquarium tank", "longfin zebra danio planted aquarium",
+        "cá sọc ngựa vằn bơi hồ thủy sinh", "zebra danio school in clear water aquarium",
+        "cá sọc ngựa cánh buồm bơi bể cá cảnh", "cá sọc ngựa dạ quang bơi hồ thủy sinh"
+    ),
+    "ca_thien_than": (
+        "Pterophyllum scalare angelfish aquarium", "freshwater angelfish", "cá thần tiên nước ngọt",
+        "Pterophyllum scalare swimming in planted tank", "koi angelfish freshwater aquarium",
+        "cá thần tiên bơi hồ thủy sinh", "black lace angelfish freshwater aquarium tank",
+        "marble angelfish swimming in aquarium", "cá thần tiên ba sọc bơi bể kính",
+        "Pinoy blue angelfish aquarium", "cá thần tiên kim sa bơi hồ thủy sinh"
+    ),
+    "ca_xiem": (
+        "Betta splendens Siamese fighting fish", "Betta fish aquarium", "cá xiêm betta",
+        "halfmoon betta fish swimming in planted aquarium", "crowntail betta fish in glass tank",
+        "cá xiêm betta halfmoon bơi hồ thủy sinh", "cá betta nemo galaxy bơi bể kính",
+        "plakat betta fish swimming in aquarium", "dumbo ear betta fish aquarium",
+        "alien betta fish swimming in planted tank", "cá betta alien bơi hồ thủy sinh"
+    ),
 }
 
 # iNaturalist nhận taxon cụ thể hiệu quả hơn cụm từ tìm kiếm hình ảnh.
@@ -129,7 +187,11 @@ INAT_TAXA: dict[str, tuple[str, ...]] = {
 }
 
 # Các loài được nêu là thiếu nhiều ảnh trong brief được ưu tiên khi số lượng bằng nhau.
-PRIORITY_SPECIES = ["ca_but_chi", "ca_da_quang", "ca_dia", "ca_bay_mau", "ca_la_han"]
+PRIORITY_SPECIES = [
+    "ca_da_quang", "ca_dia", "ca_but_chi", "ca_neon", "ca_la_han",
+    "ca_thien_than", "ca_diec_anh_dao", "ca_bay_mau", "ca_xiem",
+    "ca_duoi_kiem", "ca_soc_ngua", "ca_rong"
+]
 
 
 @dataclass(frozen=True)
@@ -629,6 +691,7 @@ class Collector:
             return 0
         if species not in self.hashes:
             self._existing_hashes(species)
+        self.reserved_counts[species] = 0
         print(f"\n[{species}] Mục tiêu: tải thêm {limit} ảnh; nguồn: {', '.join(sorted(sources))}")
         candidates = self.gather_candidates(species, limit, sources)
         if not candidates:
