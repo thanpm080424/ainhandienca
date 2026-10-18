@@ -1898,4 +1898,7 @@ if __name__ == '__main__':
     print(f"Mo trinh duyet: http://127.0.0.1:5000")
     print("=" * 50)
 
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    # Mặc định chỉ lắng nghe loopback; đặt FLASK_HOST=0.0.0.0 để thiết bị IoT
+    # trong cùng mạng LAN truy cập được API.
+    app.run(debug=os.environ.get('FLASK_DEBUG', '0') == '1',
+            host=os.environ.get('FLASK_HOST', '127.0.0.1'), port=5000)
