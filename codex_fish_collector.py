@@ -478,7 +478,7 @@ class Collector:
 
     def gather_candidates(self, species: str, needed: int, sources: set[str]) -> list[Candidate]:
         queries = SPECIES_QUERIES[species]
-        per_query = min(100, max(30, needed))
+        per_query = min(100, max(60, needed))
         work: list[tuple[str, str]] = []
         for query in queries:
             for source in ("commons", "ddg"):
