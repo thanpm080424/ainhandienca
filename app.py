@@ -1298,6 +1298,7 @@ def api_yolo_classify():
             'confidence': f"{top1['confidence']}%",
             'environment': top1['environment'],
             'top3': res['top3'],
+            'hybrid_analysis': res.get('hybrid_analysis'),
             'reason': f"Mô hình YOLOv8 nhận diện xác suất cao nhất: {top1['confidence']}%"
         })
     except Exception as e:
@@ -1669,9 +1670,6 @@ def api_iot_predict():
     API dành riêng cho thiết bị IoT (ESP32-CAM, Raspberry Pi, Python client, Mobile App).
     Gửi ảnh cá -> AI nhận diện loài cá + Phân tích môi trường sống (Nước, Tầng bơi, Nhiệt độ, pH, Quy tắc cảm biến IoT).
     """
-    if not gemini_client:
-        return jsonify({'success': False, 'error': 'Chưa cấu hình GEMINI_API_KEY'}), 500
-
     img = None
     filename = "iot_capture.jpg"
 
@@ -1690,12 +1688,16 @@ def api_iot_predict():
         return jsonify({'success': False, 'error': 'Vui lòng gửi file ảnh (key "file") hoặc JSON {"image_base64": "..."}'}), 400
 
     try:
+        import predict_fish
         img_resized = img.copy()
         img_resized.thumbnail((512, 512))
 
-        species_list_desc = "\n".join([f"- {k}: {v}" for k, v in SPECIES_MAP.items()])
+        # Phân tích thị giác bằng YOLOv8 & Module Giám định Lai Tạp
+        yolo_res = predict_fish.predict_pil(img_resized)
 
-        prompt = f"""Bạn là hệ thống AI IoT chuyên phân tích cá cảnh và điều kiện môi trường thủy sinh.
+        if gemini_client:
+            species_list_desc = "\n".join([f"- {k}: {v}" for k, v in SPECIES_MAP.items()])
+            prompt = f"""Bạn là hệ thống AI IoT chuyên phân tích cá cảnh và điều kiện môi trường thủy sinh.
 Hãy nhận diện loài cá trong ảnh dựa trên danh mục 20 loài sau:
 {species_list_desc}
 
@@ -1713,16 +1715,33 @@ Trả về kết quả dưới định dạng JSON duy nhất:
 }}
 Chỉ trả về JSON hợp lệ, không kèm văn bản nào khác."""
 
-        response, used_model = call_gemini_vision(
-            gemini_client,
-            contents=[img_resized, prompt]
-        )
-        text = response.text.strip()
-        if text.startswith('```json'):
-            text = text[7:-3].strip()
-        elif text.startswith('```'):
-            text = text[3:-3].strip()
-        ai_result = json.loads(text)
+            response, used_model = call_gemini_vision(
+                gemini_client,
+                contents=[img_resized, prompt]
+            )
+            text = response.text.strip()
+            if text.startswith('```json'):
+                text = text[7:-3].strip()
+            elif text.startswith('```'):
+                text = text[3:-3].strip()
+            ai_result = json.loads(text)
+        else:
+            # Chế độ Edge AI Offline (YOLOv8)
+            if yolo_res and yolo_res.get('success'):
+                top1 = yolo_res['top1']
+                species_key = top1['species_key']
+                conf_val = float(top1['confidence'])
+                ai_result = {
+                    'is_fish': True,
+                    'species_key': species_key,
+                    'species_name': top1['name'],
+                    'confidence_percent': int(conf_val),
+                    'confidence_level': 'Cao' if conf_val >= 75 else ('Trung bình' if conf_val >= 50 else 'Thấp'),
+                    'visual_features': f"YOLOv8 Edge AI nhận diện đặc trưng vây và hoa văn vảy ({conf_val:.1f}%).",
+                    'water_clarity_assessment': 'Nước trong bình thường'
+                }
+            else:
+                return jsonify({'success': False, 'error': 'Không nhận diện được cá'}), 500
 
         species_key = ai_result.get('species_key', 'khac')
         env_info = SPECIES_ENVIRONMENT.get(species_key, None)
@@ -1774,6 +1793,7 @@ Chỉ trả về JSON hợp lệ, không kèm văn bản nào khác."""
                 'diet': env_info['diet'],
                 'compatibility': env_info['compatibility']
             },
+            'hybrid_analysis': yolo_res.get('hybrid_analysis') if yolo_res else None,
             'iot_sensor_thresholds': env_info['iot_sensor_rules']
         })
     except Exception as e:

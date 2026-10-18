@@ -57,7 +57,8 @@ SPECIES_CONFIG = {
             'pencilfish planted aquarium nature',
             'flying fox fish swimming in planted tank',
             'siamese algae eater on aquarium driftwood',
-            'Crossocheilus reticulatus algae eater in tank'
+            'Crossocheilus reticulatus algae eater in tank',
+            'cá bút chì thật dọn rêu chùm đen bể thủy sinh'
         ]
     },
     'ca_bay_mau': {
@@ -67,17 +68,17 @@ SPECIES_CONFIG = {
         'wiki_searches': ['Poecilia reticulata aquarium', 'Guppy fish planted tank', 'Endler livebearer aquarium'],
         'bing_queries': [
             'fancy guppy fish swimming in planted aquarium',
-            'Poecilia reticulata colorful male in tank',
+            'dumbo red tail guppy male in planted aquarium',
+            'albino koi guppy swimming in glass tank',
+            'full gold 24k guppy swimming in clear water',
+            'blue grass guppy high quality aquarium tank',
+            'dragon tuxedo guppy male planted tank',
+            'cá bảy màu dumbo tai voi bơi hồ thủy sinh',
+            'cá bảy màu koi gen đỏ trắng bơi bể kính',
             'cá bảy màu full gold bơi trong hồ thủy sinh',
-            'guppy fish swimming in glass aquarium water',
-            'dumbo ear guppy fish in planted tank',
-            'cá bảy màu rồng đỏ bể kính hồ thủy sinh',
             'albino full red guppy male in aquarium tank',
-            'blue grass guppy swimming in glass tank',
-            'endler guppy swimming in planted aquarium',
-            'guppy fish swimming in clear water aquarium',
-            'cá bảy màu koi gen bơi trong hồ thủy sinh',
-            'fancy tail guppy swimming in planted tank'
+            'ribbon guppy swimming in planted tank',
+            'endler guppy swimming in planted aquarium'
         ]
     },
     'ca_molly': {
@@ -86,14 +87,16 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Poecilia sphenops', 'Poecilia latipinna', 'Poecilia velifera'],
         'wiki_searches': ['Poecilia sphenops aquarium', 'Sailfin molly aquarium', 'Black molly fish aquarium', 'Balloon molly aquarium'],
         'bing_queries': [
-            'black molly fish swimming in planted aquarium',
+            'black sailfin molly fish swimming in planted tank',
+            'balloon molly fish in glass aquarium',
+            'golden dust dalmatian molly in planted aquarium',
+            'lyretail molly fish swimming in aquarium',
+            'cá bình tích trân châu trắng bơi hồ cá cảnh',
+            'cá molly kỳ buồm bơi trong hồ thủy sinh',
             'sailfin molly fish in glass tank',
-            'cá bình tích bơi trong hồ thủy sinh',
+            'cá bình tích hoàng kim bơi trong hồ kính',
             'dalmatian molly fish swimming in aquarium',
-            'cá molly bơi trong hồ cá cảnh kính',
-            'balloon molly fish swimming in planted tank',
-            'golden sailfin molly fish in clear water tank',
-            'cá bình tích hoàng kim bơi trong hồ kính'
+            'balloon molly fish swimming in planted tank'
         ]
     },
     'ca_duoi_kiem': {
@@ -103,13 +106,14 @@ SPECIES_CONFIG = {
         'wiki_searches': ['Xiphophorus hellerii aquarium', 'Green swordtail aquarium', 'Red swordtail fish'],
         'bing_queries': [
             'red swordtail fish swimming in aquarium tank',
-            'Xiphophorus hellerii in planted aquarium',
-            'cá đuôi kiếm đỏ bơi trong bể thủy sinh',
-            'green swordtail fish male in glass tank',
-            'neon swordtail fish swimming in tank',
             'kohaku swordtail fish swimming in planted tank',
-            'cá đuôi kiếm kohaku bơi trong hồ thủy sinh',
-            'tuxedo swordtail fish in planted aquarium'
+            'neon green swordtail male in glass aquarium',
+            'high fin lyretail swordtail fish in tank',
+            'cá đuôi kiếm kohaku đỏ trắng bơi hồ thủy sinh',
+            'cá đuôi kiếm song kiếm bơi trong bể kính',
+            'cá đuôi kiếm đỏ bơi trong bể thủy sinh',
+            'tuxedo swordtail fish in planted aquarium',
+            'Xiphophorus hellerii in planted aquarium'
         ]
     },
     'ca_ba_duoi': {
@@ -118,17 +122,16 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Carassius auratus', 'Carassius'],
         'wiki_searches': ['Carassius auratus aquarium', 'Oranda goldfish in tank', 'Ranchu goldfish in tank', 'Ryukin goldfish in tank', 'Fantail goldfish aquarium'],
         'bing_queries': [
-            'oranda goldfish swimming in glass aquarium',
-            'ranchu goldfish in clear water tank',
-            'cá ba đuôi đầu lân bơi trong bể kính',
-            'ryukin goldfish swimming in tank water',
-            'fantail goldfish in clean aquarium',
+            'oranda lionhead goldfish swimming in clear aquarium',
+            'ranchu goldfish top view in clean tank',
+            'ryukin calico goldfish swimming in glass tank',
+            'black moor telescope goldfish in clean water',
+            'pearlscale goldfish swimming in clean aquarium',
             'cá vàng ranchu bơi trong hồ kính',
-            'cá vàng oranda ngũ hoa bơi trong bể kính',
-            'black moor goldfish swimming in clean aquarium',
-            'lionhead goldfish in glass aquarium',
-            'pearlscale goldfish swimming in clean tank',
-            'telescope eye goldfish swimming in tank'
+            'cá vàng oranda đầu lân ngũ hoa bể kính',
+            'cá ba đuôi đầu lân bơi trong bể kính',
+            'fantail goldfish in clean aquarium',
+            'lionhead goldfish in glass aquarium'
         ]
     },
     'ca_mun': {
@@ -137,13 +140,15 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Xiphophorus maculatus', 'Xiphophorus variatus'],
         'wiki_searches': ['Xiphophorus maculatus aquarium', 'Platy fish planted tank'],
         'bing_queries': [
-            'red platy fish swimming in planted aquarium',
-            'mickey mouse platy fish in glass tank',
-            'cá mún đỏ bơi trong hồ cá cảnh',
+            'mickey mouse platy fish in planted aquarium',
+            'red wagtail platy swimming in glass tank',
+            'panda platy fish swimming in clean water',
+            'tuxedo platy high fin in planted tank',
+            'cá mún hạt lựu đỏ rực bơi hồ cá cảnh',
+            'cá mún mickey bơi trong hồ thủy sinh',
             'sunburst platy fish in planted tank',
-            'Xiphophorus maculatus swimming in glass tank',
-            'tuxedo platy fish planted aquarium',
-            'cá mún hạt lựu bơi trong hồ thủy sinh'
+            'cá mún đỏ bơi trong hồ cá cảnh',
+            'Xiphophorus maculatus swimming in glass tank'
         ]
     },
     'ca_diec_anh_dao': {
@@ -152,15 +157,13 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Puntius titteya', 'Puntius', 'Desmopuntius pentazona', 'Pethia conchonius'],
         'wiki_searches': ['Puntius titteya', 'Cherry barb aquarium', 'Pethia conchonius aquarium'],
         'bing_queries': [
+            'puntius titteya cherry barb male intense red in planted tank',
+            'albino cherry barb swimming in glass aquarium',
+            'longfin cherry barb in crystal clear water',
+            'cá diếc anh đào đực đỏ cờ rực rỡ hồ thủy sinh',
             'cherry barb fish swimming in planted aquarium',
-            'Puntius titteya red male in tank',
-            'cá diếc anh đào bơi trong hồ thủy sinh',
-            'cherry barb planted tank clear water',
             'school of cherry barbs swimming in aquarium',
-            'cá diếc anh đào đực đỏ rực bơi trong bể',
-            'albino cherry barb swimming in glass tank',
-            'cherry barb fish male vivid red in planted tank',
-            'rosy barb fish swimming in clear aquarium tank'
+            'Puntius titteya red male in tank'
         ]
     },
     'ca_chuot': {
@@ -169,13 +172,13 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Corydoras', 'Corydoras panda', 'Corydoras aeneus', 'Corydoras sterbai', 'Corydoras julii', 'Corydoras paleatus'],
         'wiki_searches': ['Corydoras panda aquarium', 'Corydoras sterbai tank', 'Bronze corydoras', 'Corydoras julii'],
         'bing_queries': [
-            'panda corydoras swimming on aquarium sand',
-            'sterbai corydoras in planted tank',
+            'corydoras sterbai on aquarium sand substrate',
+            'corydoras panda swimming in planted tank',
+            'albino corydoras catfish on white sand',
+            'cá chuột sterbai vây cam bơi đáy bể thủy sinh',
             'cá chuột panda bơi đáy hồ thủy sinh',
-            'corydoras catfish on sand substrate',
-            'albino corydoras swimming in aquarium',
-            'cá chuột sao bơi đáy bể thủy sinh',
-            'corydoras julii swimming in clean tank'
+            'corydoras julii swimming in clean tank',
+            'corydoras catfish on sand substrate'
         ]
     },
     'ca_da_quang': {
@@ -184,16 +187,15 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Gymnocorymbus ternetzi', 'Gymnocorymbus'],
         'wiki_searches': ['GloFish aquarium', 'Gymnocorymbus ternetzi Glofish', 'Black skirt tetra aquarium'],
         'bing_queries': [
+            'electric green glofish tetra swimming in tank',
+            'starfire red glofish tetra in planted aquarium',
+            'sunburst orange glofish in clean glass tank',
+            'cosmic blue glofish tetra swimming in clear water',
+            'galactic purple glofish tetra in planted tank',
+            'cá cánh buồm dạ quang đỏ bơi hồ thủy sinh',
+            'cá cánh buồm dạ quang xanh chuối bơi bể kính',
             'glofish tetra swimming in glass aquarium tank',
-            'electric green glofish tetra in planted tank',
-            'cá cánh buồm dạ quang bơi trong hồ cá',
-            'fluorescent glofish swimming in clear water',
-            'starfire red glofish in aquarium tank',
-            'cosmic blue glofish tetra swimming in tank',
-            'cá cánh buồm dạ quang vàng bơi trong bể kính',
-            'sunburst orange glofish tetra swimming in tank',
-            'galactic purple glofish tetra in planted aquarium',
-            'glofish fluorescent fish in clean water tank'
+            'cá cánh buồm dạ quang bơi trong hồ cá'
         ]
     },
     'ca_soc_ngua': {
@@ -202,11 +204,14 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Danio rerio'],
         'wiki_searches': ['Danio rerio aquarium', 'Zebrafish aquarium tank'],
         'bing_queries': [
+            'longfin zebra danio swimming in planted aquarium',
+            'glofish danio fluorescent swimming in tank',
+            'golden zebra danio in clean glass tank',
+            'cá sóc ngựa dạ quang xanh bơi hồ thủy sinh',
+            'cá sóc ngựa cánh bướm bơi trong hồ kính',
             'zebra danio fish swimming in planted aquarium',
             'Danio rerio school in glass tank',
-            'cá sóc ngựa bơi đàn trong bể thủy sinh',
-            'longfin zebra danio in aquarium tank',
-            'glofish danio swimming in tank'
+            'cá sóc ngựa bơi đàn trong bể thủy sinh'
         ]
     },
     'ca_thien_than': {
@@ -215,15 +220,15 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Pterophyllum scalare', 'Pterophyllum altum', 'Pterophyllum leopoldi', 'Pterophyllum'],
         'wiki_searches': ['Pterophyllum scalare aquarium', 'Angelfish planted tank', 'Altum angelfish'],
         'bing_queries': [
+            'koi angelfish swimming in planted aquarium',
+            'altum angelfish in glass tank nature',
+            'black velvet angelfish swimming in clean tank',
+            'marble angelfish in planted aquarium tank',
+            'cá thần tiên koi đỏ vàng bơi hồ thủy sinh',
+            'cá thần tiên ai cập altum bơi bể kính',
             'freshwater angelfish swimming in planted aquarium',
             'Pterophyllum scalare in glass tank',
-            'cá thần tiên bơi trong bể thủy sinh',
-            'koi angelfish swimming in planted aquarium',
-            'black angelfish swimming in clear water tank',
-            'altum angelfish in planted tank',
-            'smokey angelfish swimming in aquarium',
-            'cá thần tiên ba sọc bơi trong hồ thủy sinh',
-            'platinum angelfish in clear water tank'
+            'cá thần tiên bơi trong bể thủy sinh'
         ]
     },
     'ca_hong_ket': {
@@ -232,11 +237,14 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Amphilophus citrinellus', 'Amphilophus labiatus'],
         'wiki_searches': ['Blood parrot cichlid aquarium'],
         'bing_queries': [
+            'king kong blood parrot cichlid swimming in tank',
+            'kirin parrot cichlid in glass aquarium',
+            'yellow golden parrot cichlid swimming in clean tank',
+            'cá hồng két king kong bơi trong bể kính',
+            'cá két thần tài bơi trong hồ cá cảnh',
             'blood parrot cichlid swimming in aquarium tank',
             'red blood parrot fish in glass aquarium',
-            'cá hồng két đỏ bơi trong bể kính',
-            'yellow blood parrot cichlid swimming in tank',
-            'blood parrot fish clear aquarium water'
+            'cá hồng két đỏ bơi trong bể kính'
         ]
     },
     'ca_dia': {
@@ -245,15 +253,14 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Symphysodon', 'Symphysodon aequifasciatus', 'Symphysodon discus', 'Symphysodon tarzoo'],
         'wiki_searches': ['Symphysodon aquarium', 'Discus fish planted tank', 'Heckel discus aquarium'],
         'bing_queries': [
-            'discus fish swimming in planted aquarium',
-            'blue diamond discus fish in glass tank',
-            'cá dĩa bơi trong bể thủy sinh',
-            'red pigeon blood discus swimming in aquarium',
-            'wild discus fish in clear aquarium water',
-            'heckel discus fish swimming in aquarium',
-            'leopard snake skin discus in tank',
+            'pigeon blood discus fish swimming in planted tank',
+            'blue diamond discus in clean glass aquarium',
+            'leopard snakeskin discus fish in aquarium',
+            'red melon discus fish in planted tank',
             'cá dĩa bồ câu đỏ bơi trong bể kính',
-            'discus fish pair swimming in planted aquarium'
+            'cá dĩa xanh lam bơi hồ thủy sinh',
+            'discus fish swimming in planted aquarium',
+            'cá dĩa bơi trong bể thủy sinh'
         ]
     },
     'ca_sac': {
@@ -262,11 +269,13 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Trichogaster lalius', 'Trichogaster leeri', 'Trichogaster trichopterus'],
         'wiki_searches': ['Trichogaster lalius aquarium', 'Dwarf gourami planted tank', 'Pearl gourami'],
         'bing_queries': [
+            'neon blue dwarf gourami swimming in planted tank',
+            'flame dwarf gourami red in glass aquarium',
+            'pearl gourami lace in crystal clear water',
+            'cá sặc gấm neon bơi trong hồ thủy sinh',
             'dwarf gourami swimming in planted aquarium tank',
             'pearl gourami in glass planted tank',
-            'cá sặc gấm bơi trong hồ thủy sinh',
-            'Trichogaster lalius male in aquarium water',
-            'neon blue dwarf gourami swimming in tank'
+            'cá sặc gấm bơi trong hồ thủy sinh'
         ]
     },
     'ca_koi': {
@@ -275,11 +284,13 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Cyprinus carpio'],
         'wiki_searches': ['Koi pond', 'Cyprinus carpio koi aquarium'],
         'bing_queries': [
+            'kohaku nishikigoi swimming in clean pond',
+            'showa sanke koi fish in clear pond water',
+            'ogon golden koi swimming in clean water',
+            'cá chép koi kohaku đỏ trắng bơi hồ kính',
+            'cá chép koi bướm đuôi dài bơi trong hồ',
             'japanese koi fish swimming in clear pond water',
-            'kohaku koi swimming in clean pond',
-            'cá chép koi bơi trong hồ kính',
-            'showa sanke koi fish in clear water',
-            'butterfly koi swimming in aquarium'
+            'cá chép koi bơi trong hồ kính'
         ]
     },
     'ca_lau_kieng': {
@@ -288,11 +299,13 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Hypostomus plecostomus', 'Ancistrus cirrhosus', 'Pterygoplichthys pardalis'],
         'wiki_searches': ['Bristlenose pleco aquarium', 'Hypostomus plecostomus tank'],
         'bing_queries': [
+            'albino bristlenose pleco on driftwood in tank',
+            'sewellia lineolata butterfly pleco on glass',
+            'cá tỳ bà bướm bám kính bể thủy sinh',
+            'cá tỳ bà vàng mắt đỏ bơi bám lũa',
             'bristlenose pleco on driftwood in aquarium',
             'Ancistrus on glass tank swimming',
-            'cá tỳ bà bơi bám kính hồ cá cảnh',
-            'plecostomus catfish on aquarium plant',
-            'bushynose pleco in planted tank'
+            'cá tỳ bà bơi bám kính hồ cá cảnh'
         ]
     },
     'ca_xiem': {
@@ -301,10 +314,13 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Betta splendens', 'Betta imbellis'],
         'wiki_searches': ['Betta splendens aquarium', 'Siamese fighting fish tank'],
         'bing_queries': [
-            'halfmoon betta fish swimming in planted tank',
-            'crowntail betta fish in glass aquarium',
+            'halfmoon betta male swimming in planted aquarium',
+            'plakat betta koi galaxy in glass tank',
+            'dumbo big ear betta swimming in clear water',
+            'crowntail betta fish in aquarium tank',
+            'cá betta halfmoon xòe đuôi 180 độ bể kính',
+            'cá betta koi galaxy nemo bơi trong hồ',
             'cá xiêm betta bơi trong hồ thủy sinh',
-            'plakat betta swimming in clear water tank',
             'Betta splendens male flaring in aquarium'
         ]
     },
@@ -314,11 +330,13 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Cichlasoma'],
         'wiki_searches': ['Flowerhorn cichlid aquarium'],
         'bing_queries': [
+            'kamfa flowerhorn cichlid in glass aquarium',
+            'red dragon flowerhorn kok big head in tank',
+            'golden base fader flowerhorn cichlid in tank',
+            'cá la hán kamfa châu sấm đầu to bể kính',
+            'cá la hán thái đỏ rực bơi trong hồ kính',
             'kamfa flowerhorn cichlid swimming in glass tank',
-            'red dragon flowerhorn in aquarium tank',
-            'cá la hán đầu gù bơi trong bể kính',
-            'flowerhorn fish swimming in clean water',
-            'super red flowerhorn cichlid in tank'
+            'cá la hán đầu gù bơi trong bể kính'
         ]
     },
     'ca_neon': {
@@ -327,11 +345,13 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Paracheirodon innesi', 'Paracheirodon axelrodi', 'Paracheirodon simulans'],
         'wiki_searches': ['Paracheirodon innesi aquarium', 'Cardinal tetra planted tank'],
         'bing_queries': [
+            'cardinal tetra school swimming in planted tank',
+            'green neon tetra in glass aquarium',
+            'diamond head neon tetra swimming in tank',
+            'cá neon vua bơi đàn trong bể thủy sinh',
             'neon tetra school swimming in planted aquarium',
             'cardinal tetra in glass planted tank',
-            'cá neon xanh bơi đàn trong bể thủy sinh',
-            'Paracheirodon innesi in crystal clear aquarium',
-            'school of neon tetras planted aquarium'
+            'cá neon xanh bơi đàn trong bể thủy sinh'
         ]
     },
     'ca_rong': {
@@ -340,11 +360,13 @@ SPECIES_CONFIG = {
         'inat_taxons': ['Scleropages formosus', 'Osteoglossum bicirrhosum'],
         'wiki_searches': ['Asian arowana aquarium', 'Silver arowana tank'],
         'bing_queries': [
+            'super red arowana chilli red in glass tank',
+            'crossback 24k golden arowana swimming in aquarium',
+            'silver arowana large swimming in clear water',
+            'cá rồng huyết long bơi trong hồ kính ánh đỏ',
+            'cá rồng kim long quá bối 24k bơi bể kính',
             'asian super red arowana swimming in glass tank',
-            'crossback golden arowana in aquarium',
-            'cá rồng huyết long bơi trong bể kính',
-            'silver arowana swimming in large tank',
-            'chilli red arowana in clear aquarium water'
+            'cá rồng huyết long bơi trong bể kính'
         ]
     }
 }

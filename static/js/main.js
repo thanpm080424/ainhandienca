@@ -201,8 +201,17 @@ function detectFishWithYOLO() {
             select.value = data.species_key;
             updateUploadButton();
             if (alertBox) {
-                alertBox.className = 'alert alert-success py-2 px-3 small';
-                alertBox.innerHTML = `<strong><i class="fas fa-bolt me-1"></i>YOLOv8 Nhận diện:</strong> ${data.species_name} (Độ tin cậy: ${data.confidence}). <br><span class="text-muted">Nhiệt độ IoT: ${data.environment.temperature} | pH IoT: ${data.environment.ph}</span>`;
+                const hy = data.hybrid_analysis;
+                let hybridHtml = '';
+                if (hy) {
+                    if (hy.is_hybrid_alert) {
+                        hybridHtml = `<div class="mt-1 text-warning fw-semibold"><i class="fas fa-exclamation-triangle me-1"></i>${hy.verdict}</div>`;
+                    } else if (hy.morph_data && hy.morph_data.common_morphs) {
+                        hybridHtml = `<div class="mt-1 text-muted"><i class="fas fa-dna me-1 text-primary"></i><strong>Họ:</strong> ${hy.family_name} | <strong>Biến thể:</strong> ${hy.morph_data.common_morphs.slice(0, 3).join(', ')}...</div>`;
+                    }
+                }
+                alertBox.className = hy && hy.is_hybrid_alert ? 'alert alert-warning py-2 px-3 small' : 'alert alert-success py-2 px-3 small';
+                alertBox.innerHTML = `<strong><i class="fas fa-bolt me-1"></i>YOLOv8 Nhận diện:</strong> ${data.species_name} (Độ tin cậy: ${data.confidence}). <br><span class="text-muted">Nhiệt độ IoT: ${data.environment.temperature} | pH IoT: ${data.environment.ph}</span>${hybridHtml}`;
             }
             showToast(`YOLOv8 nhận diện: ${data.species_name} (${data.confidence})!`, 'success');
         } else {
