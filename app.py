@@ -825,7 +825,7 @@ def get_species_stats():
     return stats
 
 
-def get_images_for_species(species_folder, page=1, sort_by='newest'):
+def get_images_for_species(species_folder, page=1, per_page=24, sort_by='newest'):
     """Lấy danh sách ảnh cho một loài cá với phân trang, ưu tiên ảnh mới thêm lên đầu."""
     folder_path = os.path.join(DATASET_DIR, species_folder)
     if not os.path.exists(folder_path):
@@ -839,6 +839,11 @@ def get_images_for_species(species_folder, page=1, sort_by='newest'):
     # Mặc định sắp xếp ảnh mới nhất lên đầu tiên (newest first)
     if sort_by == 'name':
         all_images = sorted(valid_files)
+    elif sort_by == 'oldest':
+        all_images = sorted(
+            valid_files,
+            key=lambda f: os.path.getmtime(os.path.join(folder_path, f))
+        )
     else:
         all_images = sorted(
             valid_files,
@@ -847,11 +852,14 @@ def get_images_for_species(species_folder, page=1, sort_by='newest'):
         )
 
     total = len(all_images)
-    total_pages = max(1, (total + IMAGES_PER_PAGE - 1) // IMAGES_PER_PAGE)
+    if per_page <= 0 or per_page >= total:
+        return all_images, total, 1
+
+    total_pages = max(1, (total + per_page - 1) // per_page)
     page = max(1, min(page, total_pages))
 
-    start = (page - 1) * IMAGES_PER_PAGE
-    end = start + IMAGES_PER_PAGE
+    start = (page - 1) * per_page
+    end = start + per_page
     page_images = all_images[start:end]
 
     return page_images, total, total_pages
@@ -884,13 +892,23 @@ def index():
 
 @app.route('/gallery/<species>')
 def gallery(species):
-    """Gallery - Xem ảnh của một loài cá."""
+    """Gallery - Xem ảnh của một loài cá (hỗ trợ xem tất cả hoặc phân trang)."""
     if species not in SPECIES_MAP:
         flash('Loài cá không tồn tại!', 'error')
         return redirect(url_for('index'))
 
+    per_page_param = request.args.get('per_page', '24')
+    if str(per_page_param).lower() in ('all', '0', '-1', 'tat_ca', 'tatca'):
+        per_page = 0
+    else:
+        try:
+            per_page = max(1, int(per_page_param))
+        except ValueError:
+            per_page = 24
+
     page = request.args.get('page', 1, type=int)
-    images, total, total_pages = get_images_for_species(species, page)
+    sort_by = request.args.get('sort', 'newest')
+    images, total, total_pages = get_images_for_species(species, page, per_page, sort_by)
 
     species_stats = None
     for s in get_species_stats():
@@ -905,6 +923,9 @@ def gallery(species):
                            total=total,
                            page=page,
                            total_pages=total_pages,
+                           per_page=per_page,
+                           per_page_param=per_page_param,
+                           sort_by=sort_by,
                            species_stats=species_stats,
                            min_images=MIN_IMAGES,
                            species_map=SPECIES_MAP)
@@ -930,13 +951,50 @@ def audit_page():
 
 @app.route('/image_preview')
 def image_preview():
-    """Phục vụ ảnh an toàn bằng query parameter, giải quyết triệt để ký tự #, space, ngoặc vuông."""
-    species = request.args.get('species')
-    filename = request.args.get('file')
+    """Phục vụ ảnh an toàn, giải quyết triệt để ký tự #, space, ngoặc vuông, Unicode NFD/NFC và ảnh đã cách ly."""
+    species = request.args.get('species', '').strip()
+    filename = request.args.get('file', '').strip()
     if not species or not filename:
         return "Missing parameters", 400
+
+    import urllib.parse
+    import unicodedata
+
+    unquoted = urllib.parse.unquote(filename)
+    candidates = [filename, unquoted, unicodedata.normalize('NFC', unquoted), unicodedata.normalize('NFD', unquoted)]
+
+    # 1. Thư mục chính của loài: dataset_ca/<species>
     folder_path = os.path.join(DATASET_DIR, species)
-    return send_from_directory(folder_path, filename)
+    if os.path.isdir(folder_path):
+        for c in candidates:
+            if os.path.isfile(os.path.join(folder_path, c)):
+                return send_from_directory(folder_path, c)
+
+    # 2. Thư mục cách ly nghi ngờ: dataset_ca/_anh_nghi_ngo/<species>
+    quarantine_path = os.path.join(DATASET_DIR, '_anh_nghi_ngo', species)
+    if os.path.isdir(quarantine_path):
+        for c in candidates:
+            if os.path.isfile(os.path.join(quarantine_path, c)):
+                return send_from_directory(quarantine_path, c)
+
+    # 3. Thư mục gốc _anh_nghi_ngo: dataset_ca/_anh_nghi_ngo
+    q_root = os.path.join(DATASET_DIR, '_anh_nghi_ngo')
+    if os.path.isdir(q_root):
+        for c in candidates:
+            if os.path.isfile(os.path.join(q_root, c)):
+                return send_from_directory(q_root, c)
+
+    # 4. Tìm kiếm dự phòng theo tiền tố (nếu URL bị cắt do dấu #)
+    for check_dir in [folder_path, quarantine_path, q_root]:
+        if os.path.isdir(check_dir):
+            try:
+                for f in os.listdir(check_dir):
+                    if f.startswith(unquoted) or f.startswith(filename):
+                        return send_from_directory(check_dir, f)
+            except Exception:
+                pass
+
+    return f"Image not found: {filename}", 404
 
 
 @app.route('/dataset_ca/<species>/<filename>')
@@ -945,8 +1003,18 @@ def serve_image(species=None, filename=None, filepath=None):
     """Phục vụ ảnh từ thư mục dataset."""
     if species and filename:
         folder_path = os.path.join(DATASET_DIR, species)
-        return send_from_directory(folder_path, filename)
-    return send_from_directory(DATASET_DIR, filepath)
+        if os.path.isfile(os.path.join(folder_path, filename)):
+            return send_from_directory(folder_path, filename)
+        q_path = os.path.join(DATASET_DIR, '_anh_nghi_ngo', species)
+        if os.path.isfile(os.path.join(q_path, filename)):
+            return send_from_directory(q_path, filename)
+    if filepath:
+        if os.path.isfile(os.path.join(DATASET_DIR, filepath)):
+            return send_from_directory(DATASET_DIR, filepath)
+        q_file = os.path.join(DATASET_DIR, '_anh_nghi_ngo', filepath)
+        if os.path.isfile(q_file):
+            return send_from_directory(os.path.join(DATASET_DIR, '_anh_nghi_ngo'), filepath)
+    return "Not found", 404
 
 
 # ============================================================
@@ -958,11 +1026,57 @@ def api_stats():
     """API trả về thống kê dataset dạng JSON."""
     stats = get_species_stats()
     total_images = sum(s['count'] for s in stats)
+    total_species = len(stats)
+    enough_species = sum(1 for s in stats if s['status'] == 'enough')
+    need_more = sum(1 for s in stats if s['need_more'] > 0)
+    health_percent = int((enough_species / total_species) * 100) if total_species else 0
     return jsonify({
-        'total_species': len(stats),
+        'total_species': total_species,
         'total_images': total_images,
+        'enough_species': enough_species,
+        'need_more': need_more,
+        'health_percent': health_percent,
         'min_images': MIN_IMAGES,
         'species': stats
+    })
+
+
+@app.route('/api/gallery/<species>')
+def api_gallery(species):
+    """API trả về danh sách ảnh và thống kê của một loài cá dạng JSON phục vụ cập nhật trực tiếp."""
+    if species not in SPECIES_MAP:
+        return jsonify({'success': False, 'error': f"Loài '{species}' không hợp lệ"}), 404
+
+    page = request.args.get('page', 1, type=int)
+    per_page_param = request.args.get('per_page', '24')
+    if str(per_page_param).lower() in ('all', '0', '-1', 'tat_ca', 'tatca'):
+        per_page = 0
+    else:
+        try:
+            per_page = max(1, int(per_page_param))
+        except ValueError:
+            per_page = 24
+
+    sort_by = request.args.get('sort', 'newest')
+    images, total, total_pages = get_images_for_species(species, page, per_page, sort_by)
+
+    species_stats = None
+    for s in get_species_stats():
+        if s['folder'] == species:
+            species_stats = s
+            break
+
+    return jsonify({
+        'success': True,
+        'species': species,
+        'species_name': SPECIES_MAP[species],
+        'total': total,
+        'page': page,
+        'total_pages': total_pages,
+        'per_page': per_page,
+        'sort_by': sort_by,
+        'images': images,
+        'species_stats': species_stats
     })
 
 
@@ -1315,6 +1429,7 @@ Chỉ trả về JSON duy nhất."""
                     top1 = pred_res.get('top1', {})
                     pred_key = top1.get('species_key')
                     pred_name = top1.get('name')
+                    conf = top1.get('confidence', 0.0)
                     has_human, face_cnt = detect_human_face(p)
 
                     if has_human:
@@ -1326,15 +1441,15 @@ Chỉ trả về JSON duy nhất."""
                     elif is_blur:
                         is_ok = False
                         status_str = 'Ảnh mờ/Kém nét'
-                        reason_str = f"Độ nét Laplacian quá thấp ({blur_score} < 18). Ảnh mờ hoặc rung nhòe."
-                    elif pred_key == species and conf >= 45.0:
+                        reason_str = f"Độ nét Laplacian quá thấp ({blur_score} < 25). Ảnh mờ hoặc rung nhòe."
+                    elif pred_key == species and conf >= 60.0:
                         is_ok = True
                         status_str = 'Đúng chuẩn'
-                        reason_str = f"YOLOv8 đối chiếu chính xác đặc trưng {pred_name} (Độ tin cậy: {conf:.1f}%)"
-                    elif pred_key == species and conf < 45.0:
+                        reason_str = f"YOLOv8 đối chiếu chính xác cá rõ nét {pred_name} (Độ tin cậy cao: {conf:.1f}%)"
+                    elif pred_key == species and conf < 60.0:
                         is_ok = False
-                        status_str = 'Độ tin cậy thấp'
-                        reason_str = f"YOLOv8 nhận diện {pred_name} nhưng độ tin cậy quá thấp ({conf:.1f}% < 45%)"
+                        status_str = 'Cá không rõ trong khung hình'
+                        reason_str = f"YOLOv8 nhận diện đúng loài {pred_name} nhưng cá quá nhỏ/xa/mờ trong khung hình ({conf:.1f}% < 60%)"
                     else:
                         is_ok = False
                         status_str = 'Nghi ngờ sai loài'

@@ -23,12 +23,16 @@
                 </p>
             </div>
             <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                <div class="d-flex align-items-center justify-content-md-end gap-3">
+                <div class="d-flex align-items-center justify-content-md-end gap-3 flex-wrap">
+                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1" id="galleryLiveBadge" title="Đang tự động theo dõi và nạp ảnh mới trực tiếp">
+                        <span class="spinner-grow spinner-grow-sm text-success me-1" style="width: 0.55rem; height: 0.55rem;"></span>
+                        <span id="galleryLiveText">Trực tiếp</span>
+                    </span>
                     <div>
-                        <span class="fs-3 fw-bold text-{{ species_stats.color }}">{{ total }}</span>
+                        <span class="fs-3 fw-bold text-{{ species_stats.color }}" id="gallerySpeciesCount">{{ total }}</span>
                         <span class="text-muted">/ {{ min_images }} ảnh</span>
                     </div>
-                    <span class="badge bg-{{ species_stats.color }} fs-6 py-2 px-3">
+                    <span class="badge bg-{{ species_stats.color }} fs-6 py-2 px-3" id="gallerySpeciesBadge">
                         {% if species_stats.status == 'enough' %}
                             <i class="fas fa-check me-1"></i>Đủ
                         {% else %}
@@ -39,37 +43,90 @@
             </div>
         </div>
         <div class="progress mt-3" style="height: 8px;">
-            <div class="progress-bar bg-{{ species_stats.color }}" style="width: {{ species_stats.percentage }}%"></div>
+            <div class="progress-bar bg-{{ species_stats.color }}" id="galleryProgressBar" style="width: {{ species_stats.percentage }}%"></div>
         </div>
     </div>
 </div>
 
-<!-- Action Buttons -->
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <div>
-        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
-            <i class="fas fa-arrow-left me-1"></i> Quay lại
-        </a>
-    </div>
-    <div>
-        <a href="{{ url_for('upload_page') }}?species={{ species }}" class="btn btn-primary">
-            <i class="fas fa-plus me-1"></i> Thêm ảnh cho {{ species_name }}
-        </a>
+<!-- Action & View Controls Toolbar -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-3">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <!-- Left: Back button & count summary -->
+            <div class="d-flex align-items-center gap-2">
+                <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="fas fa-arrow-left me-1"></i> Dashboard
+                </a>
+                <span class="badge bg-light text-dark border px-3 py-2 fs-6" id="galleryShowingBadge">
+                    Hiển thị: <strong class="text-primary" id="galleryShowingCount">{{ images|length }}</strong> / <strong id="galleryTotalCount">{{ total }}</strong> ảnh
+                </span>
+            </div>
+
+            <!-- Right: View size & sorting controls -->
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <!-- Sắp xếp -->
+                <div class="btn-group btn-group-sm" role="group" title="Sắp xếp ảnh">
+                    <a href="{{ url_for('gallery', species=species, page=1, per_page=per_page_param, sort='newest') }}" 
+                       class="btn btn-outline-secondary {% if sort_by == 'newest' %}active{% endif %}">
+                        <i class="fas fa-clock me-1"></i>Mới nhất
+                    </a>
+                    <a href="{{ url_for('gallery', species=species, page=1, per_page=per_page_param, sort='oldest') }}" 
+                       class="btn btn-outline-secondary {% if sort_by == 'oldest' %}active{% endif %}">
+                        <i class="fas fa-history me-1"></i>Cũ nhất
+                    </a>
+                    <a href="{{ url_for('gallery', species=species, page=1, per_page=per_page_param, sort='name') }}" 
+                       class="btn btn-outline-secondary {% if sort_by == 'name' %}active{% endif %}">
+                        <i class="fas fa-sort-alpha-down me-1"></i>Tên A-Z
+                    </a>
+                </div>
+
+                <!-- Số ảnh trên trang -->
+                <div class="btn-group btn-group-sm" role="group" title="Số lượng ảnh trên trang">
+                    <a href="{{ url_for('gallery', species=species, page=1, per_page=24, sort=sort_by) }}" 
+                       class="btn btn-outline-primary {% if per_page == 24 %}active{% endif %}">24 ảnh</a>
+                    <a href="{{ url_for('gallery', species=species, page=1, per_page=48, sort=sort_by) }}" 
+                       class="btn btn-outline-primary {% if per_page == 48 %}active{% endif %}">48 ảnh</a>
+                    <a href="{{ url_for('gallery', species=species, page=1, per_page=96, sort=sort_by) }}" 
+                       class="btn btn-outline-primary {% if per_page == 96 %}active{% endif %}">96 ảnh</a>
+                    <a href="{{ url_for('gallery', species=species, page=1, per_page='all', sort=sort_by) }}" 
+                       class="btn {% if per_page == 0 %}btn-success active{% else %}btn-outline-success{% endif %} fw-semibold">
+                        <i class="fas fa-th me-1"></i>⚡ Xem tất cả ({{ total }} ảnh)
+                    </a>
+                </div>
+
+                <a href="{{ url_for('upload_page') }}?species={{ species }}" class="btn btn-primary btn-sm ms-md-2">
+                    <i class="fas fa-plus me-1"></i> Thêm ảnh
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
 <!-- Image Gallery -->
 {% if images %}
+{% if per_page == 0 %}
+<div class="alert alert-success py-2 px-3 small d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <i class="fas fa-check-circle me-1"></i> Đang hiển thị <strong>toàn bộ {{ total }} ảnh</strong> của loài <strong>{{ species_name }}</strong> trên một trang.
+    </div>
+    <span class="badge bg-success">100% Ảnh Đã Nạp</span>
+</div>
+{% endif %}
+
 <div class="row g-3" id="galleryGrid">
     {% for img in images %}
+    {% set idx = loop.index if per_page == 0 else (page - 1) * per_page + loop.index %}
     <div class="col-xl-2 col-lg-3 col-md-4 col-6" id="img-{{ loop.index }}">
-        <div class="card gallery-card border-0 shadow-sm h-100">
+        <div class="card gallery-card border-0 shadow-sm h-100 position-relative">
+            <!-- Index badge -->
+            <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-1 z-1 font-monospace" style="font-size: 0.72rem;">#{{ idx }}</span>
             <div class="gallery-img-wrapper">
                 <img src="/image_preview?species={{ species }}&file={{ img|urlencode }}"
                      class="card-img-top gallery-img"
                      alt="{{ species_name }}"
                      loading="lazy"
                      data-file="{{ img }}"
+                     onerror="this.onerror=null; this.src='/dataset_ca/{{ species }}/{{ img|urlencode }}';"
                      onclick="openLightbox(this.src, this.dataset.file)">
                 <!-- Action Buttons -->
                 <button class="gallery-move-btn"
@@ -98,11 +155,11 @@
 </div>
 
 <!-- Pagination -->
-{% if total_pages > 1 %}
+{% if total_pages > 1 and per_page > 0 %}
 <nav class="mt-4" aria-label="Phân trang">
     <ul class="pagination justify-content-center">
         <li class="page-item {% if page <= 1 %}disabled{% endif %}">
-            <a class="page-link" href="{{ url_for('gallery', species=species, page=page-1) }}">
+            <a class="page-link" href="{{ url_for('gallery', species=species, page=page-1, per_page=per_page_param, sort=sort_by) }}">
                 <i class="fas fa-chevron-left"></i> Trước
             </a>
         </li>
@@ -112,7 +169,7 @@
 
         {% if start_page > 1 %}
         <li class="page-item">
-            <a class="page-link" href="{{ url_for('gallery', species=species, page=1) }}">1</a>
+            <a class="page-link" href="{{ url_for('gallery', species=species, page=1, per_page=per_page_param, sort=sort_by) }}">1</a>
         </li>
         {% if start_page > 2 %}
         <li class="page-item disabled"><span class="page-link">...</span></li>
@@ -121,7 +178,7 @@
 
         {% for p in range(start_page, end_page + 1) %}
         <li class="page-item {% if p == page %}active{% endif %}">
-            <a class="page-link" href="{{ url_for('gallery', species=species, page=p) }}">{{ p }}</a>
+            <a class="page-link" href="{{ url_for('gallery', species=species, page=p, per_page=per_page_param, sort=sort_by) }}">{{ p }}</a>
         </li>
         {% endfor %}
 
@@ -130,12 +187,12 @@
         <li class="page-item disabled"><span class="page-link">...</span></li>
         {% endif %}
         <li class="page-item">
-            <a class="page-link" href="{{ url_for('gallery', species=species, page=total_pages) }}">{{ total_pages }}</a>
+            <a class="page-link" href="{{ url_for('gallery', species=species, page=total_pages, per_page=per_page_param, sort=sort_by) }}">{{ total_pages }}</a>
         </li>
         {% endif %}
 
         <li class="page-item {% if page >= total_pages %}disabled{% endif %}">
-            <a class="page-link" href="{{ url_for('gallery', species=species, page=page+1) }}">
+            <a class="page-link" href="{{ url_for('gallery', species=species, page=page+1, per_page=per_page_param, sort=sort_by) }}">
                 Sau <i class="fas fa-chevron-right"></i>
             </a>
         </li>
@@ -172,4 +229,107 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let currentSpeciesTotal = {{ total }};
+const currentSpeciesKey = "{{ species }}";
+const currentSpeciesName = "{{ species_name }}";
+const isAllView = {{ 'true' if per_page == 0 else 'false' }};
+const currentPage = {{ page }};
+const perPageNum = {{ per_page if per_page > 0 else 24 }};
+const perPageParam = "{{ per_page_param }}";
+const sortBy = "{{ sort_by }}";
+
+function syncGalleryLive() {
+    fetch(`/api/gallery/${currentSpeciesKey}?page=${currentPage}&per_page=${perPageParam}&sort=${sortBy}`)
+        .then(r => r.json())
+        .then(data => {
+            if (!data || !data.success) return;
+            const newTotal = data.total;
+            const stats = data.species_stats;
+
+            // Cập nhật tiêu đề và tiến trình
+            const countEl = document.getElementById('gallerySpeciesCount');
+            const totalEl = document.getElementById('galleryTotalCount');
+            const showingEl = document.getElementById('galleryShowingCount');
+            const badgeEl = document.getElementById('gallerySpeciesBadge');
+            const barEl = document.getElementById('galleryProgressBar');
+
+            if (countEl) countEl.textContent = newTotal;
+            if (totalEl) totalEl.textContent = newTotal;
+
+            if (stats && barEl) {
+                barEl.style.width = stats.percentage + '%';
+                barEl.className = 'progress-bar bg-' + stats.color;
+            }
+            if (stats && badgeEl) {
+                badgeEl.className = `badge bg-${stats.color} fs-6 py-2 px-3`;
+                badgeEl.innerHTML = stats.status === 'enough'
+                    ? '<i class="fas fa-check me-1"></i>Đủ'
+                    : `<i class="fas fa-exclamation me-1"></i>Thiếu ${stats.need_more} ảnh`;
+            }
+
+            // Nếu phát hiện có ảnh mới nạp vào
+            if (newTotal > currentSpeciesTotal) {
+                const diff = newTotal - currentSpeciesTotal;
+                currentSpeciesTotal = newTotal;
+
+                if (showingEl) showingEl.textContent = data.images.length;
+                showToast(`✨ Có thêm ${diff} ảnh mới của loài "${currentSpeciesName}" vừa được xác nhận!`, 'success');
+
+                // Tự động làm mới khung ảnh nếu đang ở trang 1 hoặc Xem tất cả
+                if (currentPage === 1 || isAllView) {
+                    const grid = document.getElementById('galleryGrid');
+                    if (grid && data.images) {
+                        grid.innerHTML = data.images.map((img, idx) => {
+                            const num = isAllView ? (idx + 1) : ((currentPage - 1) * perPageNum + idx + 1);
+                            const cardId = 'img-' + (idx + 1);
+                            const encImg = encodeURIComponent(img);
+                            return `
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-6" id="${cardId}">
+                                <div class="card gallery-card border-0 shadow-sm h-100 position-relative">
+                                    <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-1 z-1 font-monospace" style="font-size: 0.72rem;">#${num}</span>
+                                    <div class="gallery-img-wrapper">
+                                        <img src="/image_preview?species=${currentSpeciesKey}&file=${encImg}"
+                                             class="card-img-top gallery-img"
+                                             alt="${currentSpeciesName}"
+                                             loading="lazy"
+                                             data-file="${img}"
+                                             onerror="this.onerror=null; this.src='/dataset_ca/${currentSpeciesKey}/${encImg}';"
+                                             onclick="openLightbox(this.src, this.dataset.file)">
+                                        <button class="gallery-move-btn"
+                                                data-species="${currentSpeciesKey}"
+                                                data-file="${img}"
+                                                data-id="${cardId}"
+                                                onclick="openMoveModal(this.dataset.species, this.dataset.file, '', this.dataset.id)"
+                                                title="Chuyển ảnh sang loài khác">
+                                            <i class="fas fa-exchange-alt"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger gallery-delete-btn"
+                                                data-species="${currentSpeciesKey}"
+                                                data-file="${img}"
+                                                data-id="${cardId}"
+                                                onclick="deleteImage(this.dataset.species, this.dataset.file, this.dataset.id)"
+                                                title="Xóa vĩnh viễn">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <div class="text-truncate small text-dark fw-semibold" title="${img}">${img}</div>
+                                    </div>
+                                </div>
+                            </div>`;
+                        }).join('');
+                    }
+                }
+            }
+        })
+        .catch(() => {});
+}
+
+// Bắt đầu cập nhật tự động sau mỗi 3.5 giây
+setInterval(syncGalleryLive, 3500);
+</script>
 {% endblock %}

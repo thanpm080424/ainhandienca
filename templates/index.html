@@ -21,7 +21,7 @@
                 <div class="summary-icon text-info mb-2">
                     <i class="fas fa-images fa-2x"></i>
                 </div>
-                <h3 class="fw-bold mb-1">{{ "{:,}".format(total_images) }}</h3>
+                <h3 class="fw-bold mb-1 text-primary" id="statTotalImages">{{ "{:,}".format(total_images) }}</h3>
                 <p class="text-muted mb-0">Tổng ảnh</p>
             </div>
         </div>
@@ -32,7 +32,7 @@
                 <div class="summary-icon text-success mb-2">
                     <i class="fas fa-check-circle fa-2x"></i>
                 </div>
-                <h3 class="fw-bold mb-1">{{ enough_species }}</h3>
+                <h3 class="fw-bold mb-1 text-success" id="statEnoughSpecies">{{ enough_species }}</h3>
                 <p class="text-muted mb-0">Loài đủ ảnh</p>
             </div>
         </div>
@@ -43,7 +43,7 @@
                 <div class="summary-icon text-danger mb-2">
                     <i class="fas fa-exclamation-triangle fa-2x"></i>
                 </div>
-                <h3 class="fw-bold mb-1">{{ need_more }}</h3>
+                <h3 class="fw-bold mb-1 text-danger" id="statNeedMore">{{ need_more }}</h3>
                 <p class="text-muted mb-0">Loài cần thêm</p>
             </div>
         </div>
@@ -53,21 +53,28 @@
 <!-- Dataset Health -->
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
             <h5 class="mb-0"><i class="fas fa-heartbeat text-danger me-2"></i>Sức khỏe Dataset</h5>
-            <span class="badge bg-{{ 'success' if need_more == 0 else ('warning' if need_more <= 3 else 'danger') }} fs-6">
-                {% if need_more == 0 %}
-                    <i class="fas fa-check me-1"></i>Hoàn hảo
-                {% elif need_more <= 3 %}
-                    <i class="fas fa-exclamation me-1"></i>Gần đủ
-                {% else %}
-                    <i class="fas fa-times me-1"></i>Cần bổ sung
-                {% endif %}
-            </span>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1" id="liveIndicatorPill" title="Dữ liệu được cập nhật tự động sau mỗi 3 giây">
+                    <span class="spinner-grow spinner-grow-sm text-success me-1" style="width: 0.55rem; height: 0.55rem;"></span>
+                    <span id="liveIndicatorText">Trực tiếp (Live 3s)</span>
+                </span>
+                <span class="badge bg-{{ 'success' if need_more == 0 else ('warning' if need_more <= 3 else 'danger') }} fs-6" id="statHealthBadge">
+                    {% if need_more == 0 %}
+                        <i class="fas fa-check me-1"></i>Hoàn hảo (100%)
+                    {% elif need_more <= 3 %}
+                        <i class="fas fa-exclamation me-1"></i>Gần đủ
+                    {% else %}
+                        <i class="fas fa-times me-1"></i>Cần bổ sung
+                    {% endif %}
+                </span>
+            </div>
         </div>
         {% set health = ((enough_species / total_species) * 100)|int %}
         <div class="progress" style="height: 25px;">
             <div class="progress-bar bg-{{ 'success' if health >= 80 else ('warning' if health >= 50 else 'danger') }} progress-bar-striped progress-bar-animated"
+                 id="statHealthBar"
                  style="width: {{ health }}%">
                 {{ health }}% hoàn thành ({{ enough_species }}/{{ total_species }} loài đủ ≥ {{ min_images }} ảnh)
             </div>
@@ -103,19 +110,22 @@
                 <!-- Danh sách ảnh vừa được duyệt -->
                 <div id="recentApprovedList" class="d-flex flex-column gap-2" style="max-height: 420px; overflow-y: auto;">
                     {% for item in audit_data.recent_approved %}
+                    {% set img_file = item.file or item.filename %}
                     <div class="d-flex align-items-center p-2 rounded border bg-light-subtle gap-3">
-                        <img src="/image_preview?species={{ item.species }}&file={{ item.filename|urlencode }}" 
+                        <img src="/image_preview?species={{ item.species }}&file={{ img_file|urlencode }}" 
                              style="width: 55px; height: 55px; object-fit: cover; border-radius: 8px; cursor: pointer;"
-                             alt="{{ item.filename }}"
-                             title="{{ item.filename }}"
+                             alt="{{ img_file }}"
+                             title="{{ img_file }}"
                              onclick="openLightbox(this.src, this.alt)">
                         <div class="flex-grow-1 overflow-hidden">
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <span class="badge bg-success-subtle text-success border border-success-subtle fw-semibold">{{ item.species_name }}</span>
-                                <small class="text-muted">{{ item.timestamp[-8:] }}</small>
+                                <small class="text-muted">{{ item.timestamp[-8:] if item.timestamp else '' }}</small>
                             </div>
-                            <div class="small fw-semibold text-truncate text-dark">{{ item.identified_as }}</div>
-                            <div class="small text-muted text-truncate" title="{{ item.reason }}">{{ item.reason }}</div>
+                            <div class="small fw-semibold text-truncate text-dark">{{ item.identified_as or item.species_name }}</div>
+                            <div class="small text-muted text-truncate" title="{{ item.reason or item.source or 'Đạt chuẩn' }}">
+                                <i class="fas fa-check-circle text-success me-1"></i>{{ item.confidence or '95%+' }} • {{ item.source or 'Verified' }}
+                            </div>
                         </div>
                     </div>
                     {% else %}
@@ -251,7 +261,7 @@
                 </thead>
                 <tbody>
                     {% for s in stats %}
-                    <tr class="species-row" data-family="{{ s.family_id }}">
+                    <tr class="species-row" data-species="{{ s.folder }}" data-family="{{ s.family_id }}" id="row-{{ s.folder }}">
                         <td class="text-muted">{{ loop.index }}</td>
                         <td class="fw-semibold">
                             {{ s.name }}
@@ -263,11 +273,12 @@
                         </td>
                         <td><code>{{ s.folder }}/</code></td>
                         <td>
-                            <span class="fw-bold text-{{ s.color }}">{{ s.count }}</span>
+                            <span class="fw-bold text-{{ s.color }}" id="count-{{ s.folder }}">{{ s.count }}</span>
                         </td>
                         <td>
                             <div class="progress" style="height: 20px;">
                                 <div class="progress-bar bg-{{ s.color }} {% if s.status != 'enough' %}progress-bar-striped progress-bar-animated{% endif %}"
+                                     id="bar-{{ s.folder }}"
                                      style="width: {{ s.percentage }}%"
                                      title="{{ s.count }}/{{ min_images }}">
                                     {{ s.count }}/{{ min_images }}
@@ -275,7 +286,7 @@
                             </div>
                         </td>
                         <td>
-                            <span class="badge bg-{{ s.color }}">
+                            <span class="badge bg-{{ s.color }}" id="badge-{{ s.folder }}">
                                 {% if s.status == 'enough' %}
                                     <i class="fas fa-check me-1"></i>
                                 {% else %}
@@ -284,7 +295,7 @@
                                 {{ s.status_text }}
                             </span>
                         </td>
-                        <td>
+                        <td id="need-{{ s.folder }}">
                             {% if s.need_more > 0 %}
                                 <span class="text-danger fw-semibold">+{{ s.need_more }} ảnh</span>
                             {% else %}
@@ -377,13 +388,94 @@ function filterSpeciesByFamily(familyId, btn) {
 }
 
 
-// Polling live status from server every 4 seconds
-setInterval(() => {
+let lastTotalImages = null;
+let lastApprovedSig = '';
+
+function syncLiveDashboard() {
+    // 1. Đồng bộ thống kê số liệu tổng & từng loài cá
+    fetch('/api/stats')
+        .then(r => r.json())
+        .then(data => {
+            if (!data || !data.species) return;
+
+            // Cập nhật thẻ tổng số
+            const totalEl = document.getElementById('statTotalImages');
+            const enoughEl = document.getElementById('statEnoughSpecies');
+            const needEl = document.getElementById('statNeedMore');
+
+            if (totalEl) {
+                const newTotal = data.total_images;
+                if (lastTotalImages !== null && newTotal > lastTotalImages) {
+                    totalEl.classList.add('text-success');
+                    setTimeout(() => totalEl.classList.remove('text-success'), 1200);
+                }
+                lastTotalImages = newTotal;
+                totalEl.textContent = Number(newTotal).toLocaleString();
+            }
+            if (enoughEl) enoughEl.textContent = data.enough_species;
+            if (needEl) needEl.textContent = data.need_more;
+
+            // Cập nhật sức khỏe dataset
+            const healthBadge = document.getElementById('statHealthBadge');
+            const healthBar = document.getElementById('statHealthBar');
+            const hp = data.health_percent || 0;
+
+            if (healthBar) {
+                healthBar.style.width = hp + '%';
+                healthBar.textContent = `${hp}% hoàn thành (${data.enough_species}/${data.total_species} loài đủ ≥ ${data.min_images} ảnh)`;
+                healthBar.className = `progress-bar bg-${hp >= 80 ? 'success' : (hp >= 50 ? 'warning' : 'danger')} progress-bar-striped progress-bar-animated`;
+            }
+
+            if (healthBadge) {
+                healthBadge.className = `badge bg-${data.need_more === 0 ? 'success' : (data.need_more <= 3 ? 'warning' : 'danger')} fs-6`;
+                if (data.need_more === 0) {
+                    healthBadge.innerHTML = '<i class="fas fa-check me-1"></i>Hoàn hảo (100%)';
+                } else if (data.need_more <= 3) {
+                    healthBadge.innerHTML = '<i class="fas fa-exclamation me-1"></i>Gần đủ';
+                } else {
+                    healthBadge.innerHTML = '<i class="fas fa-times me-1"></i>Cần bổ sung';
+                }
+            }
+
+            // Cập nhật từng hàng của 20 loài cá trong bảng
+            data.species.forEach(sp => {
+                const countCell = document.getElementById('count-' + sp.folder);
+                const barCell = document.getElementById('bar-' + sp.folder);
+                const badgeCell = document.getElementById('badge-' + sp.folder);
+                const needCell = document.getElementById('need-' + sp.folder);
+
+                if (countCell) {
+                    countCell.textContent = sp.count;
+                    countCell.className = `fw-bold text-${sp.color}`;
+                }
+
+                if (barCell) {
+                    barCell.style.width = sp.percentage + '%';
+                    barCell.title = `${sp.count}/${data.min_images}`;
+                    barCell.textContent = `${sp.count}/${data.min_images}`;
+                    barCell.className = `progress-bar bg-${sp.color}` + (sp.status !== 'enough' ? ' progress-bar-striped progress-bar-animated' : '');
+                }
+
+                if (badgeCell) {
+                    badgeCell.className = `badge bg-${sp.color}`;
+                    badgeCell.innerHTML = (sp.status === 'enough' ? '<i class="fas fa-check me-1"></i>' : '<i class="fas fa-exclamation me-1"></i>') + sp.status_text;
+                }
+
+                if (needCell) {
+                    needCell.innerHTML = sp.need_more > 0 
+                        ? `<span class="text-danger fw-semibold">+${sp.need_more} ảnh</span>`
+                        : '<span class="text-success">—</span>';
+                }
+            });
+        })
+        .catch(() => {});
+
+    // 2. Đồng bộ tiến trình AI & danh sách ảnh vừa được duyệt mới nhất
     fetch('/api/audit/logs')
         .then(r => r.json())
         .then(data => {
             if (!data.success) return;
-            const status = data.current_status;
+            const status = data.current_status || {};
             const banner = document.getElementById('liveProcessingBanner');
             const statusBadgeText = document.getElementById('liveStatusText');
             const actionTitle = document.getElementById('liveActionTitle');
@@ -398,8 +490,60 @@ setInterval(() => {
                 if (banner) banner.classList.add('d-none');
                 if (statusBadgeText) statusBadgeText.textContent = status.action || 'Sẵn sàng';
             }
+
+            // Đồng bộ danh sách ảnh được duyệt gần đây
+            const approved = data.recent_approved || [];
+            const sig = approved.map(x => x.file || x.filename).slice(0, 10).join('|');
+            if (sig && sig !== lastApprovedSig) {
+                lastApprovedSig = sig;
+                const recentList = document.getElementById('recentApprovedList');
+                if (recentList && approved.length > 0) {
+                    recentList.innerHTML = approved.map(item => {
+                        const imgFile = item.file || item.filename;
+                        const timeStr = item.timestamp ? item.timestamp.slice(-8) : '';
+                        return `
+                        <div class="d-flex align-items-center p-2 rounded border bg-light-subtle gap-3">
+                            <img src="/image_preview?species=${encodeURIComponent(item.species)}&file=${encodeURIComponent(imgFile)}" 
+                                 style="width: 55px; height: 55px; object-fit: cover; border-radius: 8px; cursor: pointer;"
+                                 alt="${imgFile}"
+                                 title="${imgFile}"
+                                 onclick="openLightbox(this.src, this.alt)">
+                            <div class="flex-grow-1 overflow-hidden">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle fw-semibold">${item.species_name}</span>
+                                    <small class="text-muted">${timeStr}</small>
+                                </div>
+                                <div class="small fw-semibold text-truncate text-dark">${item.identified_as || item.species_name}</div>
+                                <div class="small text-muted text-truncate" title="${item.reason || item.source || 'Đạt chuẩn'}">
+                                    <i class="fas fa-check-circle text-success me-1"></i>${item.confidence || '95%+'} • ${item.source || 'Verified'}
+                                </div>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
+            }
+
+            // Cập nhật số lượng ảnh nhầm lẫn
+            const flaggedBadge = document.getElementById('flaggedCountBadge');
+            const flaggedList = document.getElementById('flaggedWrongList');
+            const flaggedItems = data.flagged_wrong || [];
+            if (flaggedBadge) {
+                flaggedBadge.textContent = `${flaggedItems.length} ảnh`;
+            }
+            if (flaggedList && flaggedItems.length === 0 && !flaggedList.querySelector('.text-success')) {
+                flaggedList.innerHTML = `
+                <div class="text-center py-4 text-success">
+                    <i class="fas fa-check-circle fa-2x mb-2"></i>
+                    <p class="mb-0 small fw-semibold">Tuyệt vời! Hiện không có ảnh nào bị nghi ngờ sai loài.</p>
+                </div>`;
+            }
         })
         .catch(() => {});
-}, 4000);
+}
+
+// Bắt đầu cập nhật trực tiếp mỗi 3 giây
+setInterval(syncLiveDashboard, 3000);
+// Gọi ngay một lần khi vừa vào trang
+setTimeout(syncLiveDashboard, 500);
 </script>
 {% endblock %}
