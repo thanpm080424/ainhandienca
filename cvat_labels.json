@@ -1,0 +1,282 @@
+[
+  {
+    "name": "ca_ba_duoi",
+    "color": "#ff7f0e",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Ba Đuôi / Cá Vàng"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_bay_mau",
+    "color": "#1f77b4",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Bảy Màu / Guppy"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_but_chi",
+    "color": "#8c564b",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Bút Chì"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_chuot",
+    "color": "#bcbd22",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Chuột"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_da_quang",
+    "color": "#e377c2",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Dạ Quang / GloFish"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_dia",
+    "color": "#d62728",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Dĩa / Discus"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_diec_anh_dao",
+    "color": "#9467bd",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Diếc Anh Đào"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_duoi_kiem",
+    "color": "#ff9896",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Đuôi Kiếm"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_hong_ket",
+    "color": "#c49c94",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Hồng Két"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_koi",
+    "color": "#f7b6d2",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Chép Koi"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_la_han",
+    "color": "#c5b0d5",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá La Hán"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_lau_kieng",
+    "color": "#7f7f7f",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Lau Kiếng"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_molly",
+    "color": "#17becf",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Molly / Bình Tích"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_mun",
+    "color": "#9edae5",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Mún / Platy"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_neon",
+    "color": "#2ca02c",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Neon"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_rong",
+    "color": "#aec7e8",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Rồng / Arowana"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_sac",
+    "color": "#dbdb8d",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Sặc Cảnh"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_soc_ngua",
+    "color": "#98df8a",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Sọc Ngựa"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_thien_than",
+    "color": "#c7c7c7",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Thần Tiên"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ca_xiem",
+    "color": "#393b79",
+    "attributes": [
+      {
+        "name": "ten_tieng_viet",
+        "input_type": "text",
+        "mutable": false,
+        "values": [
+          "Cá Xiêm / Betta"
+        ]
+      }
+    ]
+  }
+]
