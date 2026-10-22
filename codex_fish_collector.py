@@ -345,15 +345,24 @@ class Collector:
 
     def _get(self, url: str, *, params: dict[str, Any] | None = None,
              stream: bool = False, max_redirects: int = 4) -> requests.Response:
-        """GET có giới hạn redirect; kiểm tra URL công khai trước mỗi request."""
+        """GET có giới hạn redirect; kiểm tra URL công khai và tự động retry backoff khi gặp 429."""
         current_url = url
         current_params = params
         for _ in range(max_redirects + 1):
             if not self._safe_https_url(current_url):
                 raise ValueError(f"Từ chối URL không an toàn: {current_url}")
-            response = requests.get(current_url, params=current_params,
-                                    headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
-                                    timeout=(8, 25), stream=stream, allow_redirects=False)
+            response = None
+            for attempt in range(3):
+                response = requests.get(current_url, params=current_params,
+                                        headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+                                        timeout=(8, 25), stream=stream, allow_redirects=False)
+                if response.status_code == 429:
+                    response.close()
+                    time.sleep(2 * (attempt + 1))
+                    continue
+                break
+            if response is None:
+                raise requests.RequestException(f"Không thể kết nối đến {current_url}")
             current_params = None
             if response.is_redirect or response.is_permanent_redirect:
                 location = response.headers.get("Location")
