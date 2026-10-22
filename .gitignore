@@ -17,6 +17,8 @@ _temp_uploads/
 # Raw Image Dataset (Kept locally to avoid exceeding GitHub repository size limits)
 dataset_ca/
 dataset_yolo/
+dataset_yolo_detection/
+dataset_cvat_yolov8/
 runs/
 *.pt
 !weights/best_fish_yolov8.pt

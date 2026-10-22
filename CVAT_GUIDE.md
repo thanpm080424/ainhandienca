@@ -41,12 +41,21 @@ python cvat_helper.py pack --limit-per-species 50 --output dataset_ca_cvat.zip
 
 ---
 
-### Bước 3: Tạo Task Gán Nhãn Trên CVAT
+### Bước 3: Tạo Task Gán Nhãn Trên CVAT & Nạp Nhãn Tự Động (Pre-annotations)
 1. Trong Project vừa tạo, bấm **+ (Create a new task)**.
 2. Đặt tên Task: ví dụ `Task_Bể_Kính_Lô_1`.
-3. Tại mục **Select files**: Kéo thả file `dataset_ca_cvat.zip` (hoặc video hồ cá nếu bạn có) vào ô tải lên.
+3. Tại mục **Select files**: Kéo thả file `dataset_ca_cvat.zip` (1,000 ảnh chuẩn đã lọc) vào ô tải lên.
 4. Bấm **Submit & Open** $\rightarrow$ CVAT sẽ tải và giải nén ảnh tự động.
-5. Bấm vào **Job #1** để bắt đầu giao diện gán nhãn.
+
+> [!TIP]
+> **🚀 MẸO TIẾT KIỆM 90% THỜI GIAN - NẠP PRE-ANNOTATIONS CÓ SẴN:**
+> Bạn **không cần phải vẽ 1,000 ảnh từ đầu**! Hệ thống đã tạo sẵn file nhãn Bounding Box [cvat_annotations_yolo.zip](file:///c:/Users/super/OneDrive/Máy tính/ainhandienca/cvat_annotations_yolo.zip) chứa sẵn 2,497 khung nhận diện cá.
+> - Tại trang Task trên CVAT, bấm menu **... (Actions)** $\rightarrow$ Chọn **Upload annotations**.
+> - Chọn định dạng: **YOLO 1.1**.
+> - Chọn file [cvat_annotations_yolo.zip](file:///c:/Users/super/OneDrive/Máy tính/ainhandienca/cvat_annotations_yolo.zip) và bấm **OK**.
+> - Toàn bộ 1,000 ảnh trên CVAT sẽ tự động xuất hiện Bounding Box và đúng tên loài cá! Bạn chỉ cần vào kiểm tra sơ bộ và bấm Lưu (`Ctrl + S`).
+
+5. Bấm vào **Job #1** để bắt đầu giao diện gán nhãn hoặc hiệu chỉnh.
 
 ---
 

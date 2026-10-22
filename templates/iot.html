@@ -42,6 +42,18 @@
                 </h5>
             </div>
             <div class="card-body p-4">
+                <div class="mb-3">
+                    <button type="button" class="btn btn-outline-primary w-100 py-2 fw-semibold" onclick="openWebcamModal()">
+                        <i class="fas fa-video me-2 text-danger"></i>Mở Camera Bể Cá Trực Tiếp (Webcam / Live Stream)
+                    </button>
+                </div>
+
+                <div class="d-flex align-items-center my-3">
+                    <hr class="flex-grow-1 my-0">
+                    <span class="px-2 text-muted small fw-semibold">HOẶC CHỌN TỆP</span>
+                    <hr class="flex-grow-1 my-0">
+                </div>
+
                 <form id="iotUploadForm">
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Chọn hoặc kéo thả ảnh chụp cá trong bể:</label>
@@ -317,11 +329,101 @@
         </div>
     </div>
 </div>
+<!-- Modal Camera Hồ Cá Trực Tiếp -->
+<div class="modal fade" id="webcamModal" tabindex="-1" aria-labelledby="webcamModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title fw-bold" id="webcamModalLabel">
+                    <i class="fas fa-camera me-2 text-info"></i>Camera Trực Tiếp Hồ Cá (Live Stream / Webcam)
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="stopWebcam()"></button>
+            </div>
+            <div class="modal-body text-center p-3 bg-light">
+                <div class="position-relative d-inline-block w-100" style="max-width: 640px;">
+                    <video id="webcamVideo" autoplay playsinline class="w-100 rounded shadow-sm bg-black" style="min-height: 320px; max-height: 480px; object-fit: cover;"></video>
+                    <canvas id="webcamCanvas" class="d-none"></canvas>
+                </div>
+                <div class="mt-2 text-muted small">
+                    <i class="fas fa-info-circle me-1 text-primary"></i>Hướng camera vào đàn cá trong bể kính, sau đó bấm nút chụp để gửi trực tiếp vào mô hình AI.
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between bg-white">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="stopWebcam()">
+                    <i class="fas fa-times me-1"></i>Đóng
+                </button>
+                <button type="button" class="btn btn-primary px-4 fw-bold" onclick="captureWebcamFrame()">
+                    <i class="fas fa-camera me-2"></i>Chụp Khung Hình & Phân Tích Ngay
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script>
 let selectedIotFile = null;
+let webcamStream = null;
+
+function openWebcamModal() {
+    const modalEl = document.getElementById('webcamModal');
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+
+    const video = document.getElementById('webcamVideo');
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1280 }, height: { ideal: 720 } } })
+            .then(stream => {
+                webcamStream = stream;
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error('Lỗi truy cập camera:', err);
+                showToast('Không thể mở camera: ' + (err.message || 'Thiết bị không hỗ trợ'), 'danger');
+            });
+    } else {
+        showToast('Trình duyệt không hỗ trợ mở camera trực tiếp.', 'warning');
+    }
+}
+
+function stopWebcam() {
+    if (webcamStream) {
+        webcamStream.getTracks().forEach(track => track.stop());
+        webcamStream = null;
+    }
+}
+
+function captureWebcamFrame() {
+    const video = document.getElementById('webcamVideo');
+    const canvas = document.getElementById('webcamCanvas');
+    if (!video || !video.videoWidth) {
+        showToast('Camera chưa sẵn sàng hoặc chưa nhận tín hiệu hình ảnh.', 'warning');
+        return;
+    }
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    canvas.toBlob(blob => {
+        if (!blob) return;
+        selectedIotFile = new File([blob], 'aquarium_camera_snapshot.jpg', { type: 'image/jpeg' });
+        document.getElementById('iotImagePreview').src = canvas.toDataURL('image/jpeg', 0.9);
+        document.getElementById('iotImageName').textContent = 'aquarium_camera_snapshot.jpg (Ảnh từ Camera Hồ Cá)';
+        document.getElementById('iotImagePreviewContainer').classList.remove('d-none');
+        document.getElementById('iotPredictBtn').disabled = false;
+
+        const modalEl = document.getElementById('webcamModal');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if (modal) modal.hide();
+        stopWebcam();
+
+        // Tự động kích hoạt phân tích AI
+        sendToIotAI();
+    }, 'image/jpeg', 0.9);
+}
 
 document.getElementById('iotFileInput').addEventListener('change', function(e) {
     const file = e.target.files[0];
