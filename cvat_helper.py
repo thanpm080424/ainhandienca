@@ -121,17 +121,14 @@ def package_images_for_cvat(output_zip: Path, limit_per_species: int = 50):
     print(f"💡 Bước tiếp theo: Vào https://app.cvat.ai/tasks/create -> Kéo thả {output_zip.name} vào mục 'Select files'!")
 
 
-def convert_cvat_to_yolov8(cvat_zip_or_dir: Path, output_dir: Path, val_ratio: float = 0.2):
+def convert_cvat_to_yolov8(cvat_zip_or_dir: Path, output_dir: Path, val_ratio: float = 0.1, test_ratio: float = 0.1):
     """
     Chuyển đổi tập dữ liệu xuất từ CVAT (định dạng 'YOLO 1.1') sang cấu trúc Ultralytics YOLOv8 chuẩn:
     dataset/
-      ├── data.yaml
-      ├── train/
-      │   ├── images/
-      │   └── labels/
-      └── val/
-          ├── images/
-          └── labels/
+      ├── data.yaml (đường dẫn tương đối)
+      ├── train/ (images, labels) - 80%
+      ├── val/   (images, labels) - 10%
+      └── test/  (images, labels) - 10%
     """
     import random
     cvat_path = cvat_zip_or_dir.resolve()
@@ -170,17 +167,27 @@ def convert_cvat_to_yolov8(cvat_zip_or_dir: Path, output_dir: Path, val_ratio: f
     print(f"🔍 Tìm thấy {len(all_images)} ảnh kèm nhãn từ CVAT export.")
 
     # Chuẩn bị thư mục YOLOv8
-    for split in ("train", "val"):
+    for split in ("train", "val", "test"):
         (output_dir / split / "images").mkdir(parents=True, exist_ok=True)
         (output_dir / split / "labels").mkdir(parents=True, exist_ok=True)
 
     random.seed(42)
     random.shuffle(all_images)
     n_val = int(len(all_images) * val_ratio)
+    n_test = int(len(all_images) * test_ratio)
     val_set = set(all_images[:n_val])
+    test_set = set(all_images[n_val:n_val + n_test])
 
+    n_train = 0
     for img_path in all_images:
-        split = "val" if img_path in val_set else "train"
+        if img_path in val_set:
+            split = "val"
+        elif img_path in test_set:
+            split = "test"
+        else:
+            split = "train"
+            n_train += 1
+
         label_path = img_path.with_suffix(".txt")
 
         # Copy ảnh
@@ -194,11 +201,12 @@ def convert_cvat_to_yolov8(cvat_zip_or_dir: Path, output_dir: Path, val_ratio: f
         else:
             dest_label.write_text("", encoding="utf-8")
 
-    # Tạo data.yaml chuẩn YOLOv8
+    # Tạo data.yaml chuẩn tương đối cho YOLOv8
     lines = [
-        f"path: {output_dir.as_posix()}",
+        f"path: {output_dir.name}",
         "train: train/images",
         "val: val/images",
+        "test: test/images",
         "names:"
     ]
     for i, name in enumerate(class_names):
@@ -208,6 +216,13 @@ def convert_cvat_to_yolov8(cvat_zip_or_dir: Path, output_dir: Path, val_ratio: f
     (output_dir / "data.yaml").write_text(yaml_content, encoding="utf-8")
 
     if extract_dir.exists():
+        shutil.rmtree(extract_dir)
+
+    print(f"\n🎉 Đã chuyển đổi thành công sang YOLOv8 Dataset tại: {output_dir}")
+    print(f"   • Train images: {n_train}")
+    print(f"   • Val images:   {n_val}")
+    print(f"   • Test images:  {n_test}")
+    print(f"   • File cấu hình: {output_dir / 'data.yaml'}")
         shutil.rmtree(extract_dir)
 
     print(f"\n🎉 Đã chuyển đổi thành công sang YOLOv8 Dataset tại: {output_dir}")
@@ -486,8 +501,9 @@ def main():
     # Lệnh convert-yolo
     conv_parser = subparsers.add_parser("convert-yolo", help="Chuyển đổi dataset tải từ CVAT sang cấu trúc YOLOv8")
     conv_parser.add_argument("--cvat-input", type=Path, required=True, help="File zip hoặc thư mục xuất từ CVAT (YOLO 1.1)")
-    conv_parser.add_argument("--output-dir", type=Path, default=BASE_DIR / "dataset_cvat_yolov8", help="Thư mục YOLOv8 xuất ra")
-    conv_parser.add_argument("--val-ratio", type=float, default=0.2, help="Tỷ lệ tập validation (mặc định 0.2)")
+    conv_parser.add_argument("--output-dir", type=Path, default=BASE_DIR / "dataset_yolo_detection", help="Thư mục YOLOv8 xuất ra")
+    conv_parser.add_argument("--val-ratio", type=float, default=0.1, help="Tỷ lệ tập validation (mặc định 0.1)")
+    conv_parser.add_argument("--test-ratio", type=float, default=0.1, help="Tỷ lệ tập test (mặc định 0.1)")
 
     # Lệnh pre-annotate
     pre_parser = subparsers.add_parser("pre-annotate", help="Tự động tạo nhãn bounding box ban đầu bằng AI")
@@ -514,7 +530,7 @@ def main():
     elif args.action == "cvat-annotations":
         package_cvat_annotations_zip(args.output, args.limit_per_species)
     elif args.action == "convert-yolo":
-        convert_cvat_to_yolov8(args.cvat_input, args.output_dir, args.val_ratio)
+        convert_cvat_to_yolov8(args.cvat_input, args.output_dir, args.val_ratio, args.test_ratio)
     elif args.action == "pre-annotate":
         pre_annotate_for_cvat(args.input_dir, args.output_dir)
     elif args.action == "build-yolo-detection":

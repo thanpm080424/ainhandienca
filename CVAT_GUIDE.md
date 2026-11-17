@@ -78,24 +78,30 @@ python cvat_helper.py pack --limit-per-species 50 --output dataset_ca_cvat.zip
 2. Chọn định dạng: **YOLO 1.1** (hoặc **YOLO**).
 3. Bật tùy chọn **Save images** $\rightarrow$ Bấm **OK** để tải file `.zip` về máy tính (ví dụ: `project_fish-aquarium-yolo_1.1.zip`).
 
-#### 2. Tự động chuyển đổi sang cấu trúc chuẩn YOLOv8:
+#### 2. Tự động chuyển đổi sang cấu trúc chuẩn YOLOv8 (80 Train / 10 Val / 10 Test):
 Chạy script trợ lý [cvat_helper.py](file:///c:/Users/super/OneDrive/M%C3%A1y%20t%C3%ADnh/ainhandienca/cvat_helper.py):
 ```powershell
-python cvat_helper.py convert-yolo --cvat-input "đường_dẫn_file_cvat_export.zip" --output-dir dataset_cvat_yolov8
+python cvat_helper.py convert-yolo --cvat-input "đường_dẫn_file_cvat_export.zip" --output-dir dataset_yolo_detection
 ```
 Script sẽ tự động:
-- Phân chia `train/` và `val/` theo tỷ lệ 80/20.
-- Tạo file `data.yaml` chuẩn cho YOLOv8.
-
-#### 3. Bắt đầu huấn luyện mô hình:
-- **Cách A: Huấn luyện trên Google Colab (GPU T4 miễn phí)**:
-  Mở notebook [Fish_YOLOv8_Training_Google_Colab.ipynb](file:///c:/Users/super/OneDrive/M%C3%A1y%20t%C3%ADnh/ainhandienca/notebooks/Fish_YOLOv8_Training_Google_Colab.ipynb) trên Colab, tải thư mục hoặc zip lên và chạy:
-  ```bash
-  !yolo detect train data=data.yaml model=yolov8n.pt epochs=50 imgsz=640 batch=16 device=0 optimizer=AdamW
-  ```
-- **Cách B: Huấn luyện trực tiếp trên máy cục bộ**:
+- Phân chia `train/` (80%), `val/` (10%) và `test/` (10%) độc lập chuẩn hóa.
+- Tạo file `data.yaml` với đường dẫn tương đối chuẩn cho cả máy cục bộ và Colab.
+- Tạo lại ảnh trực quan montage để kiểm tra nhanh:
   ```powershell
-  yolo detect train data=dataset_cvat_yolov8/data.yaml model=yolov8n.pt epochs=50 imgsz=640 batch=16
+  python visualize_yolo_labels.py
+  ```
+
+#### 3. Bắt đầu huấn luyện mô hình YOLOv8 Detection:
+- **Cách A: Huấn luyện trên máy cục bộ với GPU NVIDIA RTX 3050 Laptop (4GB VRAM)**:
+  ```powershell
+  python train_yolo_detection.py --device 0 --batch -1 --epochs 30 --imgsz 640
+  ```
+  *(Chế độ `--batch -1` kích hoạt AutoBatch tự động đo VRAM để tránh CUDA Out-Of-Memory)*.
+- **Cách B: Huấn luyện trên Google Colab (GPU T4 miễn phí)**:
+  Mở notebook [Fish_YOLOv8_Training_Google_Colab.ipynb](file:///c:/Users/super/OneDrive/M%C3%A1y%20t%C3%ADnh/ainhandienca/notebooks/Fish_YOLOv8_Training_Google_Colab.ipynb) trên Colab, tải `dataset_yolo_detection.zip` lên và chạy:
+  ```bash
+  !unzip -q dataset_yolo_detection.zip
+  !yolo detect train data=dataset_yolo_detection/data.yaml model=yolov8n.pt epochs=30 imgsz=640 batch=-1 device=0 optimizer=AdamW
   ```
 
 ---
