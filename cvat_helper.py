@@ -166,6 +166,18 @@ def convert_cvat_to_yolov8(cvat_zip_or_dir: Path, output_dir: Path, val_ratio: f
 
     print(f"🔍 Tìm thấy {len(all_images)} ảnh kèm nhãn từ CVAT export.")
 
+    # Dọn dẹp an toàn các file cũ trong thư mục đích nếu có để tránh bị trộn lẫn dữ liệu cũ và mới
+    if output_dir.exists():
+        for split in ("train", "val", "test"):
+            split_dir = output_dir / split
+            if split_dir.exists():
+                for sub in split_dir.rglob("*"):
+                    if sub.is_file():
+                        try:
+                            sub.unlink()
+                        except Exception:
+                            pass
+
     # Chuẩn bị thư mục YOLOv8
     for split in ("train", "val", "test"):
         (output_dir / split / "images").mkdir(parents=True, exist_ok=True)

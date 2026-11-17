@@ -41,15 +41,39 @@ python cvat_helper.py pack --limit-per-species 50 --output dataset_ca_cvat.zip
 
 ---
 
-### Bước 3: Tạo Task Gán Nhãn Trên CVAT (Chỉ Dùng dataset_ca_cvat.zip)
-1. Trong Project `Fish Detection` vừa tạo, bấm nút **+ (Create a new task)**.
-2. Đặt tên Task: ví dụ `Fish_Aquarium_Pilot` (hoặc `Fish_Aquarium_1000`).
-3. Tại mục **Select files**: Kéo thả duy nhất file [`dataset_ca_cvat.zip`](file:///c:/Users/super/OneDrive/Máy tính/ainhandienca/dataset_ca_cvat.zip) vào ô tải lên.
-4. Bấm **Submit & Open** $\rightarrow$ CVAT sẽ tải và giải nén 1,000 ảnh tự động.
+### Bước 3: Tạo Task Gán Nhãn Trên CVAT
+
+#### GIAI ĐOẠN 1: THỬ NGHIỆM PILOT (20 ẢNH - KHUYÊN DÙNG ĐẦU TIÊN)
+Để tránh mất thời gian và bảo toàn dataset, hệ thống đã tạo sẵn file ZIP pilot nhẹ (4.5 MB): [`dataset_ca_pilot.zip`](file:///c:/Users/super/OneDrive/Máy tính/ainhandienca/dataset_ca_pilot.zip) gồm đúng 20 ảnh (mỗi loài 1 ảnh đại diện):
+1. Trong Project `Fish Detection` trên CVAT, bấm nút **+ (Create a new task)**.
+2. Đặt tên Task: `Fish_Pilot_20`.
+3. Tại ô **Select files**: Kéo thả duy nhất file [`dataset_ca_pilot.zip`](file:///c:/Users/super/OneDrive/Máy tính/ainhandienca/dataset_ca_pilot.zip) vào $\rightarrow$ Bấm **Submit & Open**.
+4. Gán nhãn thủ công 20 ảnh (mất ~3–5 phút).
+5. Xuất nhãn: Menu **Actions (...)** $\rightarrow$ **Export dataset** $\rightarrow$ chọn **YOLO 1.1** (tải về ví dụ: `cvat_pilot_export.zip`).
+6. Chuyển đổi thử nghiệm vào thư mục riêng biệt **`dataset_yolo_pilot`** (tuyệt đối không trộn vào `dataset_yolo_detection`):
+   ```powershell
+   python cvat_helper.py convert-yolo --cvat-input "cvat_pilot_export.zip" --output-dir dataset_yolo_pilot
+   ```
+7. Trực quan hóa ảnh montage pilot để kiểm tra chất lượng nhãn người gán:
+   ```powershell
+   python visualize_yolo_labels.py --dataset-dir dataset_yolo_pilot --preview-dir preview_pilot
+   ```
+> [!IMPORTANT]
+> **KHÔNG chạy huấn luyện trên tập Pilot**. Tập pilot chỉ nhằm kiểm định độ trơn tru của quy trình xuất/nhập, format nhãn và tool trực quan.
+
+---
+
+#### GIAI ĐOẠN 2: GÁN NHÃN TOÀN BỘ 1,000 ẢNH (KHI PILOT ĐÃ ĐẠT)
+1. Tạo Task chính: `Fish_Aquarium_1000`.
+2. Tải duy nhất file [`dataset_ca_cvat.zip`](file:///c:/Users/super/OneDrive/Máy tính/ainhandienca/dataset_ca_cvat.zip) (1,000 ảnh).
+3. Sau khi gán nhãn toàn bộ, xuất `YOLO 1.1` và chuyển đổi vào thư mục sạch:
+   ```powershell
+   python cvat_helper.py convert-yolo --cvat-input "cvat_full_export.zip" --output-dir dataset_yolo_detection
+   ```
 
 > [!WARNING]
 > **⚠️ TUYỆT ĐỐI KHÔNG UPLOAD `cvat_annotations_yolo.zip`:**
-> - File `dataset_ca_cvat.zip` chứa ảnh sạch chưa có nhãn.
+> - File `dataset_ca_cvat.zip` và `dataset_ca_pilot.zip` chứa ảnh sạch chưa có nhãn.
 > - Không nạp file `cvat_annotations_yolo.zip` vì đó là nhãn máy tự động chưa được con người thẩm định, sẽ đưa các box lỗi/rác vào task và ghi đè mất các nhãn đang gán trên CVAT (theo [tài liệu Import Datasets của CVAT](https://docs.cvat.ai/docs/dataset_management/import-datasets/)).
 
 5. Bấm vào **Job #1** để bắt đầu giao diện gán nhãn.

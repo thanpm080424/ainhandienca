@@ -123,16 +123,16 @@ def draw_yolo_boxes(img, label_path: Path):
     return img, box_count
 
 
-def generate_samples(num_per_species: int = 1):
-    PREVIEW_DIR.mkdir(parents=True, exist_ok=True)
-    print(f"🎨 Đang xuất mẫu trực quan Bounding Box vào thư mục: {PREVIEW_DIR.resolve()}")
+def generate_samples(num_per_species: int = 1, dataset_dir: Path = DATASET_DIR, preview_dir: Path = PREVIEW_DIR):
+    preview_dir.mkdir(parents=True, exist_ok=True)
+    print(f"🎨 Đang xuất mẫu trực quan Bounding Box từ '{dataset_dir.name}' vào thư mục: {preview_dir.resolve()}")
 
     stats = defaultdict(lambda: {"train": 0, "val": 0, "test": 0, "boxes": 0})
     samples_created = 0
 
     for split in ("train", "val", "test"):
-        img_dir = DATASET_DIR / split / "images"
-        lbl_dir = DATASET_DIR / split / "labels"
+        img_dir = dataset_dir / split / "images"
+        lbl_dir = dataset_dir / split / "labels"
         if not img_dir.exists():
             continue
 
@@ -151,14 +151,16 @@ def generate_samples(num_per_species: int = 1):
 
     for c in CLASS_INFO:
         sp = c["key"]
-        imgs = sorted(list((DATASET_DIR / "train" / "images").glob(f"{sp}_*.*")))
+        imgs = sorted(list((dataset_dir / "train" / "images").glob(f"{sp}_*.*")))
         if not imgs:
-            imgs = sorted(list((DATASET_DIR / "val" / "images").glob(f"{sp}_*.*")))
+            imgs = sorted(list((dataset_dir / "val" / "images").glob(f"{sp}_*.*")))
+        if not imgs:
+            imgs = sorted(list((dataset_dir / "test" / "images").glob(f"{sp}_*.*")))
 
         for i in range(min(num_per_species, len(imgs))):
             target_img = imgs[i]
             split_name = target_img.parent.parent.name
-            target_lbl = DATASET_DIR / split_name / "labels" / f"{target_img.stem}.txt"
+            target_lbl = dataset_dir / split_name / "labels" / f"{target_img.stem}.txt"
 
             img = read_image_safe(target_img)
             if img is None:
@@ -167,7 +169,7 @@ def generate_samples(num_per_species: int = 1):
             drawn, bcount = draw_yolo_boxes(img.copy(), target_lbl)
 
             out_name = f"sample_{c['id']:02d}_{sp}_{i+1}.jpg"
-            write_image_safe(PREVIEW_DIR / out_name, drawn)
+            write_image_safe(preview_dir / out_name, drawn)
             samples_created += 1
 
             # Resize cho ảnh ghép
@@ -185,13 +187,13 @@ def generate_samples(num_per_species: int = 1):
             col = idx % cols
             grid[r*tile_h:(r+1)*tile_h, col*tile_w:(col+1)*tile_w] = montage_tiles[idx]
 
-        montage_path = PREVIEW_DIR / "montage_20_species.jpg"
+        montage_path = preview_dir / "montage_20_species.jpg"
         write_image_safe(montage_path, grid)
         print(f"🖼️ Đã tạo ảnh ghép tổng quan 20 loài: {montage_path.resolve()}")
 
     # In bảng thống kê
     print("\n" + "=" * 80)
-    print("📊 THỐNG KÊ BỘ DỮ LIỆU YOLOV8 DETECTION (TRAIN / VAL / TEST):")
+    print(f"📊 THỐNG KÊ BỘ DỮ LIỆU {dataset_dir.name.upper()} (TRAIN / VAL / TEST):")
     print("=" * 80)
     print(f"{'Loài cá':20s} | {'Train':>6s} | {'Val':>6s} | {'Test':>6s} | {'Tổng ảnh':>8s} | {'Tổng Bounding Box':>18s}")
     print("-" * 80)
@@ -219,6 +221,8 @@ def generate_samples(num_per_species: int = 1):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Trực quan hóa nhãn YOLOv8 Bounding Box.")
+    parser.add_argument("--dataset-dir", type=Path, default=DATASET_DIR, help="Thư mục dataset YOLO (mặc định dataset_yolo_detection)")
+    parser.add_argument("--preview-dir", type=Path, default=PREVIEW_DIR, help="Thư mục xuất ảnh mẫu (mặc định preview_samples)")
     parser.add_argument("--samples-per-class", type=int, default=1, help="Số ảnh mẫu mỗi loài (mặc định 1)")
     args = parser.parse_args()
-    generate_samples(args.samples_per_class)
+    generate_samples(args.samples_per_class, args.dataset_dir, args.preview_dir)
