@@ -171,35 +171,54 @@ def convert_cvat_to_yolov8(cvat_zip_or_dir: Path, output_dir: Path, val_ratio: f
         (output_dir / split / "images").mkdir(parents=True, exist_ok=True)
         (output_dir / split / "labels").mkdir(parents=True, exist_ok=True)
 
-    random.seed(42)
-    random.shuffle(all_images)
-    n_val = int(len(all_images) * val_ratio)
-    n_test = int(len(all_images) * test_ratio)
-    val_set = set(all_images[:n_val])
-    test_set = set(all_images[n_val:n_val + n_test])
-
-    n_train = 0
+    # Phân nhóm theo từng loài cá để chia Stratified chuẩn xác (giữ đúng tỷ lệ 40 train / 5 val / 5 test)
+    from collections import defaultdict
+    species_groups = defaultdict(list)
     for img_path in all_images:
-        if img_path in val_set:
-            split = "val"
-        elif img_path in test_set:
-            split = "test"
-        else:
-            split = "train"
-            n_train += 1
+        sp_key = img_path.stem.rsplit('_', 1)[0]
+        species_groups[sp_key].append(img_path)
 
-        label_path = img_path.with_suffix(".txt")
+    random.seed(42)
+    total_tr, total_va, total_te = 0, 0, 0
+    print("\n📊 Phân chia Stratified theo từng loài:")
 
-        # Copy ảnh
-        dest_img = output_dir / split / "images" / img_path.name
-        shutil.copy2(img_path, dest_img)
+    for sp_key, sp_imgs in sorted(species_groups.items()):
+        random.shuffle(sp_imgs)
+        n_val = int(len(sp_imgs) * val_ratio)
+        n_test = int(len(sp_imgs) * test_ratio)
 
-        # Copy nhãn (nếu có nhãn; nếu không có thì tạo file rỗng - background image)
-        dest_label = output_dir / split / "labels" / f"{img_path.stem}.txt"
-        if label_path.is_file():
-            shutil.copy2(label_path, dest_label)
-        else:
-            dest_label.write_text("", encoding="utf-8")
+        val_set = set(sp_imgs[:n_val])
+        test_set = set(sp_imgs[n_val:n_val + n_test])
+
+        sp_tr, sp_va, sp_te = 0, 0, 0
+        for img_path in sp_imgs:
+            if img_path in val_set:
+                split = "val"
+                sp_va += 1
+            elif img_path in test_set:
+                split = "test"
+                sp_te += 1
+            else:
+                split = "train"
+                sp_tr += 1
+
+            label_path = img_path.with_suffix(".txt")
+
+            # Copy ảnh
+            dest_img = output_dir / split / "images" / img_path.name
+            shutil.copy2(img_path, dest_img)
+
+            # Copy nhãn (nếu có nhãn; nếu không có thì tạo file rỗng - background image)
+            dest_label = output_dir / split / "labels" / f"{img_path.stem}.txt"
+            if label_path.is_file():
+                shutil.copy2(label_path, dest_label)
+            else:
+                dest_label.write_text("", encoding="utf-8")
+
+        total_tr += sp_tr
+        total_va += sp_va
+        total_te += sp_te
+        print(f"  • {sp_key:18s}: {sp_tr} train, {sp_va} val, {sp_te} test (Tổng {len(sp_imgs)})")
 
     # Tạo data.yaml chuẩn tương đối cho YOLOv8
     lines = [
@@ -219,9 +238,9 @@ def convert_cvat_to_yolov8(cvat_zip_or_dir: Path, output_dir: Path, val_ratio: f
         shutil.rmtree(extract_dir)
 
     print(f"\n🎉 Đã chuyển đổi thành công sang YOLOv8 Dataset tại: {output_dir}")
-    print(f"   • Train images: {n_train}")
-    print(f"   • Val images:   {n_val}")
-    print(f"   • Test images:  {n_test}")
+    print(f"   • Train images: {total_tr}")
+    print(f"   • Val images:   {total_va}")
+    print(f"   • Test images:  {total_te}")
     print(f"   • File cấu hình: {output_dir / 'data.yaml'}")
         shutil.rmtree(extract_dir)
 

@@ -41,33 +41,32 @@ python cvat_helper.py pack --limit-per-species 50 --output dataset_ca_cvat.zip
 
 ---
 
-### Bước 3: Tạo Task Gán Nhãn Trên CVAT & Nạp Nhãn Tự Động (Pre-annotations)
-1. Trong Project vừa tạo, bấm **+ (Create a new task)**.
-2. Đặt tên Task: ví dụ `Task_Bể_Kính_Lô_1`.
-3. Tại mục **Select files**: Kéo thả file `dataset_ca_cvat.zip` (1,000 ảnh chuẩn đã lọc) vào ô tải lên.
-4. Bấm **Submit & Open** $\rightarrow$ CVAT sẽ tải và giải nén ảnh tự động.
+### Bước 3: Tạo Task Gán Nhãn Trên CVAT (Chỉ Dùng dataset_ca_cvat.zip)
+1. Trong Project `Fish Detection` vừa tạo, bấm nút **+ (Create a new task)**.
+2. Đặt tên Task: ví dụ `Fish_Aquarium_Pilot` (hoặc `Fish_Aquarium_1000`).
+3. Tại mục **Select files**: Kéo thả duy nhất file [`dataset_ca_cvat.zip`](file:///c:/Users/super/OneDrive/Máy tính/ainhandienca/dataset_ca_cvat.zip) vào ô tải lên.
+4. Bấm **Submit & Open** $\rightarrow$ CVAT sẽ tải và giải nén 1,000 ảnh tự động.
 
-> [!TIP]
-> **🚀 MẸO TIẾT KIỆM 90% THỜI GIAN - NẠP PRE-ANNOTATIONS CÓ SẴN:**
-> Bạn **không cần phải vẽ 1,000 ảnh từ đầu**! Hệ thống đã tạo sẵn file nhãn Bounding Box [cvat_annotations_yolo.zip](file:///c:/Users/super/OneDrive/Máy tính/ainhandienca/cvat_annotations_yolo.zip) chứa sẵn 2,497 khung nhận diện cá.
-> - Tại trang Task trên CVAT, bấm menu **... (Actions)** $\rightarrow$ Chọn **Upload annotations**.
-> - Chọn định dạng: **YOLO 1.1**.
-> - Chọn file [cvat_annotations_yolo.zip](file:///c:/Users/super/OneDrive/Máy tính/ainhandienca/cvat_annotations_yolo.zip) và bấm **OK**.
-> - Toàn bộ 1,000 ảnh trên CVAT sẽ tự động xuất hiện Bounding Box và đúng tên loài cá! Bạn chỉ cần vào kiểm tra sơ bộ và bấm Lưu (`Ctrl + S`).
+> [!WARNING]
+> **⚠️ TUYỆT ĐỐI KHÔNG UPLOAD `cvat_annotations_yolo.zip`:**
+> - File `dataset_ca_cvat.zip` chứa ảnh sạch chưa có nhãn.
+> - Không nạp file `cvat_annotations_yolo.zip` vì đó là nhãn máy tự động chưa được con người thẩm định, sẽ đưa các box lỗi/rác vào task và ghi đè mất các nhãn đang gán trên CVAT (theo [tài liệu Import Datasets của CVAT](https://docs.cvat.ai/docs/dataset_management/import-datasets/)).
 
-5. Bấm vào **Job #1** để bắt đầu giao diện gán nhãn hoặc hiệu chỉnh.
+5. Bấm vào **Job #1** để bắt đầu giao diện gán nhãn.
 
 ---
 
-### Bước 4: Thao Tác Gán Nhãn (Bounding Box) Trong Bể Kính
-1. **Phím tắt nhanh trên CVAT**:
-   - Nhấn phím `N` (hoặc chọn biểu tượng hình chữ nhật bên trái) $\rightarrow$ Chọn tên loài cá tương ứng $\rightarrow$ Kéo chuột vẽ khung bao quanh thân cá.
-   - Nhấn phím `F` (hoặc mũi tên phải) để chuyển sang ảnh kế tiếp.
-   - Nhấn `Ctrl + S` để lưu tiến trình thường xuyên.
-2. **Mẹo gán nhãn cho cá trong hồ cá**:
-   - Khung bao sát toàn bộ thân cá bao gồm cả đuôi và vây bơi.
-   - Nếu có nhiều cá bơi đè lên nhau, vẽ từng khung riêng cho từng con.
-   - Bỏ qua các bóng mờ phản chiếu trên mặt kính hoặc rêu đáy bể.
+### Bước 4: Thao Tác Gán Nhãn Chuẩn Xác Trong Bể Kính
+1. **Quy trình gán nhãn thủ công (Khuyên dùng cho nhóm thử nghiệm ban đầu)**:
+   - Nhấn phím `N` (hoặc chọn biểu tượng hình chữ nhật **Draw new rectangle**) $\rightarrow$ Chọn tên loài cá tương ứng $\rightarrow$ Kéo chuột vẽ khung bao quanh thân cá.
+   - Khung bao sát toàn bộ thân cá bao gồm đầu, thân, vây và đuôi.
+   - Bỏ qua các vệt sáng phản xạ trên kính, rêu bể hoặc bóng cây thủy sinh.
+   - Nhấn phím `F` (hoặc mũi tên phải) để sang ảnh kế tiếp.
+   - Nhấn `Ctrl + S` thường xuyên để lưu tiến trình.
+2. **Lưu ý về AI Tools trong CVAT**:
+   - Theo [tài liệu AI Tools của CVAT](https://docs.cvat.ai/docs/annotation/tools/ai-tools/), các công cụ như AI Interactor / SAM cần model backend tương ứng và chỉ hỗ trợ tạo phân đoạn theo điểm nhấp; chúng không tự động xác định đúng loài cá trong 20 loài. Người gán nhãn vẫn cần chọn đúng nhãn loài và kiểm tra ranh giới box.
+3. **Chiến lược thực hiện**:
+   - Gán nhãn thủ công một nhóm nhỏ trước (pilot batch, ví dụ 10–20 ảnh đầu) để kiểm tra quy trình xuất/nhập và huấn luyện thử nghiệm, sau đó mới tiến hành cho toàn bộ.
 
 ---
 
