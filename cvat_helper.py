@@ -219,50 +219,61 @@ def convert_cvat_to_yolov8(cvat_zip_or_dir: Path, output_dir: Path, val_ratio: f
 
 
 def extract_fish_boxes(img_path: Path):
-    """Trích xuất bounding box cá trong hồ bằng phân đoạn hình thái học & NMS."""
+    """Trích xuất bounding box cá trong hồ bằng phân đoạn hình thái học & NMS nâng cao."""
     import cv2
     import numpy as np
     try:
         img = read_image_unicode(img_path)
         if img is None:
-            return [(0.5, 0.5, 0.70, 0.60)]
+            return [(0.5, 0.5, 0.45, 0.35)]
         h, w = img.shape[:2]
+        total_area = w * h
 
-        # Phương pháp 1: Lọc cạnh Canny + Morphology Close
+        # 1. Color Saliency qua Lab và HSV
+        lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
+        l, a, b = cv2.split(lab)
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        h_ch, s_ch, v_ch = cv2.split(hsv)
+
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        blur = cv2.GaussianBlur(gray, (7, 7), 0)
-        edges = cv2.Canny(blur, 25, 120)
-        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 9))
-        closed = cv2.morphologyEx(edges, cv2.MORPH_CLOSE, kernel, iterations=2)
-        dilated = cv2.dilate(closed, kernel, iterations=1)
-        contours, _ = cv2.findContours(dilated, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        blur = cv2.GaussianBlur(gray, (5, 5), 0)
+        edges = cv2.Canny(blur, 30, 130)
+
+        # Phân ngưỡng Otsu kênh Saturation (cá nổi bật màu trong nước)
+        _, s_mask = cv2.threshold(s_ch, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+        saliency = cv2.bitwise_or(edges, s_mask)
+        saliency = cv2.morphologyEx(saliency, cv2.MORPH_CLOSE, kernel, iterations=2)
+        saliency = cv2.morphologyEx(saliency, cv2.MORPH_OPEN, kernel, iterations=1)
+
+        contours, _ = cv2.findContours(saliency, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         raw_boxes = []
         scores = []
         for c in contours:
             x, y, bw, bh = cv2.boundingRect(c)
-            area = bw * bh
-            if area > (w * h * 0.02) and bw < w * 0.98 and bh < h * 0.98:
-                raw_boxes.append([x, y, bw, bh])
-                scores.append(float(area / (w * h)))
+            box_area = bw * bh
 
-        # Phương pháp 2: Nếu chưa tìm thấy box, dùng phân ngưỡng Otsu kênh Saturation (cá nổi bật màu trong nước)
+            # Chặn triệt để box viền ảnh hoặc khung bao trọn toàn bộ bể kính/hồ cá
+            if bw >= w * 0.85 and bh >= h * 0.80:
+                continue
+            if box_area > total_area * 0.50:
+                continue
+            if box_area < total_area * 0.008 or bw < 16 or bh < 16:
+                continue
+
+            ar = bw / float(bh)
+            if not (0.15 <= ar <= 6.5):
+                continue
+
+            raw_boxes.append([x, y, bw, bh])
+            scores.append(float(box_area / total_area))
+
         if not raw_boxes:
-            hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-            s_channel = hsv[:, :, 1]
-            _, thresh = cv2.threshold(s_channel, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-            contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            for c in contours:
-                x, y, bw, bh = cv2.boundingRect(c)
-                area = bw * bh
-                if area > (w * h * 0.02) and bw < w * 0.98 and bh < h * 0.98:
-                    raw_boxes.append([x, y, bw, bh])
-                    scores.append(float(area / (w * h)))
+            return [(0.5, 0.5, 0.45, 0.35)]
 
-        if not raw_boxes:
-            return [(0.5, 0.5, 0.70, 0.60)]
-
-        indices = cv2.dnn.NMSBoxes(raw_boxes, scores, score_threshold=0.02, nms_threshold=0.4)
+        indices = cv2.dnn.NMSBoxes(raw_boxes, scores, score_threshold=0.008, nms_threshold=0.35)
         final_boxes = []
         if len(indices) > 0:
             for idx in indices.flatten():
@@ -273,9 +284,9 @@ def extract_fish_boxes(img_path: Path):
                 hn = bh / h
                 final_boxes.append((xc, yc, wn, hn))
 
-        return final_boxes if final_boxes else [(0.5, 0.5, 0.70, 0.60)]
+        return final_boxes if final_boxes else [(0.5, 0.5, 0.45, 0.35)]
     except Exception:
-        return [(0.5, 0.5, 0.70, 0.60)]
+        return [(0.5, 0.5, 0.45, 0.35)]
 
 
 def package_cvat_annotations_zip(output_zip: Path, limit_per_species: int = 50):

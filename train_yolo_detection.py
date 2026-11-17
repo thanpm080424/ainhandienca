@@ -25,7 +25,7 @@ OUTPUT_DIR = BASE_DIR / "runs" / "detect"
 WEIGHTS_DIR = BASE_DIR / "weights"
 
 
-def train_yolo_detection(model_size='n', epochs=30, batch_size=16, imgsz=640, device_arg=None):
+def train_yolo_detection(model_size='n', epochs=30, batch_size=-1, imgsz=640, device_arg=None):
     if device_arg is not None:
         device = device_arg
     else:
@@ -47,7 +47,7 @@ def train_yolo_detection(model_size='n', epochs=30, batch_size=16, imgsz=640, de
     print(f"⚙️ Thiết bị:         {device.upper()} ({torch.cuda.get_device_name(0) if torch.cuda.is_available() and device != 'cpu' else 'Multi-Core CPU'})")
     print(f"📊 Số Epochs:        {epochs}")
     print(f"📏 Image Size:       {imgsz}x{imgsz}")
-    print(f"📦 Batch Size:       {batch_size}")
+    print(f"📦 Batch Size:       {'AutoBatch (-1) - Tự đo VRAM GPU tránh OOM' if batch_size == -1 else batch_size}")
     print(f"📁 Cấu hình data:    {DATA_YAML}")
     print("=" * 75)
 
@@ -58,7 +58,7 @@ def train_yolo_detection(model_size='n', epochs=30, batch_size=16, imgsz=640, de
     # Khởi tạo mô hình Detection
     model = YOLO(base_model)
 
-    # Tiến hành Huấn luyện
+    # Tiến hành Huấn luyện với AutoBatch tối ưu cho RTX 3050 Laptop 4GB
     results = model.train(
         data=str(DATA_YAML),
         epochs=epochs,
@@ -68,7 +68,7 @@ def train_yolo_detection(model_size='n', epochs=30, batch_size=16, imgsz=640, de
         project=str(OUTPUT_DIR),
         name="fish_detection_yolov8",
         exist_ok=True,
-        workers=4,
+        workers=2 if device != 'cpu' else 4,
         verbose=True
     )
 
@@ -112,9 +112,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Huấn luyện YOLOv8 Object Detection cho 20 loài cá cảnh.")
     parser.add_argument("--model-size", choices=['n', 's', 'm', 'l'], default='n', help="Kích thước mô hình YOLOv8 (mặc định 'n' - Nano)")
     parser.add_argument("--epochs", type=int, default=30, help="Số epochs (mặc định 30)")
-    parser.add_argument("--batch", type=int, default=16, help="Batch size (mặc định 16)")
+    parser.add_argument("--batch", type=int, default=-1, help="Batch size (mặc định -1: AutoBatch tự động đo VRAM GPU tối ưu cho RTX 3050 4GB)")
     parser.add_argument("--imgsz", type=int, default=640, help="Kích thước ảnh đầu vào (mặc định 640)")
-    parser.add_argument("--device", type=str, default=None, help="Thiết bị ('cpu', '0', 'cuda')")
+    parser.add_argument("--device", type=str, default=None, help="Thiết bị ('0' cho RTX 3050, 'cpu', hoặc 'cuda')")
     args = parser.parse_args()
 
     train_yolo_detection(args.model_size, args.epochs, args.batch, args.imgsz, args.device)
