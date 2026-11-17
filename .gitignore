@@ -19,6 +19,7 @@ dataset_ca/
 dataset_yolo/
 dataset_yolo_detection/
 dataset_cvat_yolov8/
+preview_samples/
 runs/
 *.pt
 !weights/best_fish_yolov8.pt
